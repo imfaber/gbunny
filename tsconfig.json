@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+      "outDir": "dist/ts",
+      "target": "esnext",
+      "module": "esnext",
+      "moduleResolution": "node",
+      "strict": true,
+      "declaration": true,
+      "noFallthroughCasesInSwitch": true,
+      "noImplicitReturns": true,
+      "noUnusedLocals": true,
+      "noUnusedParameters": true,
+      "stripInternal": true
+    }
+  }
