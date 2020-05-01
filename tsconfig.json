@@ -1,26 +1,21 @@
 {
     "compilerOptions": {
       "outDir": "dist",
-      "target": "esnext",
-      "module": "esnext",
+      "target": "es5",
+      "lib": ["es6"],
+      "module": "commonjs",
       "moduleResolution": "node",
       "strict": true,
-      "declaration": true,
-      "noFallthroughCasesInSwitch": true,
-      "noImplicitReturns": true,
-      "noUnusedLocals": true,
-      "noUnusedParameters": true,
+      "noImplicitAny": true,
       "esModuleInterop": true,
-      "allowSyntheticDefaultImports": true,
-      "stripInternal": true,
-      "sourceMap": true,
-      "baseUrl": ".",
+      "sourceMap": false,
+      "baseUrl": "./src",
       "paths": {
-        "@/*": ["src/*"],
+        "@utils/*": ["utils/*"],
       }
     },
     "exclude": [
       "node_modules",
-      "test"
+      "dist"
     ]
   }
