@@ -1,4 +1,4 @@
-const dir = require('../../../src/utils/dir');
+import dir from '@/utils/dir';
 
 test('getCurrentDirectoryBase', () => {
     expect(dir.getCurrentDirectoryBase()).toBe('git-bunny');

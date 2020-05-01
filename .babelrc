@@ -4,14 +4,13 @@
       "@babel/preset-env",
       {
         "targets": {
-          "node": 12
+          "node": "current"
         }
       }
     ],
     "@babel/preset-typescript"
   ],
   "plugins": [
-    "@babel/plugin-proposal-class-properties",
     ["module-resolver", {
       "root": ["./src"],
       "alias": {

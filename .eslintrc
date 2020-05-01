@@ -22,6 +22,9 @@
     "import/resolver": {
       "node": {
         "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      },
+      "babel-module": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }
     }
   },

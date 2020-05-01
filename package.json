@@ -22,9 +22,6 @@
   "bin": {
     "gbunny": "./dist/index.js"
   },
-  "_moduleAliases": {
-    "@utils": "src/utils"
-  },
   "scripts": {
     "type-check": "tsc --noEmit",
     "test": "jest",
@@ -47,12 +44,17 @@
     "simple-git": "2.1.0"
   },
   "devDependencies": {
+    "@babel/core": "7.9.6",
+    "@babel/preset-env": "7.9.6",
+    "@babel/preset-typescript": "7.9.0",
     "@types/clear": "0.1.0",
     "@types/figlet": "1.2.0",
     "@types/jest": "25.2.1",
     "@types/node": "13.13.4",
     "@typescript-eslint/eslint-plugin": "2.30.0",
     "acorn": "7.1.1",
+    "babel-jest": "25.5.1",
+    "babel-plugin-module-resolver": "4.0.0",
     "bufferutil": "4.0.1",
     "canvas": "2.5.0",
     "configstore": "5.0.1",
