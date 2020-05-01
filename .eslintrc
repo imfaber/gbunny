@@ -10,10 +10,20 @@
     "jest": true
   },
   "rules": {
+    "no-console": "off",
+    "import/extensions": ["error", "ignorePackages", {
+      "js": "never",
+      "jsx": "never",
+      "ts": "never",
+      "tsx": "never"
+    }]
   },
   "settings": {
     "import/resolver": {
       "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      },
+      "babel-module": {
         "extensions": [".js", ".jsx", ".ts", ".tsx"]
       }
     }
