@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-      "outDir": "dist/types",
+      "outDir": "dist",
       "target": "esnext",
       "module": "esnext",
       "moduleResolution": "node",
@@ -10,6 +10,17 @@
       "noImplicitReturns": true,
       "noUnusedLocals": true,
       "noUnusedParameters": true,
-      "stripInternal": true
-    }
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "stripInternal": true,
+      "sourceMap": true,
+      "baseUrl": ".",
+      "paths": {
+        "@/*": ["src/*"],
+      }
+    },
+    "exclude": [
+      "node_modules",
+      "test"
+    ]
   }
