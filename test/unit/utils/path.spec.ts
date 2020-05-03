@@ -1,4 +1,4 @@
-import dir from '@/utils/dir';
+import dir from '@/common/dir';
 
 test('getCurrentDirectoryBase', () => {
     expect(dir.getCurrentDirectoryBase()).toBe('git-bunny');

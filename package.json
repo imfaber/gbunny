@@ -20,7 +20,8 @@
     "source control"
   ],
   "bin": {
-    "gbunny": "./dist/index.js"
+    "gbunny": "./dist/index.js",
+    "gbunny-gs": "./dist/status.js"
   },
   "scripts": {
     "type-check": "tsc --noEmit",
@@ -41,6 +42,7 @@
     "clear": "0.1.0",
     "clui": "0.3.6",
     "figlet": "1.4.0",
+    "shell-exec": "1.0.2",
     "simple-git": "2.1.0"
   },
   "devDependencies": {
@@ -52,7 +54,9 @@
     "@types/jest": "25.2.1",
     "@types/node": "13.13.4",
     "@typescript-eslint/eslint-plugin": "2.30.0",
+    "@typescript-eslint/parser": "2.30.0",
     "acorn": "7.1.1",
+    "babel-eslint": "10.1.0",
     "babel-jest": "25.5.1",
     "babel-plugin-module-resolver": "4.0.0",
     "bufferutil": "4.0.1",
@@ -61,6 +65,7 @@
     "eslint": "6.8.0",
     "eslint-config-airbnb-base": "14.1.0",
     "eslint-config-prettier": "6.11.0",
+    "eslint-import-resolver-babel-module": "5.1.2",
     "eslint-plugin-import": "2.20.2",
     "eslint-plugin-prettier": "3.1.3",
     "inquirer": "7.1.0",

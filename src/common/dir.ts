@@ -8,5 +8,5 @@ export default {
 
     directoryExists: (filePath: string): boolean => {
         return fs.existsSync(filePath);
-    },
+    }
 };
