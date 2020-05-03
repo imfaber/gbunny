@@ -2,11 +2,10 @@
 
 import simpleGit from 'simple-git/promise';
 import chalk, { Chalk } from 'chalk';
-import { StatusResult, FileStatusResult } from 'simple-git/typings/response';
+import { StatusResult, FileStatusResult } from 'simple-git/typings/response.d';
 import { StatusHeaderArgs, FileStatus, StatusKey } from './common/types';
 
 const git = simpleGit();
-printStatus();
 
 /**
  * Indent the file status
@@ -39,16 +38,16 @@ export const getIndentedFileStatus = (status: string, spaces: number = 6) => {
 export const getFileStatus = (path: string, statusKey: string): FileStatus => {
     let status: keyof typeof StatusKey = 'Unknown';
 
-    for (let memeber in StatusKey) {
+    Object.keys(StatusKey).forEach((memeber: string) => {
         if (statusKey === StatusKey[memeber as keyof typeof StatusKey]) {
             status = memeber as keyof typeof StatusKey;
         }
-    }
+    });
 
     return {
         path,
         status,
-        statusKey: statusKey as StatusKey,
+        statusKey: statusKey as StatusKey
     };
 };
 
@@ -91,10 +90,13 @@ export const getUntrackedFiles = (files: FileStatusResult[]): FileStatus[] => {
  * @param indexStart A namber as index starting point
  * @returns An array of FileStatus
  */
-export const addIndexToFiles = (files: FileStatus[], indexStart: number = 1) => {
+export const addIndexToFiles = (
+    files: FileStatus[],
+    indexStart: number = 1
+) => {
     return files.map((f, i) => ({
         ...f,
-        index: i + indexStart,
+        index: i + indexStart
     }));
 };
 
@@ -117,7 +119,7 @@ export const getDivergeInfo = (status: StatusResult): string => {
 };
 
 const print = (msg: string | Chalk = '', emptyNewLine: boolean = false) => {
-    const log = console.log;
+    const { log } = console;
     log(msg);
 
     if (emptyNewLine) {
@@ -125,9 +127,9 @@ const print = (msg: string | Chalk = '', emptyNewLine: boolean = false) => {
     }
 };
 
-const printStatusHeader = (status: StatusHeaderArgs): string | undefined => {
+const printStatusHeader = (status: StatusHeaderArgs): undefined => {
     if (!status.branch) {
-        return '';
+        return;
     }
 
     let header = chalk`On branch: {whiteBright ${status.branch}}`;
@@ -146,13 +148,13 @@ const printStatusHeader = (status: StatusHeaderArgs): string | undefined => {
 const printStatusSection = (
     title: string,
     files: FileStatus[],
-    chalk: Chalk
+    useChalk: Chalk
 ) => {
     if (files.length === 0) {
         return;
     }
 
-    print(chalk(`➤  ${title}`), true);
+    print(useChalk(`➤  ${title}`), true);
 
     files.forEach((f) => {
         const index = chalk.white(`[${f.index}]`);
@@ -162,7 +164,7 @@ const printStatusSection = (
                 ? chalk.red(getIndentedFileStatus(f.status))
                 : getIndentedFileStatus(f.status);
 
-        print(chalk(`${status}: ${index} ${f.path}`));
+        print(useChalk(`${status}: ${index} ${f.path}`));
     });
 
     print();
@@ -184,7 +186,7 @@ async function printStatus() {
     printStatusHeader({
         branch: s.current ?? undefined,
         tracking: getTrackingInfo(s),
-        diverge: getDivergeInfo(s),
+        diverge: getDivergeInfo(s)
     });
 
     printStatusSection(
@@ -200,4 +202,6 @@ async function printStatus() {
     );
 
     printStatusSection('Untracked files', untrackedFiles, chalk.grey);
-};
+}
+
+printStatus();

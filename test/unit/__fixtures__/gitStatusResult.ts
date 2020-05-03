@@ -1,4 +1,4 @@
-import { StatusResult } from 'simple-git/typings/response';
+import { StatusResult } from 'simple-git/typings/response.d';
 
 export const cleanStatus: StatusResult = {
     not_added: [],
@@ -13,7 +13,7 @@ export const cleanStatus: StatusResult = {
     behind: 0,
     current: 'master',
     tracking: 'origin/master',
-    isClean: () => true,
+    isClean: () => true
 };
 
 export const dirtyStatus: StatusResult = {
@@ -32,13 +32,13 @@ export const dirtyStatus: StatusResult = {
         {
             path: 'src/another-modified-file.ts',
             index: '?',
-            working_dir: '?',
-        },
+            working_dir: '?'
+        }
     ],
     staged: ['file1'],
     ahead: 1,
     behind: 1,
     current: 'feature/my-feature',
     tracking: 'origin/feature/my-feature',
-    isClean: () => false,
+    isClean: () => false
 };

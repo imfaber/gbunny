@@ -1,14 +1,12 @@
-import { cleanStatus, dirtyStatus } from './__fixtures__/gitStatusResult';
 import {
     getIndentedFileStatus,
     getFileStatus,
     getStagedFiles,
     getUnstagedFiles,
     getUntrackedFiles,
-    addIndexToFiles,
-    getTrackingInfo
+    addIndexToFiles
 } from '@/status';
-
+import { cleanStatus, dirtyStatus } from './__fixtures__/gitStatusResult';
 
 describe('Status summary', () => {
     describe('getIndentedFileStatus()', () => {
@@ -23,7 +21,7 @@ describe('Status summary', () => {
             expect(getFileStatus('test', 'A')).toEqual({
                 path: 'test',
                 status: 'Added',
-                statusKey: 'A',
+                statusKey: 'A'
             });
         });
 
@@ -31,7 +29,7 @@ describe('Status summary', () => {
             expect(getFileStatus('test', 'D')).toEqual({
                 path: 'test',
                 status: 'Deleted',
-                statusKey: 'D',
+                statusKey: 'D'
             });
         });
 
@@ -39,7 +37,7 @@ describe('Status summary', () => {
             expect(getFileStatus('test', '')).toEqual({
                 path: 'test',
                 status: 'Unknown',
-                statusKey: '',
+                statusKey: ''
             });
         });
     });
@@ -49,7 +47,7 @@ describe('Status summary', () => {
             expect(getStagedFiles(dirtyStatus.files)).toEqual([
                 { path: 'file1', status: 'Modified', statusKey: 'M' },
                 { path: 'created-file', status: 'Added', statusKey: 'A' },
-                { path: 'committed-file', status: 'Added', statusKey: 'A' },
+                { path: 'committed-file', status: 'Added', statusKey: 'A' }
             ]);
         });
 
@@ -61,7 +59,7 @@ describe('Status summary', () => {
     describe('getUnstagedFiles()', () => {
         it('should return the unstaged files', () => {
             expect(getUnstagedFiles(dirtyStatus.files)).toEqual([
-                { path: 'src/file2.ts', status: 'Modified', statusKey: 'M' },
+                { path: 'src/file2.ts', status: 'Modified', statusKey: 'M' }
             ]);
         });
 
@@ -77,8 +75,8 @@ describe('Status summary', () => {
                 {
                     path: 'src/another-modified-file.ts',
                     status: 'Untracked',
-                    statusKey: '?',
-                },
+                    statusKey: '?'
+                }
             ]);
         });
 
@@ -95,8 +93,8 @@ describe('Status summary', () => {
                     index: 1,
                     path: 'src/file2.ts',
                     status: 'Modified',
-                    statusKey: 'M',
-                },
+                    statusKey: 'M'
+                }
             ]);
 
             files = getUnstagedFiles(dirtyStatus.files);
@@ -105,8 +103,8 @@ describe('Status summary', () => {
                     index: 5,
                     path: 'src/file2.ts',
                     status: 'Modified',
-                    statusKey: 'M',
-                },
+                    statusKey: 'M'
+                }
             ]);
         });
     });

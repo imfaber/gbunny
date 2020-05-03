@@ -9,5 +9,5 @@ export default {
     magenta: '#ff00d4',
     cyan: '#96ccff',
     blue: '#357edd',
-    grey: '#999',
+    grey: '#999'
 } as Colors;
