@@ -1,3 +1,10 @@
+import { SimpleGit } from 'simple-git/promise';
+
+export interface GBunny {
+    git: SimpleGit;
+    args?: string[];
+}
+
 export interface StatusHeaderArgs {
     branch?: string;
     tracking?: string | null;
@@ -32,3 +39,36 @@ export interface Colors {
 }
 
 export type Color = keyof Colors;
+
+export interface GitCommand {
+    git: SimpleGit;
+    canRun: boolean;
+    args: string[] | null;
+    run?: () => void;
+}
+
+export enum GitEntityType {
+    File = 'file',
+    Branch = 'branch'
+}
+
+export interface GitEntity {
+    name: string;
+    type: GitEntityType;
+}
+
+export interface GitBranch {
+    name: string;
+    current: boolean;
+    commit?: string;
+    label?: string;
+}
+
+export interface GitIndexedEntity extends GitEntity {
+    index: number;
+    [key: string]: any;
+}
+export interface GitIndexedEntityList {
+    list: GitIndexedEntity[];
+    prompt: () => void;
+}

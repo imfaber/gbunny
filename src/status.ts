@@ -1,11 +1,10 @@
 #!/usr/bin/env node
 
-import simpleGit from 'simple-git/promise';
 import chalk, { Chalk } from 'chalk';
 import { StatusResult, FileStatusResult } from 'simple-git/typings/response.d';
+import createGitCommand from './common/git-command-factory';
+import print from './common/print';
 import { StatusHeaderArgs, FileStatus, StatusKey } from './common/types';
-
-const git = simpleGit();
 
 /**
  * Indent the file status
@@ -118,15 +117,6 @@ export const getDivergeInfo = (status: StatusResult): string => {
     return info ? chalk.hex('ffcd3a')(info) : '';
 };
 
-const print = (msg: string | Chalk = '', emptyNewLine: boolean = false) => {
-    const { log } = console;
-    log(msg);
-
-    if (emptyNewLine) {
-        log();
-    }
-};
-
 const printStatusHeader = (status: StatusHeaderArgs): undefined => {
     if (!status.branch) {
         return;
@@ -170,7 +160,11 @@ const printStatusSection = (
     print();
 };
 
-async function printStatus() {
+export const run = async () => {
+    const { git, canRun } = createGitCommand();
+
+    if (!canRun) return;
+
     const s = await git.status();
 
     const stagedFiles = addIndexToFiles(getStagedFiles(s.files));
@@ -184,7 +178,7 @@ async function printStatus() {
     );
 
     printStatusHeader({
-        branch: s.current ?? undefined,
+        branch: s.current || undefined,
         tracking: getTrackingInfo(s),
         diverge: getDivergeInfo(s)
     });
@@ -202,6 +196,6 @@ async function printStatus() {
     );
 
     printStatusSection('Untracked files', untrackedFiles, chalk.grey);
-}
+};
 
-printStatus();
+run();

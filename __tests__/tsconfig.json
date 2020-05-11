@@ -1,8 +1,7 @@
 {
     "compilerOptions": {
-        "outDir": "dist",
-        "target": "esnext",
-        "lib": ["esnext"],
+        "target": "es5",
+        "lib": ["es6"],
         "module": "commonjs",
         "moduleResolution": "node",
         "strict": true,
@@ -11,8 +10,7 @@
         "sourceMap": false,
         "baseUrl": ".",
         "paths": {
-            "@/*": ["src/*"]
+            "@/*": ["../src/*"]
         }
-    },
-    "exclude": ["node_modules", "__tests__"]
+    }
 }

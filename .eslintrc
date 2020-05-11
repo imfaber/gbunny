@@ -1,57 +1,47 @@
 {
-  "parser": "babel-eslint",
-  "extends": [
-    "airbnb-base",
-    "plugin:prettier/recommended",
-    "prettier"
-  ],
-  "plugins": [
-  ],
-  "env": {
-    "jest": true
-  },
-  "rules": {
-    "no-console": "off",
-    "import/extensions": ["error", "ignorePackages", {
-      "js": "never",
-      "jsx": "never",
-      "ts": "never",
-      "tsx": "never"
-    }]
-  },
-  "settings": {
-    "import/resolver": {
-      "node": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx"]
-      },
-      "babel-module": {
-        "extensions": [".js", ".jsx", ".ts", ".tsx"]
-      }
-    }
-  },
-  "overrides": [
-    {
-      "files": ["**/*.ts"],
-      "parser": "@typescript-eslint/parser",
-      "parserOptions": {
-        "project": "./tsconfig.json"
-      },
-      "plugins": [
-        "@typescript-eslint"
-      ],
-      "rules": {
-        "no-undef": "off",
-        "no-plusplus": "off",
-        "no-minusminus": "off",
-        "no-unused-vars": "off",
-        "no-restricted-globals": "off"
-      }
+    "parser": "babel-eslint",
+    "extends": ["airbnb-base", "plugin:prettier/recommended", "prettier"],
+    "plugins": [],
+    "env": {
+        "jest": true
     },
-    {
-      "files": ["test/**/*.ts"],
-      "parserOptions": {
-        "project": "test/tsconfig.json"
-      }
-    }
-  ]
+    "rules": {
+        "no-console": "off",
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+                "js": "never",
+                "jsx": "never",
+                "ts": "never",
+                "tsx": "never"
+            }
+        ]
+    },
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "extensions": [".js", ".jsx", ".ts", ".tsx"]
+            },
+            "babel-module": {
+                "extensions": [".js", ".jsx", ".ts", ".tsx"]
+            }
+        }
+    },
+    "overrides": [
+        {
+            "files": ["**/*.ts"],
+            "parser": "@typescript-eslint/parser",
+            "plugins": ["@typescript-eslint"],
+            "rules": {
+                "no-undef": "off",
+                "no-plusplus": "off",
+                "no-minusminus": "off",
+                "no-unused-vars": "off",
+                "no-restricted-globals": "off",
+                "import/prefer-default-export": "off",
+                "no-underscore-dangle": "off"
+            }
+        }
+    ]
 }

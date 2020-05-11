@@ -6,7 +6,7 @@ import {
     getUntrackedFiles,
     addIndexToFiles
 } from '@/status';
-import { cleanStatus, dirtyStatus } from './__fixtures__/gitStatusResult';
+import { cleanStatus, dirtyStatus } from './__fixtures__/git-status-result';
 
 describe('Status summary', () => {
     describe('getIndentedFileStatus()', () => {
