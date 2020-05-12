@@ -11,20 +11,24 @@ export interface StatusHeaderArgs {
     diverge?: string | null;
 }
 
-export enum StatusKey {
-    Unknown = '',
+export enum StatusCode {
+    Unmodified = '',
     Added = 'A',
     Modified = 'M',
     Deleted = 'D',
-    Untracked = '?'
+    Renamed = 'R',
+    Copied = 'R',
+    Unmerged = 'U',
+    Untracked = '?',
+    Ignored = '!'
 }
 
-export interface FileStatus {
-    path: string;
-    status: keyof typeof StatusKey;
-    statusKey: StatusKey;
-    index?: number;
-}
+// export interface FileStatus {
+//     path: string;
+//     status: keyof typeof StatusCode;
+//     statusCode: StatusCode;
+//     index?: number;
+// }
 
 export interface Colors {
     white: string;
@@ -65,9 +69,10 @@ export interface GitBranch {
 }
 
 export interface GitIndexedEntity extends GitEntity {
-    index: number;
+    entityIndex: number;
     [key: string]: any;
 }
+
 export interface GitIndexedEntityList {
     list: GitIndexedEntity[];
     prompt: () => void;
