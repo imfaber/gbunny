@@ -3,22 +3,22 @@ import { GitIndexedEntity, GitEntityType } from '@/common/types';
 
 const indexedEntities: GitIndexedEntity[] = [
     {
-        index: 1,
+        entityIndex: 1,
         name: 'Entity 1',
         type: GitEntityType.Branch
     },
     {
-        index: 2,
+        entityIndex: 2,
         name: 'Entity 2',
         type: GitEntityType.Branch
     },
     {
-        index: 3,
+        entityIndex: 3,
         name: 'Entity 3',
         type: GitEntityType.Branch
     },
     {
-        index: 4,
+        entityIndex: 4,
         name: 'Entity 4',
         type: GitEntityType.Branch
     }

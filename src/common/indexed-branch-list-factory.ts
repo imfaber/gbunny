@@ -14,7 +14,7 @@ export const getList = (branches: {
 
     Object.keys(branches).forEach((b: string, i) => {
         list.push({
-            index: i + 1,
+            entityIndex: i + 1,
             type: GitEntityType.Branch,
             ...branches[b]
         });
@@ -26,8 +26,8 @@ export const getList = (branches: {
 export const prompt = (list: GitIndexedEntity[]) => {
     list.forEach((b) => {
         const isCurrent = b.current;
-        const index = chalk.white(`[${b.index}]`);
-        const currentMarker = isCurrent ? chalk.green('➤ ') : '  ';
+        const index = chalk.white(`[${b.entityIndex}]`);
+        const currentMarker = isCurrent ? chalk.green('⮞') : ' ';
         let branch: string;
 
         if (b.name.startsWith('remotes/')) {
