@@ -22,13 +22,13 @@ describe('Indexed branch list', () => {
             expect(indexedBranchList.list).toEqual([
                 {
                     current: true,
-                    index: 1,
+                    entityIndex: 1,
                     name: 'master',
                     type: 'branch'
                 },
                 {
                     current: false,
-                    index: 2,
+                    entityIndex: 2,
                     name: 'branch-1',
                     type: 'branch'
                 }
@@ -41,13 +41,13 @@ describe('Indexed branch list', () => {
             expect(indexedBranchList.list).toEqual([
                 {
                     current: true,
-                    index: 1,
+                    entityIndex: 1,
                     name: 'master',
                     type: 'branch'
                 },
                 {
                     current: false,
-                    index: 2,
+                    entityIndex: 2,
                     name: 'branch-1',
                     type: 'branch'
                 }

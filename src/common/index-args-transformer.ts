@@ -12,7 +12,7 @@ export default function (
         if (/^\d+-\d+$/.test(arg) || /^\d+$/.test(arg)) {
             const transformedIndexes = parseRange(arg).map((index) => {
                 const indexedEntity = indexedEntites.filter(
-                    (e) => e.index === index
+                    (e) => e.entityIndex === index
                 );
 
                 return indexedEntity[0] ? indexedEntity[0].name : null;

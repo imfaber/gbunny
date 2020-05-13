@@ -1,9 +1,9 @@
 import simpleGit, { SimpleGit } from 'simple-git/promise';
 import { GitCommand } from './types';
 
-export default function (): GitCommand {
+export default function (basePath?: string): GitCommand {
     const commandObj = {
-        git: simpleGit().silent(true),
+        git: simpleGit(basePath).silent(true),
         canRun: process.env.JEST_WORKER_ID === undefined,
         args: null
     } as GitCommand;
