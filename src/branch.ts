@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 
-import indexArgTransformer from './common/index-args-transformer';
 import createIndexedBranchList from './common/indexed-branch-list-factory';
 import createGitCommand from './common/git-command-factory';
+import { GitEntityType } from './common/types';
 
 export const run = async () => {
-    const { git, canRun, args } = createGitCommand();
+    const cmd = await createGitCommand();
+    const { git, args } = cmd;
 
-    if (!canRun) return;
+    if (!cmd.canRun) return;
 
     const isListAll = args && (args.includes('-a') || args.includes('--all'));
 
@@ -20,9 +21,9 @@ export const run = async () => {
 
         if (!args || isListAll) {
             indexedBranchList.prompt();
+            cmd.setGitIndexedEntityType(GitEntityType.Branch);
         } else {
-            const options = indexArgTransformer(args, indexedBranchList.list);
-            await git.branch(options);
+            await git.branch(args);
         }
     } catch (error) {
         console.error(error.message);

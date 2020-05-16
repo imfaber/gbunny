@@ -102,7 +102,7 @@ export const getUnmergedFiles = (
  */
 export const getIndentedFileStatus = (
     status: string = '',
-    spaces: number = 6
+    spaces: number = 4
 ): string | undefined => {
     let indentation = '';
 

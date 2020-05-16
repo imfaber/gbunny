@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
 import chalk, { Chalk } from 'chalk';
-import { StatusResult, FileStatusResult } from 'simple-git/typings/response.d';
+import { StatusResult } from 'simple-git/typings/response.d';
 import createGitCommand from './common/git-command-factory';
 import print from './common/print';
-import { StatusHeaderArgs, StatusCode, GitIndexedEntity } from './common/types';
+import { StatusHeaderArgs, GitEntityType } from './common/types';
 import createIndexedFilesList from './common/indexed-file-list-factory';
 
 export const getTrackingInfo = (status: StatusResult): string => {
@@ -44,7 +44,7 @@ const printStatusHeader = (status: StatusHeaderArgs): undefined => {
 };
 
 export const run = async () => {
-    const { git, canRun } = createGitCommand();
+    const { git, canRun, setGitIndexedEntityType } = await createGitCommand();
 
     if (!canRun) return;
 
@@ -59,6 +59,7 @@ export const run = async () => {
         });
 
         indexedFileList.prompt();
+        setGitIndexedEntityType(GitEntityType.File);
     } catch (error) {
         console.error(error.message);
     }

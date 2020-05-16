@@ -3,9 +3,13 @@ import flatten from 'lodash.flatten';
 import { GitIndexedEntity } from './types';
 
 export default function (
-    args: string[],
+    args: string[] | null | undefined,
     indexedEntites: GitIndexedEntity[]
 ): string[] {
+    if (!args) {
+        return [];
+    }
+
     const newArgs: any[] = [...args];
 
     args.forEach((arg, i) => {

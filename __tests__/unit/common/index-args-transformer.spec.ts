@@ -26,11 +26,12 @@ const indexedEntities: GitIndexedEntity[] = [
 
 describe('Index arguments transformer', () => {
     it('should transform index argumenets into entity names', () => {
+        expect(indexArgsTransformer(undefined, indexedEntities)).toEqual([]);
+        expect(indexArgsTransformer(null, indexedEntities)).toEqual([]);
         expect(indexArgsTransformer([], indexedEntities)).toEqual([]);
-        expect(indexArgsTransformer(['-a', '--foo'], indexedEntities)).toEqual([
-            '-a',
-            '--foo'
-        ]);
+        expect(
+            indexArgsTransformer(['-a', '--foo', '-2'], indexedEntities)
+        ).toEqual(['-a', '--foo', '-2']);
         expect(indexArgsTransformer(['1', '2'], indexedEntities)).toEqual([
             'Entity 1',
             'Entity 2'

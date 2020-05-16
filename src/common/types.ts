@@ -25,13 +25,6 @@ export enum StatusCode {
 
 export type Status = keyof typeof StatusCode;
 
-// export interface FileStatus {
-//     path: string;
-//     status: keyof typeof StatusCode;
-//     statusCode: StatusCode;
-//     index?: number;
-// }
-
 export interface Colors {
     white: string;
     black: string;
@@ -50,7 +43,8 @@ export interface GitCommand {
     git: SimpleGit;
     canRun: boolean;
     args: string[] | null;
-    run?: () => void;
+    setGitIndexedEntityType: (indexType: GitEntityType) => void;
+    indexedEntityList: GitIndexedEntity[];
 }
 
 export enum GitEntityType {

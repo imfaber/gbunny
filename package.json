@@ -49,7 +49,7 @@
         "minimist": "1.2.5",
         "parse-numeric-range": "1.2.0",
         "shell-exec": "1.0.2",
-        "simple-git": "2.1.0"
+        "simple-git": "2.4.0"
     },
     "devDependencies": {
         "@babel/core": "7.9.6",
