@@ -8,6 +8,7 @@ import { GitArea, GitIndexedFile } from './common/types';
 import hasAllArgument from './common/has-all-argument';
 import print from './common/print';
 import hexColors from './common/hex-colors';
+import exitWithError from './common/exit-with-error';
 
 export const exitIfNoFileHasChanged = (files: GitIndexedFile[]) => {
     if (files.length === 0) {
@@ -114,8 +115,7 @@ export const run = async () => {
             await commit([...args, '-m', message]);
         }
     } catch (error) {
-        print(chalk.red(error.message.trim()));
-        process.exit(1);
+        exitWithError(error);
     }
 };
 

@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import createGitCommand from './common/git-command-factory';
+import exitWithError from './common/exit-with-error';
 
 export const run = async () => {
     const { git, canRun, args } = await createGitCommand();
@@ -12,7 +13,7 @@ export const run = async () => {
             await git.checkout(args);
         }
     } catch (error) {
-        console.error(error.message);
+        exitWithError(error);
     }
 };
 

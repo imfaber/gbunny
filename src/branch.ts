@@ -6,6 +6,7 @@ import createGitCommand from './common/git-command-factory';
 import { GitEntityType } from './common/types';
 import hasAllArgument from './common/has-all-argument';
 import print from './common/print';
+import { exitWithError } from './common/exit-with-error';
 
 export const run = async () => {
     const cmd = await createGitCommand();
@@ -27,8 +28,7 @@ export const run = async () => {
             await git.branch(args);
         }
     } catch (error) {
-        print(chalk.red(error.message.trim()));
-        process.exit(1);
+        exitWithError(error);
     }
 };
 

@@ -8,6 +8,7 @@ import { StatusHeaderArgs, GitEntityType } from './common/types';
 import createIndexedFilesList from './common/indexed-file-list-factory';
 import symbols from './common/symbols';
 import hexColors from './common/hex-colors';
+import exitWithError from './common/exit-with-error';
 
 export const getTrackingInfo = (status: StatusResult): string => {
     return status.tracking ? `[${chalk.cyan.bold(status.tracking)}]` : '';
@@ -63,8 +64,7 @@ export const run = async () => {
         indexedFileList.printEntities();
         setGitIndexedEntityType(GitEntityType.File);
     } catch (error) {
-        print(chalk.red(error.message.trim()));
-        process.exit(1);
+        exitWithError(error);
     }
 };
 
