@@ -6,6 +6,8 @@ import {
     GitBranch,
     GitEntityType
 } from './types';
+import { pointerRight } from './symbols';
+import hexColors from './hex-colors';
 
 export const getList = (branches: {
     [name: string]: GitBranch;
@@ -23,17 +25,19 @@ export const getList = (branches: {
     return list;
 };
 
-export const prompt = (list: GitIndexedEntity[]) => {
+export const printEntities = (list: GitIndexedEntity[]) => {
     list.forEach((b) => {
         const isCurrent = b.current;
-        const index = chalk.white(`[${b.entityIndex}]`);
-        const currentMarker = isCurrent ? chalk.green('⮞') : ' ';
+        const index = chalk.bold.hex(hexColors.grey)(`[${b.entityIndex}]`);
+        const currentMarker = isCurrent ? chalk.green(pointerRight) : ' ';
         let branch: string;
 
         if (b.name.startsWith('remotes/')) {
             branch = chalk.red(b.name);
         } else {
-            branch = isCurrent ? chalk.green(b.name) : chalk.grey(b.name);
+            branch = isCurrent
+                ? chalk.green(b.name)
+                : chalk.hex(hexColors.grey)(b.name);
         }
 
         print(`${currentMarker} ${index} ${branch}`);
@@ -47,6 +51,6 @@ export default (branches: {
 
     return {
         list,
-        prompt: () => prompt(list)
+        printEntities: () => printEntities(list)
     };
 };

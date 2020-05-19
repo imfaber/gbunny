@@ -1,8 +1,11 @@
 #!/usr/bin/env node
 
+import chalk from 'chalk';
 import createIndexedBranchList from './common/indexed-branch-list-factory';
 import createGitCommand from './common/git-command-factory';
 import { GitEntityType } from './common/types';
+import hasAllArgument from './common/has-all-argument';
+import print from './common/print';
 
 export const run = async () => {
     const cmd = await createGitCommand();
@@ -10,23 +13,22 @@ export const run = async () => {
 
     if (!cmd.canRun) return;
 
-    const isListAll = args && (args.includes('-a') || args.includes('--all'));
-
     try {
-        const { branches } = isListAll
+        const { branches } = hasAllArgument(args)
             ? await git.branch()
             : await git.branchLocal();
 
         const indexedBranchList = createIndexedBranchList(branches);
 
-        if (!args || isListAll) {
-            indexedBranchList.prompt();
+        if (!args || hasAllArgument(args)) {
+            indexedBranchList.printEntities();
             cmd.setGitIndexedEntityType(GitEntityType.Branch);
         } else {
             await git.branch(args);
         }
     } catch (error) {
-        console.error(error.message);
+        print(chalk.red(error.message.trim()));
+        process.exit(1);
     }
 };
 

@@ -10,7 +10,7 @@ export default async function (basePath?: string): Promise<GitCommand> {
     const cmd = {
         git,
         canRun: process.env.JEST_WORKER_ID === undefined,
-        args: null
+        args: undefined
     } as GitCommand;
 
     const getActiveGitIndexedEntity = async (): Promise<string | string[]> => {

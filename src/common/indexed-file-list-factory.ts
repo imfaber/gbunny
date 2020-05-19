@@ -1,4 +1,4 @@
-import chalk, { Chalk } from 'chalk';
+import chalk from 'chalk';
 import { FileStatusResult } from 'simple-git/typings/response.d';
 import print from './print';
 import {
@@ -6,8 +6,10 @@ import {
     GitEntityType,
     GitIndexedFile,
     StatusCode,
-    GitArea
+    GitArea,
+    PrintFilesArgs
 } from './types';
+import hexColors from './hex-colors';
 
 /**
  * Determine whether the given file is unmerged
@@ -44,7 +46,7 @@ export const getStagedFiles = (
         (f) =>
             f.index.trim() &&
             !isUnmergedFile(f) &&
-            f.index !== f.working_dir &&
+            // f.index !== f.working_dir &&
             f.index !== StatusCode.Untracked &&
             f.index !== StatusCode.Unmodified
     );
@@ -102,7 +104,7 @@ export const getUnmergedFiles = (
  */
 export const getIndentedFileStatus = (
     status: string = '',
-    spaces: number = 4
+    spaces: number = 2
 ): string | undefined => {
     let indentation = '';
 
@@ -118,35 +120,41 @@ export const getIndentedFileStatus = (
     return `${indentation}${status}`;
 };
 
-const printStatusSection = (
-    title: string,
-    files: GitIndexedFile[],
-    count: number,
-    useChalk: Chalk
-) => {
+export const printStatusSection = (options: PrintFilesArgs) => {
+    const { files, chalkColor, indexLength, showIndex, title } = options;
+    let index: string;
+
     if (files.length === 0) {
         return;
     }
 
-    print(useChalk(`⮞ ${title}`), true);
+    const color = chalkColor || chalk.gray;
+
+    if (title) {
+        print(color(title), true);
+    }
 
     files.forEach((f) => {
-        let indentation = '';
-        for (
-            let i = 0;
-            i < count.toString().length - f.entityIndex.toString().length;
-            i++
-        ) {
-            indentation += ' ';
+        if (showIndex) {
+            let indentation = '';
+            for (
+                let i = 0;
+                i < (indexLength || 1) - f.entityIndex.toString().length;
+                i++
+            ) {
+                indentation += ' ';
+            }
+            index = chalk.bold.hex(hexColors.grey)(
+                ` ${indentation}[${f.entityIndex}]`
+            );
         }
-        const index = chalk.white(`${indentation}[${f.entityIndex}]`);
 
         const status =
             f.status === 'Deleted'
                 ? chalk.red(getIndentedFileStatus(f.status))
                 : getIndentedFileStatus(f.status);
 
-        print(useChalk(`${status}: ${index} ${f.name}`));
+        print(color(`${status}:${index || ''} ${f.name}`));
     });
 
     print();
@@ -262,34 +270,44 @@ export const getList = (files: FileStatusResult[]): GitIndexedFile[] => {
     return newList;
 };
 
-export const prompt = (list: GitIndexedFile[]) => {
-    printStatusSection(
-        'Stage - Changes to be committed',
-        list.filter((f) => f.area === GitArea.Stage),
-        list.length,
-        chalk.green
-    );
+export const printEntities = (list: GitIndexedFile[]) => {
+    if (list.length === 0) {
+        print(chalk.green('No changes (working directory clean)'));
+        return;
+    }
 
-    printStatusSection(
-        'Changes not staged for commit',
-        list.filter((f) => f.area === GitArea.WorkTree),
-        list.length,
-        chalk.yellow
-    );
+    const printOptions = {
+        indexLength: list.length.toString().length,
+        showIndex: true
+    };
 
-    printStatusSection(
-        'Untracked files',
-        list.filter((f) => f.area === GitArea.Untracked),
-        list.length,
-        chalk.grey
-    );
+    printStatusSection({
+        ...printOptions,
+        title: 'Stage - Changes to be committed',
+        files: list.filter((f) => f.area === GitArea.Stage),
+        chalkColor: chalk.green
+    });
 
-    printStatusSection(
-        'Unmerged files',
-        list.filter((f) => f.area === GitArea.Unmerged),
-        list.length,
-        chalk.red
-    );
+    printStatusSection({
+        ...printOptions,
+        title: 'Changes not staged for commit',
+        files: list.filter((f) => f.area === GitArea.WorkTree),
+        chalkColor: chalk.yellow
+    });
+
+    printStatusSection({
+        ...printOptions,
+        title: 'Untracked files',
+        files: list.filter((f) => f.area === GitArea.Untracked),
+        chalkColor: chalk.bold.hex(hexColors.grey)
+    });
+
+    printStatusSection({
+        ...printOptions,
+        title: 'Unmerged files',
+        files: list.filter((f) => f.area === GitArea.Unmerged),
+        chalkColor: chalk.red
+    });
 };
 
 export default (files: FileStatusResult[]): GitIndexedEntityList => {
@@ -297,6 +315,6 @@ export default (files: FileStatusResult[]): GitIndexedEntityList => {
 
     return {
         list,
-        prompt: () => prompt(list)
+        printEntities: () => printEntities(list)
     };
 };

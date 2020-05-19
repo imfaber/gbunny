@@ -14,7 +14,7 @@ describe('Status summary', () => {
     describe('getIndentedFileStatus()', () => {
         it('should indent the file status', () => {
             expect(getIndentedFileStatus('test', 0)).toMatch('      test');
-            expect(getIndentedFileStatus('test')).toBe('            test');
+            expect(getIndentedFileStatus('test')).toBe('          test');
         });
     });
 

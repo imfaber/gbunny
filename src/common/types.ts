@@ -1,4 +1,5 @@
 import { SimpleGit } from 'simple-git/promise';
+import { Chalk } from 'chalk';
 
 export interface GBunny {
     git: SimpleGit;
@@ -9,6 +10,14 @@ export interface StatusHeaderArgs {
     branch?: string;
     tracking?: string | null;
     diverge?: string | null;
+}
+
+export interface PrintFilesArgs {
+    title?: string;
+    files: GitIndexedFile[];
+    indexLength?: number;
+    showIndex?: boolean;
+    chalkColor?: Chalk;
 }
 
 export enum StatusCode {
@@ -42,7 +51,7 @@ export type Color = keyof Colors;
 export interface GitCommand {
     git: SimpleGit;
     canRun: boolean;
-    args: string[] | null;
+    args: string[] | undefined;
     setGitIndexedEntityType: (indexType: GitEntityType) => void;
     indexedEntityList: GitIndexedEntity[];
 }
@@ -83,5 +92,5 @@ export enum GitArea {
 
 export interface GitIndexedEntityList {
     list: GitIndexedEntity[];
-    prompt: () => void;
+    printEntities: () => void;
 }
