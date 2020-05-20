@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-import readline from 'readline';
 import os from 'os';
 import path from 'path';
+import simpleGit from 'simple-git/promise';
 import chalk, { Chalk } from 'chalk';
 import minimist from 'minimist';
 import inquirerCommandPrompt from 'inquirer-command-prompt';
@@ -11,19 +11,13 @@ import createGitCommand from './common/git-command-factory';
 import { GitArea, GitIndexedFile } from './common/types';
 import hasAllArgument from './common/has-all-argument';
 import print from './common/print';
-import hexColors, { grey } from './common/hex-colors';
+import { grey } from './common/hex-colors';
 import exitWithError from './common/exit-with-error';
 import { pointerRight } from './common/symbols';
 
-export const exitIfNoFileHasChanged = (files: GitIndexedFile[]) => {
-    if (files.length === 0) {
-        print('There are no changes staged for commit.');
-        process.exit(0);
-    }
-};
-
 export const askForMessage = async (
-    intro?: string | Chalk
+    intro?: string | Chalk,
+    defaultMessage?: string | null
 ): Promise<string> => {
     if (intro) {
         print(intro);
@@ -46,11 +40,14 @@ export const askForMessage = async (
         {
             type: 'command',
             name: 'message',
-            message: chalk.hex(grey)('Commit message:'),
+            message: chalk.hex(grey)(
+                `${defaultMessage ? 'Amend' : 'Commit'} message:`
+            ),
             prefix: pointerRight,
             suffix: '',
             save: true,
-            folder: os.tmpdir()
+            folder: os.tmpdir(),
+            default: defaultMessage
         }
     ]);
 
@@ -87,6 +84,12 @@ const buildCommitIntro = (introText: string, filesCount: number): string => {
     return chalk.yellow(`${introText} (${chalk.red(filesCount)})`);
 };
 
+const commit = async (options: string[]) => {
+    const result = await simpleGit().raw(['commit', ...options]);
+    print(result.trim());
+    process.exit(0);
+};
+
 export const run = async () => {
     const cmd = await createGitCommand();
     const { git, canRun } = cmd;
@@ -95,20 +98,14 @@ export const run = async () => {
 
     if (!canRun) return;
 
-    const commit = async (options: string[]) => {
-        // Use raw to allow the options -c/-C/-F
-        const result = await git.raw(['commit', ...options]);
-        print(result.trim());
-        process.exit(0);
-    };
-
-    const stagedFiles = fileList.filter((f) => f.area === GitArea.Stage);
-    const workTreeFiles = fileList.filter((f) => f.area === GitArea.WorkTree);
-
     try {
         let filesToCommit = fileList;
         let filesToCommitCount: number;
         let commitIntroText = 'Committing all files';
+        const stagedFiles = fileList.filter((f) => f.area === GitArea.Stage);
+        const workTreeFiles = fileList.filter(
+            (f) => f.area === GitArea.WorkTree
+        );
 
         if (hasAllArgument(args)) {
             const allFileNames = [
@@ -123,17 +120,24 @@ export const run = async () => {
             commitIntroText = 'Committing staged files';
         }
 
-        exitIfNoFileHasChanged(filesToCommit);
-
-        const commitIntro = buildCommitIntro(
-            commitIntroText,
-            filesToCommitCount
-        );
+        if (filesToCommit.length === 0 && !args.includes('--amend')) {
+            print('There are no changes staged for commit.');
+            process.exit(0);
+        }
 
         if (hasMessage(args)) {
             await commit(args);
         } else {
-            const message = await askForMessage(commitIntro);
+            const commitIntro = buildCommitIntro(
+                commitIntroText,
+                filesToCommitCount
+            );
+
+            const defaultMessage = args.includes('--amend')
+                ? (await git.log(['-1'])).latest.message
+                : null;
+
+            const message = await askForMessage(commitIntro, defaultMessage);
             await commit([...args, '-m', message]);
         }
     } catch (error) {
