@@ -28,7 +28,7 @@ export const getList = (branches: {
 export const printEntities = (list: GitIndexedEntity[]) => {
     list.forEach((b) => {
         const isCurrent = b.current;
-        const index = chalk.bold.hex(hexColors.grey)(`[${b.entityIndex}]`);
+        const index = chalk.hex(hexColors.grey)(`[${b.entityIndex}]`);
         const currentMarker = isCurrent ? chalk.green(pointerRight) : ' ';
         let branch: string;
 

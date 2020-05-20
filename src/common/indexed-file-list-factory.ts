@@ -144,7 +144,7 @@ export const printStatusSection = (options: PrintFilesArgs) => {
             ) {
                 indentation += ' ';
             }
-            index = chalk.bold.hex(hexColors.grey)(
+            index = chalk.hex(hexColors.grey)(
                 ` ${indentation}[${f.entityIndex}]`
             );
         }
@@ -299,7 +299,7 @@ export const printEntities = (list: GitIndexedFile[]) => {
         ...printOptions,
         title: 'Untracked files',
         files: list.filter((f) => f.area === GitArea.Untracked),
-        chalkColor: chalk.bold.hex(hexColors.grey)
+        chalkColor: chalk.hex(hexColors.grey)
     });
 
     printStatusSection({

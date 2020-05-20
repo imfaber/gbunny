@@ -1,14 +1,19 @@
 #!/usr/bin/env node
 
 import readline from 'readline';
+import os from 'os';
+import path from 'path';
 import chalk, { Chalk } from 'chalk';
 import minimist from 'minimist';
+import inquirerCommandPrompt from 'inquirer-command-prompt';
+import inquirer from 'inquirer';
 import createGitCommand from './common/git-command-factory';
 import { GitArea, GitIndexedFile } from './common/types';
 import hasAllArgument from './common/has-all-argument';
 import print from './common/print';
-import hexColors from './common/hex-colors';
+import hexColors, { grey } from './common/hex-colors';
 import exitWithError from './common/exit-with-error';
+import { pointerRight } from './common/symbols';
 
 export const exitIfNoFileHasChanged = (files: GitIndexedFile[]) => {
     if (files.length === 0) {
@@ -17,22 +22,39 @@ export const exitIfNoFileHasChanged = (files: GitIndexedFile[]) => {
     }
 };
 
-export const askForMessage = (intro?: string | Chalk): Promise<string> => {
-    const rl = readline.createInterface({
-        input: process.stdin,
-        output: process.stdout
-    });
-
+export const askForMessage = async (
+    intro?: string | Chalk
+): Promise<string> => {
     if (intro) {
         print(intro);
     }
 
-    return new Promise((resolve) => {
-        rl.question(chalk.bold.hex(hexColors.grey)('Commit message: '), (m) => {
-            rl.close();
-            resolve(m);
-        });
+    const historyFolder = path.join(os.tmpdir(), '.gBunny');
+
+    inquirerCommandPrompt.setConfig({
+        history: {
+            save: true,
+            folder: historyFolder,
+            limit: 100,
+            blacklist: ['exit']
+        }
     });
+
+    inquirer.registerPrompt('command', inquirerCommandPrompt);
+
+    const { message } = await inquirer.prompt([
+        {
+            type: 'command',
+            name: 'message',
+            message: chalk.hex(grey)('Commit message:'),
+            prefix: pointerRight,
+            suffix: '',
+            save: true,
+            folder: os.tmpdir()
+        }
+    ]);
+
+    return Promise.resolve(message);
 };
 
 export const hasMessage = (args: string[] | undefined): boolean => {

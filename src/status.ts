@@ -11,7 +11,7 @@ import hexColors from './common/hex-colors';
 import exitWithError from './common/exit-with-error';
 
 export const getTrackingInfo = (status: StatusResult): string => {
-    return status.tracking ? `[${chalk.cyan.bold(status.tracking)}]` : '';
+    return status.tracking ? `[${chalk.cyan(status.tracking)}]` : '';
 };
 
 export const getDivergeInfo = (status: StatusResult): string => {
@@ -33,7 +33,7 @@ const printStatusHeader = (status: StatusHeaderArgs): undefined => {
         return;
     }
 
-    let header = chalk`On branch: {cyan.bold ${status.branch}}`;
+    let header = chalk`On branch: {cyan ${status.branch}}`;
 
     if (status.tracking) {
         header += ` ${symbols.arrowRight} ${status.tracking}`;
@@ -43,7 +43,7 @@ const printStatusHeader = (status: StatusHeaderArgs): undefined => {
         header += ` |${status.diverge}`;
     }
 
-    print(chalk.bold.hex(hexColors.grey)(header), true);
+    print(chalk.hex(hexColors.grey)(header), true);
 };
 
 export const run = async () => {
