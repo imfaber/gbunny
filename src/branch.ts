@@ -1,35 +1,31 @@
 #!/usr/bin/env node
 
-import chalk from 'chalk';
-import createIndexedBranchList from './common/indexed-branch-list-factory';
-import createGitCommand from './common/git-command-factory';
+import { gitCommand as createGitCommand } from './common/git-command-factory';
 import { GitEntityType } from './common/types';
 import hasAllArgument from './common/has-all-argument';
-import print from './common/print';
-import { exitWithError } from './common/exit-with-error';
+import isRepl from './common/is-repl';
 
-export const run = async () => {
-    const cmd = await createGitCommand();
-    const { git, args } = cmd;
+export const run = async (options?: string[]) => {
+    const cmd = await createGitCommand(options);
+    const { args } = cmd;
 
     if (!cmd.canRun) return;
 
-    try {
-        const { branches } = hasAllArgument(args)
-            ? await git.branch()
-            : await git.branchLocal();
+    await cmd.setActiveGitIndexedEntity(GitEntityType.Branch);
 
-        const indexedBranchList = createIndexedBranchList(branches);
+    if (!args || hasAllArgument(args)) {
+        const indexedCollection = cmd.getActiveEntityCollection();
+        const { list: allBranches } = indexedCollection;
+        const branchList = hasAllArgument(args)
+            ? allBranches
+            : allBranches.filter((b) => !b.isLocal);
 
-        if (!args || hasAllArgument(args)) {
-            indexedBranchList.printEntities();
-            cmd.setGitIndexedEntityType(GitEntityType.Branch);
-        } else {
-            await git.branch(args);
-        }
-    } catch (error) {
-        exitWithError(error);
+        indexedCollection.printEntities(branchList);
+    } else {
+        await cmd.run('branch');
     }
 };
 
-run();
+if (!isRepl()) run();
+
+export default run;

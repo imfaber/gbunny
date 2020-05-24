@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 import print from './print';
 import {
-    GitIndexedEntityList,
+    GitIndexedEntityCollection,
     GitIndexedEntity,
     GitBranch,
     GitEntityType
@@ -18,6 +18,7 @@ export const getList = (branches: {
         list.push({
             entityIndex: i + 1,
             type: GitEntityType.Branch,
+            isLocal: branches[b].name.startsWith('remotes/'),
             ...branches[b]
         });
     });
@@ -28,7 +29,7 @@ export const getList = (branches: {
 export const printEntities = (list: GitIndexedEntity[]) => {
     list.forEach((b) => {
         const isCurrent = b.current;
-        const index = chalk.hex(hexColors.grey)(`[${b.entityIndex}]`);
+        const index = chalk.hex(hexColors.greyLight)(`[${b.entityIndex}]`);
         const currentMarker = isCurrent ? chalk.green(pointerRight) : ' ';
         let branch: string;
 
@@ -37,20 +38,23 @@ export const printEntities = (list: GitIndexedEntity[]) => {
         } else {
             branch = isCurrent
                 ? chalk.green(b.name)
-                : chalk.hex(hexColors.grey)(b.name);
+                : chalk.hex(hexColors.greyLight)(b.name);
         }
 
         print(`${currentMarker} ${index} ${branch}`);
     });
+
+    print('', true);
 };
 
 export default (branches: {
     [name: string]: GitBranch;
-}): GitIndexedEntityList => {
-    const list = getList(branches);
+}): GitIndexedEntityCollection => {
+    const _list = getList(branches);
 
     return {
-        list,
-        printEntities: () => printEntities(list)
+        list: _list,
+        printEntities: (list?: GitIndexedEntity[]) =>
+            printEntities(list || _list)
     };
 };

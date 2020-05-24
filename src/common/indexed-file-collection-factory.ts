@@ -2,7 +2,7 @@ import chalk from 'chalk';
 import { FileStatusResult } from 'simple-git/typings/response.d';
 import print from './print';
 import {
-    GitIndexedEntityList,
+    GitIndexedEntityCollection,
     GitEntityType,
     GitIndexedFile,
     StatusCode,
@@ -144,7 +144,7 @@ export const printStatusSection = (options: PrintFilesArgs) => {
             ) {
                 indentation += ' ';
             }
-            index = chalk.hex(hexColors.grey)(
+            index = chalk.hex(hexColors.greyLight)(
                 ` ${indentation}[${f.entityIndex}]`
             );
         }
@@ -157,7 +157,7 @@ export const printStatusSection = (options: PrintFilesArgs) => {
         print(color(`${status}:${index || ''} ${f.name}`));
     });
 
-    print();
+    print('', true);
 };
 
 /**
@@ -168,9 +168,9 @@ export const printStatusSection = (options: PrintFilesArgs) => {
 export const getStatusByCode = (statusCode: string): string => {
     let status: keyof typeof StatusCode = 'Unmodified';
 
-    Object.keys(StatusCode).forEach((memeber: string) => {
-        if (statusCode === StatusCode[memeber as keyof typeof StatusCode]) {
-            status = memeber as keyof typeof StatusCode;
+    Object.keys(StatusCode).forEach((member: string) => {
+        if (statusCode === StatusCode[member as keyof typeof StatusCode]) {
+            status = member as keyof typeof StatusCode;
         }
     });
 
@@ -272,7 +272,7 @@ export const getList = (files: FileStatusResult[]): GitIndexedFile[] => {
 
 export const printEntities = (list: GitIndexedFile[]) => {
     if (list.length === 0) {
-        print(chalk.green('No changes (working directory clean)'));
+        print(chalk.green('No changes (working directory clean)'), true);
         return;
     }
 
@@ -299,7 +299,7 @@ export const printEntities = (list: GitIndexedFile[]) => {
         ...printOptions,
         title: 'Untracked files',
         files: list.filter((f) => f.area === GitArea.Untracked),
-        chalkColor: chalk.hex(hexColors.grey)
+        chalkColor: chalk.hex(hexColors.greyLight)
     });
 
     printStatusSection({
@@ -310,7 +310,7 @@ export const printEntities = (list: GitIndexedFile[]) => {
     });
 };
 
-export default (files: FileStatusResult[]): GitIndexedEntityList => {
+export default (files: FileStatusResult[]): GitIndexedEntityCollection => {
     const list = getList(files);
 
     return {

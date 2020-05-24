@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 
-import chalk, { Chalk } from 'chalk';
+import chalk from 'chalk';
 import { StatusResult } from 'simple-git/typings/response.d';
 import createGitCommand from './common/git-command-factory';
 import print from './common/print';
 import { StatusHeaderArgs, GitEntityType } from './common/types';
-import createIndexedFilesList from './common/indexed-file-list-factory';
 import symbols from './common/symbols';
 import hexColors from './common/hex-colors';
 import exitWithError from './common/exit-with-error';
+import isRepl from './common/is-repl';
 
 export const getTrackingInfo = (status: StatusResult): string => {
     return status.tracking ? `[${chalk.cyan(status.tracking)}]` : '';
@@ -43,17 +43,20 @@ const printStatusHeader = (status: StatusHeaderArgs): undefined => {
         header += ` |${status.diverge}`;
     }
 
-    print(chalk.hex(hexColors.grey)(header), true);
+    print(chalk.hex(hexColors.greyLight)(header), true);
 };
 
 export const run = async () => {
-    const { git, canRun, setGitIndexedEntityType } = await createGitCommand();
+    const cmd = await createGitCommand();
+    const { git, canRun } = cmd;
 
     if (!canRun) return;
 
+    await cmd.setActiveGitIndexedEntity(GitEntityType.File);
+
     try {
         const s = await git.status();
-        const indexedFileList = createIndexedFilesList(s.files);
+        const indexedCollection = cmd.getActiveEntityCollection();
 
         printStatusHeader({
             branch: s.current || undefined,
@@ -61,11 +64,12 @@ export const run = async () => {
             diverge: getDivergeInfo(s)
         });
 
-        indexedFileList.printEntities();
-        setGitIndexedEntityType(GitEntityType.File);
+        indexedCollection.printEntities();
     } catch (error) {
         exitWithError(error);
     }
 };
 
-run();
+if (!isRepl()) run();
+
+export default run;

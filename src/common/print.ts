@@ -1,11 +1,14 @@
 import { Chalk } from 'chalk';
 
 export default function (
-    msg: string | Chalk = '',
+    msg?: string | Chalk,
     emptyNewLine: boolean = false
 ): void {
     const { log } = console;
-    log(msg);
+
+    if (msg) {
+        log(msg);
+    }
 
     if (emptyNewLine) {
         log();

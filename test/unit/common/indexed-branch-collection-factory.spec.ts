@@ -1,4 +1,4 @@
-import createIndexedBranchList from '@/common/indexed-branch-list-factory';
+import createIndexedBranchList from '@/common/indexed-branch-collection-factory';
 import { GitBranch } from '@/common/types';
 
 const branches: {
@@ -23,31 +23,14 @@ describe('Indexed branch list', () => {
                 {
                     current: true,
                     entityIndex: 1,
+                    isLocal: false,
                     name: 'master',
                     type: 'branch'
                 },
                 {
                     current: false,
                     entityIndex: 2,
-                    name: 'branch-1',
-                    type: 'branch'
-                }
-            ]);
-        });
-    });
-
-    describe('getList()', () => {
-        it('should return an array of indexed branches', async () => {
-            expect(indexedBranchList.list).toEqual([
-                {
-                    current: true,
-                    entityIndex: 1,
-                    name: 'master',
-                    type: 'branch'
-                },
-                {
-                    current: false,
-                    entityIndex: 2,
+                    isLocal: false,
                     name: 'branch-1',
                     type: 'branch'
                 }

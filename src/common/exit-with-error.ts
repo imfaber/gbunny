@@ -1,24 +1,27 @@
 import chalk from 'chalk';
 import print from './print';
+import isRepl from './is-repl';
 
 /**
  * Print message and exit with code 1
  * @param message The message to print
  */
 export const exitWithError = (error?: string | Error) => {
-    if (!error) {
+    if (!error && !isRepl()) {
         process.exit(1);
     }
 
     if (typeof error === 'string') {
-        print(chalk.red(error.trim()));
+        print(error.trim(), true);
     }
 
     if (typeof error === 'object' && 'message' in error) {
-        print(chalk.red(error.message.trim()));
+        print(error.message.trim(), true);
     }
 
-    process.exit(1);
+    if (!isRepl()) {
+        process.exit(1);
+    }
 };
 
 export default exitWithError;

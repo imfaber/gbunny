@@ -50,10 +50,11 @@ export type Color = keyof Colors;
 
 export interface GitCommand {
     git: SimpleGit;
-    canRun: boolean;
     args: string[] | undefined;
-    setGitIndexedEntityType: (indexType: GitEntityType) => void;
-    indexedEntityList: GitIndexedEntity[];
+    canRun: boolean;
+    run: (cmdName: string, extraArgs?: string[]) => Promise<void>;
+    setActiveGitIndexedEntity: (indexType: GitEntityType) => Promise<void>;
+    getActiveEntityCollection: () => GitIndexedEntityCollection;
 }
 
 export enum GitEntityType {
@@ -90,7 +91,7 @@ export enum GitArea {
     Unmerged
 }
 
-export interface GitIndexedEntityList {
+export interface GitIndexedEntityCollection {
     list: GitIndexedEntity[];
-    printEntities: () => void;
+    printEntities: (list?: GitIndexedEntity[]) => void;
 }

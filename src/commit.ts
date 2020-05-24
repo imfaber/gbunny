@@ -13,7 +13,8 @@ import hasAllArgument from './common/has-all-argument';
 import print from './common/print';
 import { grey } from './common/hex-colors';
 import exitWithError from './common/exit-with-error';
-import { pointerRight } from './common/symbols';
+import { pointerRightTall } from './common/symbols';
+import isRepl from './common/is-repl';
 
 export const askForMessage = async (
     intro?: string | Chalk,
@@ -23,13 +24,13 @@ export const askForMessage = async (
         print(intro);
     }
 
-    const historyFolder = path.join(os.tmpdir(), '.gBunny');
+    const historyFolder = path.join(os.tmpdir(), '.gbunny-commit-messages');
 
     inquirerCommandPrompt.setConfig({
         history: {
             save: true,
             folder: historyFolder,
-            limit: 100,
+            limit: 10,
             blacklist: ['exit']
         }
     });
@@ -43,7 +44,7 @@ export const askForMessage = async (
             message: chalk.hex(grey)(
                 `${defaultMessage ? 'Amend' : 'Commit'} message:`
             ),
-            prefix: pointerRight,
+            prefix: pointerRightTall,
             suffix: '',
             save: true,
             folder: os.tmpdir(),
@@ -67,6 +68,8 @@ export const hasMessage = (args: string[] | undefined): boolean => {
     }
 
     if (
+        args.includes('--help') ||
+        args.includes('-h') ||
         args.includes('-F') ||
         args.includes('--file') ||
         args.includes('-c') ||
@@ -84,17 +87,12 @@ const buildCommitIntro = (introText: string, filesCount: number): string => {
     return chalk.yellow(`${introText} (${chalk.red(filesCount)})`);
 };
 
-const commit = async (options: string[]) => {
-    const result = await simpleGit().raw(['commit', ...options]);
-    print(result.trim());
-    process.exit(0);
-};
-
-export const run = async () => {
-    const cmd = await createGitCommand();
+export const run = async (options?: string[]) => {
+    const cmd = await createGitCommand(options);
     const { git, canRun } = cmd;
     const args = cmd.args || [];
-    const fileList = cmd.indexedEntityList as GitIndexedFile[];
+    const indexedCollection = cmd.getActiveEntityCollection();
+    const fileList = indexedCollection.list as GitIndexedFile[];
 
     if (!canRun) return;
 
@@ -121,12 +119,17 @@ export const run = async () => {
         }
 
         if (filesToCommit.length === 0 && !args.includes('--amend')) {
-            print('There are no changes staged for commit.');
-            process.exit(0);
+            print('There are no changes staged for commit.', true);
+
+            if (!isRepl()) {
+                process.exit(0);
+            }
+
+            return;
         }
 
         if (hasMessage(args)) {
-            await commit(args);
+            await cmd.run('commit');
         } else {
             const commitIntro = buildCommitIntro(
                 commitIntroText,
@@ -138,11 +141,13 @@ export const run = async () => {
                 : null;
 
             const message = await askForMessage(commitIntro, defaultMessage);
-            await commit([...args, '-m', message]);
+            await cmd.run('commit', ['-m', message]);
         }
     } catch (error) {
         exitWithError(error);
     }
 };
 
-run();
+if (!isRepl()) run();
+
+export default run;

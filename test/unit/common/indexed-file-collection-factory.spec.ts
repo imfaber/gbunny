@@ -7,8 +7,8 @@ import {
     isUnmergedFile,
     getStatusByCode,
     getList
-} from '@/common/indexed-file-list-factory';
-import { cleanStatus, dirtyStatus } from '../__fixtures__/git-status-result';
+} from '@/common/indexed-file-collection-factory';
+import { cleanStatus, dirtyStatus } from '../fixtures/git-status-result';
 
 describe('Status summary', () => {
     describe('getIndentedFileStatus()', () => {
