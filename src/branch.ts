@@ -4,6 +4,7 @@ import { gitCommand as createGitCommand } from './common/git-command-factory';
 import { GitEntityType } from './common/types';
 import hasAllArgument from './common/has-all-argument';
 import isRepl from './common/is-repl';
+import entitySelector from './common/entity-selector';
 
 export const run = async (options?: string[]) => {
     const cmd = await createGitCommand(options);
@@ -15,6 +16,7 @@ export const run = async (options?: string[]) => {
 
     if (!args || hasAllArgument(args)) {
         const indexedCollection = cmd.getActiveEntityCollection();
+        await entitySelector(indexedCollection.list, 'Select the branch');
         const { list: allBranches } = indexedCollection;
         const branchList = hasAllArgument(args)
             ? allBranches

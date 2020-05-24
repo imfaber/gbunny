@@ -72,7 +72,8 @@ export const gitCommand = async (
                 ].join(' ')
             );
 
-            print(result ? '' : '\n👍', true);
+
+            print(result && result.trim() ? '' : '\n👍', true);
 
             if (!isRepl()) {
                 process.exit(0);
