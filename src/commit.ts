@@ -141,7 +141,7 @@ export const run = async (options?: string[]) => {
                 : null;
 
             const message = await askForMessage(commitIntro, defaultMessage);
-            await cmd.run('commit', ['-m', message]);
+            await cmd.run('commit', ['-m', `"${message}"`]);
         }
     } catch (error) {
         exitWithError(error);
