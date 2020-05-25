@@ -87,8 +87,8 @@ const buildCommitIntro = (introText: string, filesCount: number): string => {
     return chalk.yellow(`${introText} (${chalk.red(filesCount)})`);
 };
 
-export const run = async (options?: string[]) => {
-    const cmd = await createGitCommand(options);
+export const run = async (cmdArgs?: string[]) => {
+    const cmd = await createGitCommand(cmdArgs);
     const { git, canRun } = cmd;
     const args = cmd.args || [];
     const indexedCollection = cmd.getActiveEntityCollection();

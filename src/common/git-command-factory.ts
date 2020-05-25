@@ -12,7 +12,7 @@ import exitWithError from './exit-with-error';
 import hasHelpArgument from './has-help-argument';
 
 export const gitCommand = async (
-    options: string[] = []
+    cmdArgs: string[] = []
 ): Promise<GitCommand> => {
     checkGit();
 
@@ -48,7 +48,7 @@ export const gitCommand = async (
     await setActiveEntityCollection(activeGitIndexedEntityType.toString());
 
     let args: string[] | undefined;
-    args = isRepl() ? options : process.argv.slice(2);
+    args = isRepl() ? cmdArgs : process.argv.slice(2);
     args =
         args.length > 0
             ? (args = indexArgTransformer(

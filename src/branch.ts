@@ -6,8 +6,8 @@ import hasAllArgument from './common/has-all-argument';
 import isRepl from './common/is-repl';
 import selectEntity from './common/select-entity';
 
-export const run = async (options?: string[]) => {
-    const cmd = await createGitCommand(options);
+export const run = async (cmdArgs?: string[]) => {
+    const cmd = await createGitCommand(cmdArgs);
     const { args } = cmd;
 
     if (!cmd.canRun) return;
