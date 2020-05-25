@@ -8,7 +8,7 @@ import inquirerCommandPrompt from 'inquirer-command-prompt';
 import inquirer from 'inquirer';
 import clear from 'clear';
 import print from './common/print';
-import { pointerRightTall } from './common/symbols';
+import { pointerRightTall, pointerRightPL } from './common/symbols';
 import checkGit from './common/check-git';
 import { exitCommands, commands } from './command';
 import { grey, greyLight, greyDark } from './common/hex-colors';
@@ -21,7 +21,9 @@ const run = async () => {
             type: 'command',
             name: 'cmd',
             message: chalk.hex(greyDark)('git'),
-            prefix: chalk.hex(grey)(pointerRightTall),
+            prefix: `${chalk.bgGreenBright(
+                chalk.black(' fdsdsf/sdafsad ')
+            )}${chalk.greenBright(pointerRightPL)}`,
             transformer: (input) => chalk.hex(greyLight)(input)
         }
     ]);
