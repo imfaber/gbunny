@@ -95,3 +95,8 @@ export interface GitIndexedEntityCollection {
     list: GitIndexedEntity[];
     printEntities: (list?: GitIndexedEntity[]) => void;
 }
+
+export interface EntitySelectorChoice {
+    name: string;
+    value: string;
+}

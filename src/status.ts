@@ -46,13 +46,18 @@ const printStatusHeader = (status: StatusHeaderArgs): undefined => {
     print(chalk.hex(hexColors.greyLight)(header), true);
 };
 
-export const run = async () => {
-    const cmd = await createGitCommand();
-    const { git, canRun } = cmd;
+export const run = async (cmdArgs?: string[]) => {
+    const cmd = await createGitCommand(cmdArgs);
+    const { git, canRun, args } = cmd;
 
     if (!canRun) return;
 
     await cmd.setActiveGitIndexedEntity(GitEntityType.File);
+
+    if (args) {
+        await cmd.run('status');
+        return;
+    }
 
     try {
         const s = await git.status();

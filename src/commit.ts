@@ -87,8 +87,8 @@ const buildCommitIntro = (introText: string, filesCount: number): string => {
     return chalk.yellow(`${introText} (${chalk.red(filesCount)})`);
 };
 
-export const run = async (options?: string[]) => {
-    const cmd = await createGitCommand(options);
+export const run = async (cmdArgs?: string[]) => {
+    const cmd = await createGitCommand(cmdArgs);
     const { git, canRun } = cmd;
     const args = cmd.args || [];
     const indexedCollection = cmd.getActiveEntityCollection();
@@ -105,6 +105,8 @@ export const run = async (options?: string[]) => {
             (f) => f.area === GitArea.WorkTree
         );
 
+        const { _: providedFiles } = minimist(args || []);
+
         if (hasAllArgument(args)) {
             const allFileNames = [
                 ...stagedFiles.map((f) => f.name),
@@ -112,10 +114,16 @@ export const run = async (options?: string[]) => {
             ];
 
             filesToCommitCount = [...new Set(allFileNames)].length;
+        } else if (providedFiles.length > 0) {
+            filesToCommit = stagedFiles.filter((f) =>
+                providedFiles.includes(f.name)
+            );
+            filesToCommitCount = providedFiles.length;
+            commitIntroText = 'Committing staged files';
         } else {
             filesToCommit = stagedFiles;
             filesToCommitCount = stagedFiles.length;
-            commitIntroText = 'Committing staged files';
+            commitIntroText = 'Committing all staged files';
         }
 
         if (filesToCommit.length === 0 && !args.includes('--amend')) {

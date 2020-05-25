@@ -299,7 +299,7 @@ export const printEntities = (list: GitIndexedFile[]) => {
         ...printOptions,
         title: 'Untracked files',
         files: list.filter((f) => f.area === GitArea.Untracked),
-        chalkColor: chalk.hex(hexColors.greyLight)
+        chalkColor: chalk.hex(hexColors.grey)
     });
 
     printStatusSection({

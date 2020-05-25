@@ -9,9 +9,10 @@ import checkGit from './check-git';
 import print from './print';
 import hasColorOption from './has-color-option';
 import exitWithError from './exit-with-error';
+import hasHelpArgument from './has-help-argument';
 
 export const gitCommand = async (
-    options: string[] = []
+    cmdArgs: string[] = []
 ): Promise<GitCommand> => {
     checkGit();
 
@@ -47,7 +48,7 @@ export const gitCommand = async (
     await setActiveEntityCollection(activeGitIndexedEntityType.toString());
 
     let args: string[] | undefined;
-    args = isRepl() ? options : process.argv.slice(2);
+    args = isRepl() ? cmdArgs : process.argv.slice(2);
     args =
         args.length > 0
             ? (args = indexArgTransformer(
@@ -60,19 +61,21 @@ export const gitCommand = async (
         const colorOption: string[] = [];
 
         try {
-            if (hasColorOption(cmdName)) colorOption.push('--color');
+            if (hasColorOption(cmdName) && !hasHelpArgument(args)) {
+                colorOption.push('--color');
+            }
 
-            const result = exec(
+            exec(
                 [
                     'git',
                     cmdName,
+                    ...colorOption,
                     ...(args || []),
-                    ...(extraArgs || []),
-                    ...colorOption
+                    ...(extraArgs || [])
                 ].join(' ')
             );
 
-            print(result ? '' : '\n👍', true);
+            print('', true);
 
             if (!isRepl()) {
                 process.exit(0);

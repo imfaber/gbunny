@@ -3,14 +3,14 @@ import commit from './commit';
 import branch from './branch';
 
 export const commands = {
-    status: () => status(),
-    st: () => status(),
-    s: () => status(),
-    branch: () => branch(),
-    b: (opts?: string[]) => branch(opts),
+    status: (opts: string[]) => status(opts),
+    st: (opts: string[]) => status(opts),
+    s: (opts: string[]) => status(opts),
+    branch: (opts: string[]) => branch(opts),
+    b: (opts: string[]) => branch(opts),
     ba: () => branch(['-a']),
-    commit: () => commit(),
-    c: () => commit(),
+    commit: (opts: string[]) => commit(opts),
+    c: (opts: string[]) => commit(opts),
     ca: () => commit(['-a'])
 } as any;
 
