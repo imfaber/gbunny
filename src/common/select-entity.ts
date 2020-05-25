@@ -9,7 +9,7 @@ export default async (
     label: string,
     choices: (EntitySelectorChoice | string | Separator)[],
     singleChoice: boolean = true
-): Promise<string> => {
+): Promise<string[]> => {
     const { selection } = await inquirer.prompt({
         type: singleChoice ? 'list' : 'checkbox',
         name: 'selection',
@@ -23,5 +23,5 @@ export default async (
         pageSize: 15
     });
 
-    return singleChoice ? selection : selection.join(' ');
+    return singleChoice ? [selection] : selection;
 };

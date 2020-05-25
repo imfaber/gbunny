@@ -11,7 +11,7 @@ import print from './common/print';
 import { pointerRightTall } from './common/symbols';
 import checkGit from './common/check-git';
 import { exitCommands, commands } from './command';
-import { grey, greyLight } from './common/hex-colors';
+import { grey, greyLight, greyDark } from './common/hex-colors';
 import { gitCommand as createGitCommand } from './common/git-command-factory';
 
 const run = async () => {
@@ -20,7 +20,7 @@ const run = async () => {
         {
             type: 'command',
             name: 'cmd',
-            message: chalk.hex(grey)('git'),
+            message: chalk.hex(greyDark)('git'),
             prefix: chalk.hex(grey)(pointerRightTall),
             transformer: (input) => chalk.hex(greyLight)(input)
         }
@@ -36,7 +36,11 @@ const run = async () => {
         process.exit(0);
     }
 
-    const [cmdName, ...options] = cmd.split(' ');
+    const [cmdName, ...options] = cmd
+        .replace(/^git\s/, '')
+        .replace(/^g/, '')
+        .trim()
+        .split(' ');
 
     if (cmdName in commands) {
         await commands[cmdName](options);

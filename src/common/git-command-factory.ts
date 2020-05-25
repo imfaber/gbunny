@@ -9,6 +9,7 @@ import checkGit from './check-git';
 import print from './print';
 import hasColorOption from './has-color-option';
 import exitWithError from './exit-with-error';
+import hasHelpArgument from './has-help-argument';
 
 export const gitCommand = async (
     options: string[] = []
@@ -60,20 +61,21 @@ export const gitCommand = async (
         const colorOption: string[] = [];
 
         try {
-            if (hasColorOption(cmdName)) colorOption.push('--color');
+            if (hasColorOption(cmdName) && !hasHelpArgument(args)) {
+                colorOption.push('--color');
+            }
 
-            const result = exec(
+            exec(
                 [
                     'git',
                     cmdName,
+                    ...colorOption,
                     ...(args || []),
                     ...(extraArgs || []),
-                    ...colorOption
                 ].join(' ')
             );
 
-
-            print(result && result.trim() ? '' : '\n👍', true);
+            print('', true);
 
             if (!isRepl()) {
                 process.exit(0);
