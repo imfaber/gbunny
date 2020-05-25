@@ -21,6 +21,7 @@ export const askForMessage = async (
     defaultMessage?: string | null
 ): Promise<string> => {
     if (intro) {
+        print('', true);
         print(intro);
     }
 

@@ -54,6 +54,7 @@
         "inquirer-command-prompt": "0.0.27",
         "lodash.flatten": "4.4.0",
         "minimist": "1.2.5",
+        "ora": "4.0.4",
         "parse-numeric-range": "1.2.0",
         "shell-exec": "1.0.2",
         "shelljs": "0.8.4",

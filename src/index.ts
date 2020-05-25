@@ -6,6 +6,7 @@ import chalk from 'chalk';
 import figlet from 'figlet';
 import inquirerCommandPrompt from 'inquirer-command-prompt';
 import inquirer from 'inquirer';
+import simpleGit from 'simple-git/promise';
 import clear from 'clear';
 import print from './common/print';
 import { pointerRightTall, pointerRightPL } from './common/symbols';
@@ -13,17 +14,34 @@ import checkGit from './common/check-git';
 import { exitCommands, commands } from './command';
 import { grey, greyLight, greyDark } from './common/hex-colors';
 import { gitCommand as createGitCommand } from './common/git-command-factory';
+import exitWithError from './common/exit-with-error';
+import { getDivergeInfo } from './status';
 
 const run = async () => {
+    const status = await simpleGit().status();
     const { prompt } = inquirer;
+    let prefix = chalk.black(` ${status.current}`);
+    const diverge = getDivergeInfo(status);
+
+    if (diverge) {
+        prefix += `${diverge}`;
+    }
+
+    prefix = chalk.black(`${prefix} `);
+
+    prefix =
+        status.files.length === 0
+            ? `${chalk.bgGreenBright(prefix)}${chalk.greenBright(
+                  pointerRightPL
+              )}`
+            : `${chalk.bgYellow(prefix)}${chalk.yellow(pointerRightPL)}`;
+
     const { cmd } = await prompt([
         {
             type: 'command',
             name: 'cmd',
             message: chalk.hex(greyDark)('git'),
-            prefix: `${chalk.bgGreenBright(
-                chalk.black(' fdsdsf/sdafsad ')
-            )}${chalk.greenBright(pointerRightPL)}`,
+            prefix,
             transformer: (input) => chalk.hex(greyLight)(input)
         }
     ]);
@@ -39,9 +57,9 @@ const run = async () => {
     }
 
     const [cmdName, ...options] = cmd
+        .trim()
         .replace(/^git\s/, '')
         .replace(/^g/, '')
-        .trim()
         .split(' ');
 
     if (cmdName in commands) {
@@ -71,7 +89,7 @@ const welcome = () => {
     clear();
     print(
         chalk.green(
-            figlet.textSync('g-Bunny', {
+            figlet.textSync('gBunny', {
                 horizontalLayout: 'full',
                 font: 'Larry 3D'
             })

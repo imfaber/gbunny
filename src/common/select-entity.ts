@@ -4,12 +4,15 @@ import chalk from 'chalk';
 import { EntitySelectorChoice } from './types';
 import { pointerRightTall } from './symbols';
 import { grey } from './hex-colors';
+import print from './print';
 
 export default async (
     label: string,
     choices: (EntitySelectorChoice | string | Separator)[],
     singleChoice: boolean = true
 ): Promise<string[]> => {
+    print('', true);
+
     const { selection } = await inquirer.prompt({
         type: singleChoice ? 'list' : 'checkbox',
         name: 'selection',

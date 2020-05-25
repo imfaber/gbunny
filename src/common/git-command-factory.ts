@@ -65,6 +65,8 @@ export const gitCommand = async (
                 colorOption.push('--color');
             }
 
+            print('', true);
+
             exec(
                 [
                     'git',
@@ -75,7 +77,7 @@ export const gitCommand = async (
                 ].join(' ')
             );
 
-            print('', true);
+            print(``, true);
 
             if (!isRepl()) {
                 process.exit(0);

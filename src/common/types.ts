@@ -1,5 +1,6 @@
 import { SimpleGit } from 'simple-git/promise';
 import { Chalk } from 'chalk';
+import { StatusResult } from 'simple-git/typings/response.d';
 
 export interface GBunny {
     git: SimpleGit;
@@ -53,6 +54,7 @@ export interface GitCommand {
     args: string[] | undefined;
     canRun: boolean;
     run: (cmdName: string, extraArgs?: string[]) => Promise<void>;
+    status: StatusResult;
     setActiveGitIndexedEntity: (indexType: GitEntityType) => Promise<void>;
     getActiveEntityCollection: () => GitIndexedEntityCollection;
 }

@@ -292,7 +292,7 @@ export const printEntities = (list: GitIndexedFile[]) => {
         ...printOptions,
         title: 'Changes not staged for commit',
         files: list.filter((f) => f.area === GitArea.WorkTree),
-        chalkColor: chalk.yellow
+        chalkColor: chalk.yellowBright
     });
 
     printStatusSection({

@@ -3,9 +3,9 @@
 import chalk from 'chalk';
 import { StatusResult } from 'simple-git/typings/response.d';
 import createGitCommand from './common/git-command-factory';
-import print from './common/print';
 import { StatusHeaderArgs, GitEntityType } from './common/types';
 import symbols from './common/symbols';
+import print from './common/print';
 import hexColors from './common/hex-colors';
 import exitWithError from './common/exit-with-error';
 import isRepl from './common/is-repl';
@@ -25,7 +25,7 @@ export const getDivergeInfo = (status: StatusResult): string => {
         info += ` ${symbols.arrowUp}${status.ahead}`;
     }
 
-    return info ? chalk.hex('ffcd3a')(info) : '';
+    return info || '';
 };
 
 const printStatusHeader = (status: StatusHeaderArgs): undefined => {
@@ -40,7 +40,7 @@ const printStatusHeader = (status: StatusHeaderArgs): undefined => {
     }
 
     if (status.diverge) {
-        header += ` |${status.diverge}`;
+        header += ` |${chalk.yellowBright(status.diverge)}`;
     }
 
     print(chalk.hex(hexColors.greyLight)(header), true);
@@ -60,13 +60,15 @@ export const run = async (cmdArgs?: string[]) => {
     }
 
     try {
-        const s = await git.status();
+        const status = await git.status();
         const indexedCollection = cmd.getActiveEntityCollection();
 
+        print('', true);
+
         printStatusHeader({
-            branch: s.current || undefined,
-            tracking: getTrackingInfo(s),
-            diverge: getDivergeInfo(s)
+            branch: status.current || undefined,
+            tracking: getTrackingInfo(status),
+            diverge: getDivergeInfo(status)
         });
 
         indexedCollection.printEntities();
