@@ -9,7 +9,8 @@ const choices = [
     {
         name: 'option 2',
         value: 'option 2'
-    }];
+    }
+];
 
 describe('Select entity', () => {
     it('should return the selected entity name', async () => {

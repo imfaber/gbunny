@@ -71,7 +71,7 @@ export const gitCommand = async (
                     cmdName,
                     ...colorOption,
                     ...(args || []),
-                    ...(extraArgs || []),
+                    ...(extraArgs || [])
                 ].join(' ')
             );
 
