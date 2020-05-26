@@ -42,7 +42,29 @@ const run = async () => {
             name: 'cmd',
             message: chalk.hex(greyDark)('git'),
             prefix,
-            transformer: (input) => chalk.hex(greyLight)(input)
+            transformer: (input) => chalk.hex(greyLight)(input),
+            autoCompletion: [
+                'help',
+                'add',
+                'mv',
+                'reset',
+                'rm',
+                'bisect',
+                'grep',
+                'log',
+                'show',
+                'status',
+                'branch',
+                'checkout',
+                'commit',
+                'diff',
+                'merge',
+                'rebase',
+                'tag',
+                'fetch',
+                'pull',
+                'push'
+            ]
         }
     ]);
 
