@@ -22,22 +22,6 @@ export default async () => {
         .pop();
     const branch = chalk.black(` ${gitPL} ${status.current}`);
 
-    let prompt =
-        chalk.bgHex(purple)(` ${chalk.black((repoDir || '').trim())}`) +
-        chalk[status.files.length === 0 ? 'bgGreenBright' : 'bgYellow'](
-            chalk.hex(purple)(pointerRightRoundedPL)
-        );
-
-    prompt +=
-        chalk[status.files.length === 0 ? 'bgGreenBright' : 'bgYellow'](
-            branch
-        ) +
-        chalk[status.files.length === 0 ? 'bgGreenBright' : 'bgYellowBright'](
-            chalk[status.files.length === 0 ? 'greenBright' : 'yellow'](
-                pointerRightRoundedPL
-            )
-        );
-
     const stagedFiles: FileStatusResult[] = filesCollection.getStagedFiles();
     const unstagedFiles: FileStatusResult[] = filesCollection.getUnstagedFiles();
 
@@ -85,6 +69,24 @@ export default async () => {
 
     let fileStatus = changes ? ` ${changes}` : '';
     fileStatus += conflicts;
+
+    let prompt =
+        chalk.bgHex(purple)(` ${chalk.black((repoDir || '').trim())}`) +
+        chalk[status.files.length === 0 ? 'bgGreenBright' : 'bgYellow'](
+            chalk.hex(purple)(pointerRightRoundedPL)
+        );
+
+    prompt += chalk[status.files.length === 0 ? 'bgGreenBright' : 'bgYellow'](
+        branch
+    );
+
+    prompt += chalk[
+        status.files.length === 0 ? 'bgGreenBright' : 'bgYellowBright'
+    ](
+        chalk[status.files.length === 0 ? 'greenBright' : 'yellow'](
+            pointerRightRoundedPL
+        )
+    );
 
     prompt += `${chalk.bgYellowBright(
         chalk.black(diverge + fileStatus)
