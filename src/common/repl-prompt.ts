@@ -3,7 +3,12 @@ import simpleGit from 'simple-git/promise';
 import { exec } from 'shelljs';
 import { FileStatusResult } from 'simple-git/typings/response.d';
 import { getDivergeInfo } from '../status';
-import { gitPL, pointerRightRoundedPL, pointerRightPL, verticalBar } from './symbols';
+import {
+    gitPL,
+    pointerRightRoundedPL,
+    pointerRightPL,
+    verticalBar
+} from './symbols';
 import { purple } from './hex-colors';
 import createIndexedFilesCollection from './indexed-file-collection-factory';
 import { StatusCode } from './types';
@@ -55,20 +60,24 @@ export default async () => {
         (f) => f.working_dir === StatusCode.Deleted
     ).length;
 
-    let fileStatusStage = stagedAdded ? `+${stagedAdded} ` : '';
-    fileStatusStage += stagedModified ? `~${stagedModified} ` : '';
-    fileStatusStage += stagedDeleted ? `-${stagedDeleted} ` : '';
-    fileStatusStage = fileStatusStage.trim();
+    let fileStatusStage =
+        stagedAdded || unstagedAdded ? `+${stagedAdded} ` : '';
+    fileStatusStage +=
+        stagedModified || unstagedModified ? `~${stagedModified} ` : '';
+    fileStatusStage +=
+        stagedDeleted || unstagedDeleted ? `-${stagedDeleted} ` : '';
 
-    let fileStatusWorkTree = unstagedAdded ? `+${unstagedAdded} ` : '';
-    fileStatusWorkTree += unstagedModified ? `~${unstagedModified} ` : '';
-    fileStatusWorkTree += unstagedDeleted ? `-${unstagedDeleted} ` : '';
-    fileStatusWorkTree = fileStatusWorkTree.trim();
-    fileStatusWorkTree = fileStatusStage
-        ? ` ${verticalBar} ${fileStatusWorkTree}`
-        : fileStatusWorkTree;
+    let fileStatusWorkTree =
+        stagedAdded || unstagedAdded ? `+${unstagedAdded} ` : '';
+    fileStatusWorkTree +=
+        stagedModified || unstagedModified ? `~${unstagedModified} ` : '';
+    fileStatusWorkTree +=
+        stagedDeleted || unstagedDeleted ? `-${unstagedDeleted} ` : '';
 
-    const changes = fileStatusStage + fileStatusWorkTree;
+    const changes =
+        fileStatusStage || fileStatusWorkTree
+            ? `${fileStatusStage.trim()} ${verticalBar} ${fileStatusWorkTree.trim()}`
+            : '';
 
     const conflicts = status.conflicted.length
         ? ` ${verticalBar} !${status.conflicted.length}`
