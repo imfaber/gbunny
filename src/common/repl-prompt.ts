@@ -80,17 +80,23 @@ export default async () => {
         branch
     );
 
-    prompt += chalk[
-        status.files.length === 0 ? 'bgGreenBright' : 'bgYellowBright'
-    ](
-        chalk[status.files.length === 0 ? 'greenBright' : 'yellow'](
-            pointerRightRoundedPL
-        )
-    );
+    // prompt += chalk[
+    //     status.files.length === 0 ? 'bgGreenBright' : 'bgYellowBright'
+    // ](
+    //     chalk[status.files.length === 0 ? 'greenBright' : 'yellow'](
+    //         pointerRightRoundedPL
+    //     )
+    // );
 
-    prompt += `${chalk.bgYellowBright(
-        chalk.black(diverge + fileStatus)
-    )}${chalk.yellowBright(pointerRightRoundedPL)}`;
+    if (fileStatus || diverge) {
+        prompt += chalk.bgYellowBright(chalk.yellow(pointerRightRoundedPL));
+
+        prompt += `${chalk.bgYellowBright(
+            `${chalk.black(diverge + fileStatus)} `
+        )}${chalk.yellowBright(pointerRightRoundedPL)}`;
+    } else {
+        prompt += chalk.greenBright(pointerRightRoundedPL);
+    }
 
     return prompt;
 };
