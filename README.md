@@ -1,3 +1,3 @@
 # GIT Bunny
 
-Enhance your interaction with git
+Commands and REPL to enhance your interaction with git.

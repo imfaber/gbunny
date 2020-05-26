@@ -7,40 +7,31 @@ import figlet from 'figlet';
 import inquirerCommandPrompt from 'inquirer-command-prompt';
 import inquirer from 'inquirer';
 import simpleGit from 'simple-git/promise';
+import { exec } from 'shelljs';
 import clear from 'clear';
 import print from './common/print';
-import { pointerRightTall, pointerRightPL } from './common/symbols';
+import {
+    pointerRightTall,
+    pointerRightPL,
+    pointerRightRoundedPL,
+    gitPL
+} from './common/symbols';
 import checkGit from './common/check-git';
 import { exitCommands, commands } from './command';
-import { grey, greyLight, greyDark } from './common/hex-colors';
+import { grey, greyLight, greyDark, purple } from './common/hex-colors';
 import { gitCommand as createGitCommand } from './common/git-command-factory';
 import exitWithError from './common/exit-with-error';
+import replPrompt from './common/repl-prompt';
 import { getDivergeInfo } from './status';
 
 const run = async () => {
-    const status = await simpleGit().status();
     const { prompt } = inquirer;
-    let prefix = chalk.black(` ${status.current}`);
-    const diverge = getDivergeInfo(status);
-
-    if (diverge) {
-        prefix += `${diverge}`;
-    }
-
-    prefix = chalk.black(`${prefix} `);
-
-    prefix =
-        status.files.length === 0
-            ? `${chalk.bgGreenBright(prefix)}${chalk.greenBright(
-                  pointerRightPL
-              )}`
-            : `${chalk.bgYellow(prefix)}${chalk.yellow(pointerRightPL)}`;
-
+    const prefix = await replPrompt();
     const { cmd } = await prompt([
         {
             type: 'command',
             name: 'cmd',
-            message: chalk.hex(greyDark)('git'),
+            message: chalk.hex(grey)('git'),
             prefix,
             transformer: (input) => chalk.hex(greyLight)(input),
             autoCompletion: [
@@ -63,7 +54,8 @@ const run = async () => {
                 'tag',
                 'fetch',
                 'pull',
-                'push'
+                'push',
+                'remote'
             ]
         }
     ]);
