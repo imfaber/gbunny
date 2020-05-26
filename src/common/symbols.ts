@@ -13,6 +13,8 @@ export const pointerRightDiagonaldPL = '\uE0bc';
 
 export const gitPL = '\uE0A0';
 
+export const verticalBar = '\u2758';
+
 export default {
     gitPL,
     arrowRight,
@@ -22,5 +24,6 @@ export default {
     pointerRightLight,
     pointerRightTall,
     pointerRightPL,
-    pointerRightRoundedPL
+    pointerRightRoundedPL,
+    verticalBar
 };

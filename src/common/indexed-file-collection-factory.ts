@@ -46,7 +46,6 @@ export const getStagedFiles = (
         (f) =>
             f.index.trim() &&
             !isUnmergedFile(f) &&
-            // f.index !== f.working_dir &&
             f.index !== StatusCode.Untracked &&
             f.index !== StatusCode.Unmodified
     );
@@ -304,7 +303,7 @@ export const printEntities = (list: GitIndexedFile[]) => {
 
     printStatusSection({
         ...printOptions,
-        title: 'Unmerged files',
+        title: 'Conflicted files',
         files: list.filter((f) => f.area === GitArea.Unmerged),
         chalkColor: chalk.red
     });
@@ -315,6 +314,10 @@ export default (files: FileStatusResult[]): GitIndexedEntityCollection => {
 
     return {
         list,
-        printEntities: () => printEntities(list)
+        printEntities: () => printEntities(list),
+        getStagedFiles: () => getStagedFiles(files),
+        getUnstagedFiles: () => getUnstagedFiles(files),
+        getUntrackedFiles: () => getUntrackedFiles(files),
+        getUnmergedFiles: () => getUnmergedFiles(files)
     };
 };

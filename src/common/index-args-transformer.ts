@@ -1,4 +1,5 @@
 import parseRange from 'parse-numeric-range';
+import { exec } from 'shelljs';
 import flatten from 'lodash.flatten';
 import { GitIndexedEntity } from './types';
 
@@ -10,6 +11,10 @@ export default function (
         return [];
     }
 
+    const repoDir = exec('git rev-parse --show-toplevel', {
+        silent: true
+    }).trim();
+
     const newArgs: any[] = [...args];
 
     args.forEach((arg, i) => {
@@ -19,7 +24,9 @@ export default function (
                     (e) => e.entityIndex === index
                 );
 
-                return indexedEntity[0] ? indexedEntity[0].name : null;
+                return indexedEntity[0]
+                    ? `${repoDir}/${indexedEntity[0].name}`
+                    : null;
             });
             newArgs[i] = transformedIndexes.filter((e) => e);
         }

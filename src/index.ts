@@ -6,23 +6,13 @@ import chalk from 'chalk';
 import figlet from 'figlet';
 import inquirerCommandPrompt from 'inquirer-command-prompt';
 import inquirer from 'inquirer';
-import simpleGit from 'simple-git/promise';
-import { exec } from 'shelljs';
 import clear from 'clear';
 import print from './common/print';
-import {
-    pointerRightTall,
-    pointerRightPL,
-    pointerRightRoundedPL,
-    gitPL
-} from './common/symbols';
 import checkGit from './common/check-git';
 import { exitCommands, commands } from './command';
-import { grey, greyLight, greyDark, purple } from './common/hex-colors';
+import { grey, greyLight } from './common/hex-colors';
 import { gitCommand as createGitCommand } from './common/git-command-factory';
-import exitWithError from './common/exit-with-error';
 import replPrompt from './common/repl-prompt';
-import { getDivergeInfo } from './status';
 
 const run = async () => {
     const { prompt } = inquirer;

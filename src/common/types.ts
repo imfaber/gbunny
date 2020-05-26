@@ -96,6 +96,7 @@ export enum GitArea {
 export interface GitIndexedEntityCollection {
     list: GitIndexedEntity[];
     printEntities: (list?: GitIndexedEntity[]) => void;
+    [key: string]: any;
 }
 
 export interface EntitySelectorChoice {
