@@ -7,7 +7,8 @@ import {
     gitPL,
     pointerRightRoundedPL,
     pointerRightPL,
-    verticalBar
+    verticalBar,
+    pointerRightTall
 } from './symbols';
 import { purple } from './hex-colors';
 import createIndexedFilesCollection from './indexed-file-collection-factory';
@@ -70,23 +71,17 @@ export default async () => {
     let fileStatus = changes ? ` ${changes}` : '';
     fileStatus += conflicts;
 
-    let prompt =
-        chalk.bgHex(purple)(` ${chalk.black((repoDir || '').trim())}`) +
-        chalk[status.files.length === 0 ? 'bgGreenBright' : 'bgYellow'](
-            chalk.hex(purple)(pointerRightRoundedPL)
-        );
+    let prompt = `gBunny ${pointerRightTall} `;
+
+    prompt +=
+        chalk.bgHex(purple).black(` ${(repoDir || '').trim()} `) +
+        chalk[status.files.length === 0 ? 'bgGreenBright' : 'bgYellow'].hex(
+            purple
+        )(pointerRightRoundedPL);
 
     prompt += chalk[status.files.length === 0 ? 'bgGreenBright' : 'bgYellow'](
-        branch
+        `${branch} `
     );
-
-    // prompt += chalk[
-    //     status.files.length === 0 ? 'bgGreenBright' : 'bgYellowBright'
-    // ](
-    //     chalk[status.files.length === 0 ? 'greenBright' : 'yellow'](
-    //         pointerRightRoundedPL
-    //     )
-    // );
 
     if (fileStatus || diverge) {
         prompt += chalk.bgYellowBright(
