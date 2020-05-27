@@ -47,7 +47,7 @@ describe('Status summary', () => {
         it('should return the unstaged files', () => {
             expect(getUnstagedFiles(dirtyStatus.files)).toEqual([
                 { path: 'committed-file', working_dir: 'D', index: 'A' },
-                { path: 'src/file2.ts', working_dir: 'M', index: ' ' }
+                { path: 'file2.ts', working_dir: 'M', index: ' ' }
             ]);
         });
 
@@ -61,7 +61,7 @@ describe('Status summary', () => {
             expect(getUntrackedFiles(dirtyStatus.files)).toEqual([
                 { path: 'not-added-file', working_dir: '?', index: '?' },
                 {
-                    path: 'src/another-modified-file.ts',
+                    path: 'another-modified-file.ts',
                     working_dir: '?',
                     index: '?'
                 }
@@ -138,7 +138,7 @@ describe('Status summary', () => {
                 {
                     area: 2,
                     entityIndex: 5,
-                    name: 'src/file2.ts',
+                    name: 'file2.ts',
                     status: 'Modified',
                     type: 'file'
                 },
@@ -152,7 +152,7 @@ describe('Status summary', () => {
                 {
                     area: 0,
                     entityIndex: 7,
-                    name: 'src/another-modified-file.ts',
+                    name: 'another-modified-file.ts',
                     status: 'Untracked',
                     type: 'file'
                 },

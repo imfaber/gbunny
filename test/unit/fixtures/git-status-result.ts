@@ -21,13 +21,13 @@ export const dirtyStatus: StatusResult = {
     conflicted: [],
     created: ['created-file'],
     deleted: [],
-    modified: ['file1', 'src/file2.ts'],
+    modified: ['file1', 'file2.ts'],
     renamed: [],
     files: [
         { path: 'file1', index: 'M', working_dir: ' ' },
         { path: 'created-file', index: 'A', working_dir: ' ' },
         { path: 'committed-file', index: 'A', working_dir: 'D' },
-        { path: 'src/file2.ts', index: ' ', working_dir: 'M' },
+        { path: 'file2.ts', index: ' ', working_dir: 'M' },
         { path: 'not-added-file', index: '?', working_dir: '?' },
         { path: 'conflict-file', index: 'D', working_dir: 'D' },
         { path: 'conflict-file', index: 'A', working_dir: 'U' },
@@ -37,7 +37,7 @@ export const dirtyStatus: StatusResult = {
         { path: 'conflict-file', index: 'A', working_dir: 'A' },
         { path: 'conflict-file', index: 'U', working_dir: 'U' },
         {
-            path: 'src/another-modified-file.ts',
+            path: 'another-modified-file.ts',
             index: '?',
             working_dir: '?'
         }
