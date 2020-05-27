@@ -1,12 +1,10 @@
 import chalk from 'chalk';
 import simpleGit from 'simple-git/promise';
-import { exec } from 'shelljs';
 import { FileStatusResult } from 'simple-git/typings/response.d';
 import { getDivergeInfo } from '../status';
 import {
     gitPL,
     pointerRightRoundedPL,
-    pointerRightPL,
     verticalBar,
     pointerRightTall
 } from './symbols';

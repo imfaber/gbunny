@@ -1,5 +1,5 @@
 import simpleGit from 'simple-git/promise';
-import { exec } from 'shelljs';
+import { spawnSync } from 'child_process';
 import { GitCommand, GitEntityType, GitIndexedEntityCollection } from './types';
 import createIndexedBranchCollection from './indexed-branch-collection-factory';
 import createIndexedFilesCollection from './indexed-file-collection-factory';
@@ -7,9 +7,7 @@ import indexArgTransformer from './index-args-transformer';
 import isRepl from './is-repl';
 import checkGit from './check-git';
 import print from './print';
-import hasColorOption from './has-color-option';
 import exitWithError from './exit-with-error';
-import hasHelpArgument from './has-help-argument';
 
 export const gitCommand = async (
     cmdArgs: string[] = []
@@ -58,24 +56,13 @@ export const gitCommand = async (
             : undefined;
 
     const run = async (cmdName: string, extraArgs?: string[]) => {
-        const colorOption: string[] = [];
-
         try {
-            if (hasColorOption(cmdName) && !hasHelpArgument(args)) {
-                colorOption.push('--color');
-            }
-
             print('', true);
 
-            const result = exec(
-                [
-                    'git',
-                    cmdName,
-                    ...colorOption,
-                    ...(args || []),
-                    ...(extraArgs || [])
-                ].join(' ')
-            );
+            spawnSync('git', [cmdName, ...(args || []), ...(extraArgs || [])], {
+                shell: true,
+                stdio: 'inherit'
+            });
 
             print('', true);
 

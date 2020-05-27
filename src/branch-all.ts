@@ -1,5 +1,8 @@
 #!/usr/bin/env node
 
-import { exec } from 'shelljs';
+import { spawnSync } from 'child_process';
 
-exec('gbunny-gb -a --color=always');
+spawnSync('gbunny-gb ', ['-a'], {
+    shell: true,
+    stdio: 'inherit'
+});
