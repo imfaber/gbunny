@@ -44,6 +44,7 @@ export const run = async (cmdArgs?: string[]) => {
 
         if (list.length === 0) {
             print('There are no changed files to checkout.', true);
+            return;
         }
 
         const choices: EntitySelectorChoice[] = list.map((e) => ({
