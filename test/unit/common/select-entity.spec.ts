@@ -20,7 +20,7 @@ describe('Select entity', () => {
 
         const selection = await selectEntity('Test', choices);
 
-        expect(selection).toEqual(['option 1']);
+        expect(selection).toEqual('option 1');
     });
 
     it('should return the selected entity names', async () => {

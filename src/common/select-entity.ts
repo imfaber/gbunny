@@ -10,7 +10,7 @@ export default async (
     label: string,
     choices: (EntitySelectorChoice | string | Separator)[],
     singleChoice: boolean = true
-): Promise<string[]> => {
+): Promise<string[] | string> => {
     print('', true);
 
     const { selection } = await inquirer.prompt({
@@ -26,5 +26,5 @@ export default async (
         pageSize: 15
     });
 
-    return singleChoice ? [selection] : selection;
+    return selection;
 };

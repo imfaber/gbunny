@@ -1,7 +1,6 @@
 import parseRange from 'parse-numeric-range';
 import flatten from 'lodash.flatten';
 import { GitIndexedEntity } from './types';
-import getRepoDir from './get-repo-dir';
 
 export default function (
     args: string[] | null | undefined,
@@ -20,9 +19,7 @@ export default function (
                     (e) => e.entityIndex === index
                 );
 
-                return indexedEntity[0]
-                    ? `${getRepoDir()}/${indexedEntity[0].name}`
-                    : null;
+                return indexedEntity[0] ? indexedEntity[0].name : null;
             });
             newArgs[i] = transformedIndexes.filter((e) => e);
         }
