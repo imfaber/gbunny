@@ -60,9 +60,12 @@ export interface GitCommand {
 }
 
 export enum GitEntityType {
+    Branch = 'branch',
     File = 'file',
-    Branch = 'branch'
+    Tag = 'tag'
 }
+
+export type GitEntityTypeKey = keyof typeof GitEntityType;
 
 export interface GitEntity {
     name: string;

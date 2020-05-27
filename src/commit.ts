@@ -15,7 +15,6 @@ import { grey } from './common/hex-colors';
 import exitWithError from './common/exit-with-error';
 import { pointerRightTall } from './common/symbols';
 import isRepl from './common/is-repl';
-import getRepoDir from './common/get-repo-dir';
 
 export const askForMessage = async (
     intro?: string | Chalk,
@@ -117,9 +116,8 @@ export const run = async (cmdArgs?: string[]) => {
 
             filesToCommitCount = [...new Set(allFileNames)].length;
         } else if (providedFiles.length > 0) {
-            const repoDir = getRepoDir();
             filesToCommit = stagedFiles.filter((f) =>
-                providedFiles.includes(`${repoDir}/${f.name}`)
+                providedFiles.includes(f.name)
             );
             filesToCommitCount = providedFiles.length;
             commitIntroText = 'Committing staged files';

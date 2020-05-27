@@ -1,4 +1,5 @@
 import chalk from 'chalk';
+import path from 'path';
 import { FileStatusResult } from 'simple-git/typings/response.d';
 import print from './print';
 import {
@@ -10,6 +11,7 @@ import {
     PrintFilesArgs
 } from './types';
 import hexColors from './hex-colors';
+import getRepoDir from './get-repo-dir';
 
 /**
  * Determine whether the given file is unmerged
@@ -181,20 +183,22 @@ export const getStatusByCode = (statusCode: string): string => {
  * @param files The unindexd files (FileStatusResult[])
  */
 export const getList = (files: FileStatusResult[]): GitIndexedFile[] => {
+    const repoDir = getRepoDir();
+
     const stagedFiles = getStagedFiles(files).map((f) => ({
-        name: f.path,
+        name: path.relative(process.cwd(), path.join(repoDir, f.path)),
         area: GitArea.Stage,
         status: getStatusByCode(f.index)
     }));
 
     const unstagedFiles = getUnstagedFiles(files).map((f) => ({
-        name: f.path,
+        name: path.relative(process.cwd(), path.join(repoDir, f.path)),
         area: GitArea.WorkTree,
         status: getStatusByCode(f.working_dir)
     }));
 
     const untrackedFiles = getUntrackedFiles(files).map((f) => ({
-        name: f.path,
+        name: path.relative(process.cwd(), path.join(repoDir, f.path)),
         area: GitArea.Untracked,
         status: 'Untracked'
     }));
@@ -252,7 +256,7 @@ export const getList = (files: FileStatusResult[]): GitIndexedFile[] => {
         }
 
         return {
-            name: f.path,
+            name: path.relative(process.cwd(), path.join(repoDir, f.path)),
             area: GitArea.Unmerged,
             status
         };

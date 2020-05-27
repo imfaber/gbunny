@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+import Separator from 'inquirer/lib/objects/separator';
 import { gitCommand as createGitCommand } from './common/git-command-factory';
 import { GitEntityType, EntitySelectorChoice } from './common/types';
 import hasAllArgument from './common/has-all-argument';
@@ -27,10 +28,18 @@ export const run = async (cmdArgs?: string[]) => {
         args.length === 1 &&
         (args.includes('-d') || args.includes('-D'))
     ) {
-        const choices: EntitySelectorChoice[] = allBranches.map((e) => ({
-            name: `[${e.entityIndex}] ${e.name}`,
-            value: e.name
-        }));
+        const choices: (EntitySelectorChoice | Separator)[] = allBranches.map(
+            (e) => ({
+                name: `[${e.entityIndex}] ${e.name}`,
+                value: e.name
+            })
+        );
+
+        const index = allBranches.findIndex((b) =>
+            b.name.startsWith('remotes/')
+        );
+
+        choices.splice(index, 0, new Separator());
 
         const selectedBranches = await selectEntity(
             'Select the branches to delete:',
@@ -38,7 +47,7 @@ export const run = async (cmdArgs?: string[]) => {
             false
         );
 
-        await cmd.run('branch', selectedBranches);
+        await cmd.run('branch', selectedBranches as string[]);
     } else {
         await cmd.run('branch');
     }
