@@ -1,19 +1,25 @@
 #!/usr/bin/env node
 
+import Separator from 'inquirer/lib/objects/separator';
 import createGitCommand from './common/git-command-factory';
 import selectEntity from './common/select-entity';
-import Separator from 'inquirer/lib/objects/separator';
 import {
     GitEntityType,
     GitIndexedEntity,
     EntitySelectorChoice
 } from './common/types';
+import isRepl from './common/is-repl';
 
 export const run = async (cmdArgs?: string[]) => {
     const cmd = await createGitCommand(cmdArgs);
     const { args } = cmd;
 
     if (!cmd.canRun) return;
+
+    if (args) {
+        await cmd.run('checkout');
+        return;
+    }
 
     const getIndexedList = async (
         type: GitEntityType
@@ -45,7 +51,7 @@ export const run = async (cmdArgs?: string[]) => {
             false
         );
 
-        console.log(selectedFiles);
+        await cmd.run('checkout', [...selectedFiles]);
     }
 
     if (entityType === GitEntityType.Branch) {
@@ -62,10 +68,10 @@ export const run = async (cmdArgs?: string[]) => {
             choices
         );
 
-        console.log(selectedBranch);
-
-        // await cmd.run('checkout', [selectedBranch as string]);
+        await cmd.run('checkout', [selectedBranch as string]);
     }
 };
 
-run();
+if (!isRepl()) run();
+
+export default run;
