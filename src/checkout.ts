@@ -9,6 +9,7 @@ import {
     EntitySelectorChoice
 } from './common/types';
 import isRepl from './common/is-repl';
+import print from './common/print';
 
 export const run = async (cmdArgs?: string[]) => {
     const cmd = await createGitCommand(cmdArgs);
@@ -40,6 +41,11 @@ export const run = async (cmdArgs?: string[]) => {
 
     if (entityType === GitEntityType.File) {
         const list = await getIndexedList(GitEntityType.File);
+
+        if (list.length === 0) {
+            print('There are no changed files to checkout.', true);
+        }
+
         const choices: EntitySelectorChoice[] = list.map((e) => ({
             name: `[${e.entityIndex}] ${e.name}`,
             value: e.name
