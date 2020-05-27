@@ -85,7 +85,7 @@ export default async () => {
     );
 
     // File status
-    if (fileStatus || diverge || status.files.length > 0) {
+    if (fileStatus || diverge) {
         prompt += chalk.bgYellowBright(
             chalk[status.files.length === 0 ? 'greenBright' : 'yellow'](
                 pointerRightRoundedPL
@@ -96,7 +96,9 @@ export default async () => {
             `${chalk.black(diverge + fileStatus)} `
         )}${chalk.yellowBright(pointerRightRoundedPL)}`;
     } else {
-        prompt += chalk.greenBright(pointerRightRoundedPL);
+        prompt += chalk[status.files.length === 0 ? 'greenBright' : 'yellow'](
+            pointerRightRoundedPL
+        );
     }
 
     return prompt;
