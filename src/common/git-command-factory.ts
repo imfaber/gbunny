@@ -67,7 +67,7 @@ export const gitCommand = async (
 
             print('', true);
 
-            exec(
+            const result = exec(
                 [
                     'git',
                     cmdName,
@@ -77,7 +77,7 @@ export const gitCommand = async (
                 ].join(' ')
             );
 
-            print(``, true);
+            print(result.trim() ? '' : '👍', true);
 
             if (!isRepl()) {
                 process.exit(0);

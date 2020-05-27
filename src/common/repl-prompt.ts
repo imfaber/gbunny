@@ -13,14 +13,13 @@ import {
 import { purple } from './hex-colors';
 import createIndexedFilesCollection from './indexed-file-collection-factory';
 import { StatusCode } from './types';
+import getRepoDir from './get-repo-dir';
 
 export default async () => {
     const status = await simpleGit().status();
     const filesCollection = createIndexedFilesCollection(status.files);
     const diverge = chalk.black(getDivergeInfo(status));
-    const repoDir = exec('git rev-parse --show-toplevel', { silent: true })
-        .split('/')
-        .pop();
+    const repoDir = getRepoDir().split('/').pop();
     const branch = chalk.black(` ${gitPL} ${status.current}`);
 
     const stagedFiles: FileStatusResult[] = filesCollection.getStagedFiles();
@@ -73,17 +72,20 @@ export default async () => {
 
     let prompt = `gBunny ${pointerRightTall} `;
 
+    // Project
     prompt +=
         chalk.bgHex(purple).black(` ${(repoDir || '').trim()} `) +
         chalk[status.files.length === 0 ? 'bgGreenBright' : 'bgYellow'].hex(
             purple
         )(pointerRightRoundedPL);
 
+    // Branch
     prompt += chalk[status.files.length === 0 ? 'bgGreenBright' : 'bgYellow'](
         `${branch} `
     );
 
-    if (fileStatus || diverge) {
+    // File status
+    if (fileStatus || diverge || status.files.length > 0) {
         prompt += chalk.bgYellowBright(
             chalk[status.files.length === 0 ? 'greenBright' : 'yellow'](
                 pointerRightRoundedPL
