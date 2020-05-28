@@ -2,6 +2,7 @@ import status from './status';
 import commit from './commit';
 import branch from './branch';
 import checkout from './checkout';
+import add from './add';
 
 export const commands = {
     // Status
@@ -21,7 +22,13 @@ export const commands = {
 
     // Checkout
     checkout: (opts: string[]) => checkout(opts),
-    co: (opts: string[]) => checkout(opts)
+    co: (opts: string[]) => checkout(opts),
+
+    // Add
+    add: (opts: string[]) => add(opts),
+    a: (opts: string[]) => add(opts),
+    aa: () => add(['-A']),
+    ap: () => add(['-p']),
 } as any;
 
 export const exitCommands = ['exit', 'quit', 'q'];

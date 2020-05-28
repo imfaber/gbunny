@@ -58,7 +58,11 @@ export const run = async (cmdArgs?: string[]) => {
             false
         );
 
-        await cmd.run('checkout', [...selectedFiles]);
+        if (selectedFiles.length > 0) {
+            await cmd.run('checkout', [...selectedFiles]);
+        } else {
+            print('No file was selected.', true);
+        }
     }
 
     if (entityType === GitEntityType.Branch) {
