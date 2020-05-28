@@ -5,8 +5,6 @@ import createIndexedFilesCollection from './indexed-file-collection-factory';
 import indexArgTransformer from './index-args-transformer';
 import isRepl from './is-repl';
 import checkGit from './check-git';
-import print from './print';
-import exitWithError from './exit-with-error';
 import runCmd from './run-cmd';
 
 export const gitCommand = async (

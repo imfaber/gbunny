@@ -21,11 +21,8 @@
     ],
     "bin": {
         "gbunny": "./dist/index.js",
-        "gbunny-gs": "./dist/status.js",
-        "gbunny-gb": "./dist/branch.js",
-        "gbunny-gba": "./dist/branch-all.js",
-        "gbunny-gco": "./dist/checkout.js",
-        "gbunny-gc": "./dist/commit.js"
+        "gb": "./dist/index.js",
+        "g": "./dist/index.js"
     },
     "scripts": {
         "type-check": "tsc --noEmit",

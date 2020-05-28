@@ -1,13 +1,17 @@
 import { spawnSync } from 'child_process';
 import print from './print';
 
-export default (cmd: string, options: string[] = []) => {
-    print('', true);
-
+export const runCmd = (cmd: string, options: string[] = []) => {
     spawnSync(cmd, options, {
         shell: true,
         stdio: 'inherit'
     });
+};
 
+export const runGitCmd = (args: string[]) => {
+    print('', true);
+    runCmd('git', [...args]);
     print('', true);
 };
+
+export default runCmd;

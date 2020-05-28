@@ -14,7 +14,22 @@ import { grey, greyLight } from './common/hex-colors';
 import { gitCommand as createGitCommand } from './common/git-command-factory';
 import replPrompt from './common/repl-prompt';
 
-const run = async () => {
+const run = async (cmd: string) => {
+    const [cmdName, ...options] = cmd
+        .trim()
+        .replace(/^git\s/, '')
+        .replace(/^g/, '')
+        .split(' ');
+
+    if (cmdName in commands) {
+        await commands[cmdName](options);
+    } else {
+        const gitCommand = await createGitCommand(options);
+        await gitCommand.run(cmdName);
+    }
+};
+
+const askCommand = async () => {
     const { prompt } = inquirer;
     const prefix = await replPrompt();
     const { cmd } = await prompt([
@@ -51,7 +66,7 @@ const run = async () => {
     ]);
 
     if (!cmd) {
-        await run();
+        await askCommand();
         return;
     }
 
@@ -60,20 +75,8 @@ const run = async () => {
         process.exit(0);
     }
 
-    const [cmdName, ...options] = cmd
-        .trim()
-        .replace(/^git\s/, '')
-        .replace(/^g/, '')
-        .split(' ');
-
-    if (cmdName in commands) {
-        await commands[cmdName](options);
-    } else {
-        const gitCommand = await createGitCommand(options);
-        await gitCommand.run(cmdName);
-    }
-
-    await run();
+    await run(cmd);
+    await askCommand();
 };
 
 const registerPropmpt = () => {
@@ -103,14 +106,19 @@ const welcome = () => {
 };
 
 export default {
-    run
+    askCommand
 };
 
 if (process.env.JEST_WORKER_ID === undefined) {
     (async () => {
         checkGit();
-        registerPropmpt();
-        welcome();
-        await run();
+
+        if (process.argv.slice(2).length > 0) {
+            run(process.argv.slice(2).join(' '));
+        } else {
+            registerPropmpt();
+            welcome();
+            await askCommand();
+        }
     })();
 }
