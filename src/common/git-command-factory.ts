@@ -56,18 +56,10 @@ export const gitCommand = async (
             : undefined;
 
     const run = async (cmdName: string, extraArgs?: string[]) => {
-        try {
-            print('', true);
+        runCmd('git', [cmdName, ...(args || []), ...(extraArgs || [])]);
 
-            runCmd('git', [cmdName, ...(args || []), ...(extraArgs || [])]);
-
-            print('', true);
-
-            if (!isRepl()) {
-                process.exit(0);
-            }
-        } catch (error) {
-            exitWithError(error);
+        if (!isRepl()) {
+            process.exit(0);
         }
     };
 
