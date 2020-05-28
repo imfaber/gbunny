@@ -43,8 +43,6 @@
         "node": "node"
     },
     "dependencies": {
-        "@types/inquirer": "6.5.0",
-        "@types/shelljs": "0.8.8",
         "chalk": "4.0.0",
         "clear": "0.1.0",
         "clui": "0.3.6",
@@ -54,9 +52,7 @@
         "inquirer-command-prompt": "0.0.27",
         "lodash.flatten": "4.4.0",
         "minimist": "1.2.5",
-        "ora": "4.0.4",
         "parse-numeric-range": "1.2.0",
-        "shell-exec": "1.0.2",
         "shelljs": "0.8.4",
         "simple-git": "2.4.0"
     },
@@ -66,10 +62,12 @@
         "@babel/preset-typescript": "7.9.0",
         "@types/clear": "0.1.0",
         "@types/figlet": "1.2.0",
+        "@types/inquirer": "6.5.0",
         "@types/jest": "25.2.1",
         "@types/lodash.flatten": "4.4.6",
         "@types/node": "13.13.4",
         "@types/parse-numeric-range": "0.0.1",
+        "@types/shelljs": "0.8.8",
         "@typescript-eslint/eslint-plugin": "2.30.0",
         "@typescript-eslint/parser": "2.30.0",
         "acorn": "7.1.1",
