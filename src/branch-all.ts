@@ -1,8 +1,5 @@
 #!/usr/bin/env node
 
-import { spawnSync } from 'child_process';
+import runCmd from './common/run-cmd';
 
-spawnSync('gbunny-gb ', ['-a'], {
-    shell: true,
-    stdio: 'inherit'
-});
+runCmd('gbunny-gb ', ['-a']);

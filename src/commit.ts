@@ -15,6 +15,7 @@ import { grey } from './common/hex-colors';
 import exitWithError from './common/exit-with-error';
 import { pointerRightTall } from './common/symbols';
 import isRepl from './common/is-repl';
+import hasHelpArgument from './common/has-help-argument';
 
 export const askForMessage = async (
     intro?: string | Chalk,
@@ -127,7 +128,11 @@ export const run = async (cmdArgs?: string[]) => {
             commitIntroText = 'Committing all staged files';
         }
 
-        if (filesToCommit.length === 0 && !args.includes('--amend')) {
+        if (
+            filesToCommit.length === 0 &&
+            !args.includes('--amend') &&
+            !hasHelpArgument(args)
+        ) {
             print('There are no changes staged for commit.', true);
 
             if (!isRepl()) {

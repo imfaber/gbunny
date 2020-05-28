@@ -1,5 +1,4 @@
 import simpleGit from 'simple-git/promise';
-import { spawnSync } from 'child_process';
 import { GitCommand, GitEntityType, GitIndexedEntityCollection } from './types';
 import createIndexedBranchCollection from './indexed-branch-collection-factory';
 import createIndexedFilesCollection from './indexed-file-collection-factory';
@@ -8,6 +7,7 @@ import isRepl from './is-repl';
 import checkGit from './check-git';
 import print from './print';
 import exitWithError from './exit-with-error';
+import runCmd from './run-cmd';
 
 export const gitCommand = async (
     cmdArgs: string[] = []
@@ -59,10 +59,7 @@ export const gitCommand = async (
         try {
             print('', true);
 
-            spawnSync('git', [cmdName, ...(args || []), ...(extraArgs || [])], {
-                shell: true,
-                stdio: 'inherit'
-            });
+            runCmd('git', [cmdName, ...(args || []), ...(extraArgs || [])]);
 
             print('', true);
 
