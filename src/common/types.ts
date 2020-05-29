@@ -50,18 +50,21 @@ export interface Colors {
 export type Color = keyof Colors;
 
 export interface GitCommand {
-    git: SimpleGit;
     args: string[] | undefined;
     canRun: boolean;
-    run: (cmdName: string, extraArgs?: string[]) => Promise<void>;
-    status: StatusResult;
-    setActiveGitIndexedEntity: (indexType: GitEntityType) => Promise<void>;
-    getActiveEntityCollection: () => GitIndexedEntityCollection;
+    run: (extraArgs?: string[]) => Promise<void>;
+    setActiveGitEntityType: (indexType: GitEntityType) => Promise<void>;
+    getActiveEntityCollection: () => Promise<GitIndexedEntityCollection>;
+}
+
+export interface GBunnyCommand {
+    run: () => Promise<void> | void;
+    help: () => string;
 }
 
 export enum GitEntityType {
     Branch = 'branch',
-    File = 'file',
+    Path = 'path',
     Tag = 'tag'
 }
 

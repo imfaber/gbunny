@@ -12,21 +12,21 @@ import isRepl from './common/is-repl';
 import print from './common/print';
 
 export const run = async (cmdArgs?: string[]) => {
-    const cmd = await createGitCommand(cmdArgs);
+    const cmd = await createGitCommand('checkout', cmdArgs);
     const { args } = cmd;
 
     if (!cmd.canRun) return;
 
     if (args) {
-        await cmd.run('checkout');
+        await cmd.run();
         return;
     }
 
     const getIndexedList = async (
         type: GitEntityType
     ): Promise<GitIndexedEntity[]> => {
-        await cmd.setActiveGitIndexedEntity(type);
-        const indexedCollection = cmd.getActiveEntityCollection();
+        await cmd.setActiveGitEntityType(type);
+        const indexedCollection = await cmd.getActiveEntityCollection();
         const { list } = indexedCollection;
         return list;
     };
@@ -39,8 +39,8 @@ export const run = async (cmdArgs?: string[]) => {
         }))
     );
 
-    if (entityType === GitEntityType.File) {
-        const list = await getIndexedList(GitEntityType.File);
+    if (entityType === GitEntityType.Path) {
+        const list = await getIndexedList(GitEntityType.Path);
 
         if (list.length === 0) {
             print('There are no changed files to checkout.', true);
@@ -59,7 +59,7 @@ export const run = async (cmdArgs?: string[]) => {
         );
 
         if (selectedFiles.length > 0) {
-            await cmd.run('checkout', [...selectedFiles]);
+            await cmd.run([...selectedFiles]);
         } else {
             print('No file was selected.', true);
         }
@@ -79,7 +79,7 @@ export const run = async (cmdArgs?: string[]) => {
             choices
         );
 
-        await cmd.run('checkout', [selectedBranch as string]);
+        await cmd.run([selectedBranch as string]);
     }
 };
 

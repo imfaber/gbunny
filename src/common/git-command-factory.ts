@@ -1,4 +1,4 @@
-import simpleGit from 'simple-git/promise';
+import git from 'simple-git/promise';
 import { GitCommand, GitEntityType, GitIndexedEntityCollection } from './types';
 import createIndexedBranchCollection from './indexed-branch-collection-factory';
 import createIndexedFilesCollection from './indexed-file-collection-factory';
@@ -7,66 +7,71 @@ import isRepl from './is-repl';
 import checkGit from './check-git';
 import runCmd from './run-cmd';
 
+const getActiveGitEntityType = async (): Promise<string | string[]> => {
+    const config = await git().listConfig();
+    return (
+        config.values['.git/config']['gbunny.indextype'] || GitEntityType.Branch
+    );
+};
+
+const getEntityCollection = async (): Promise<GitIndexedEntityCollection> => {
+    const type = await getActiveGitEntityType();
+
+    if (type === GitEntityType.Branch) {
+        const { branches } = await git().branch();
+        return createIndexedBranchCollection(branches);
+    }
+
+    const { files } = await git().status();
+    return createIndexedFilesCollection(files);
+};
+
+const getTransformedArgs = (
+    cmdArgs: string[],
+    indexedEntityCollection: GitIndexedEntityCollection
+): string[] | undefined => {
+    const args = isRepl() ? cmdArgs : process.argv.slice(2);
+    return args.length > 0
+        ? indexArgTransformer(args, indexedEntityCollection.list)
+        : undefined;
+};
+
+const runGitCommand = async (cmdName: string, args: string[] = []) => {
+    const transformedArgs = getTransformedArgs(
+        args,
+        await getEntityCollection()
+    );
+
+    runCmd('git', [cmdName, ...(transformedArgs || [])]);
+
+    if (!isRepl()) {
+        process.exit(0);
+    }
+};
+
 export const gitCommand = async (
+    cmdName: string,
     cmdArgs: string[] = []
 ): Promise<GitCommand> => {
     checkGit();
 
-    const git = simpleGit().silent(true);
     const canRun = process.env.JEST_WORKER_ID === undefined;
-    let activeEntityCollection: GitIndexedEntityCollection;
+    const args = getTransformedArgs(cmdArgs || [], await getEntityCollection());
 
-    const setActiveEntityCollection = async (type: GitEntityType | string) => {
-        if (type === GitEntityType.Branch) {
-            const { branches } = await git.branch();
-            activeEntityCollection = createIndexedBranchCollection(branches);
-        } else {
-            const { files } = await git.status();
-            activeEntityCollection = createIndexedFilesCollection(files);
-        }
-    };
+    const getActiveEntityCollection = async () => getEntityCollection();
 
-    const getActiveGitIndexedEntity = async (): Promise<string | string[]> => {
-        const config = await git.listConfig();
-        return (
-            config.values['.git/config']['gbunny.indextype'] ||
-            GitEntityType.Branch
-        );
-    };
+    const run = async (extraArgs?: string[]) =>
+        runGitCommand(cmdName, [...cmdArgs, ...(extraArgs || [])]);
 
-    const setActiveGitIndexedEntity = async (type: GitEntityType) => {
-        await git.addConfig('gbunny.indextype', type);
-        await setActiveEntityCollection(type);
-    };
-
-    const getActiveEntityCollection = () => activeEntityCollection;
-    const activeGitIndexedEntityType = await getActiveGitIndexedEntity();
-    await setActiveEntityCollection(activeGitIndexedEntityType.toString());
-
-    let args: string[] | undefined;
-    args = isRepl() ? cmdArgs : process.argv.slice(2);
-    args =
-        args.length > 0
-            ? (args = indexArgTransformer(
-                  args,
-                  getActiveEntityCollection().list
-              ))
-            : undefined;
-
-    const run = async (cmdName: string, extraArgs?: string[]) => {
-        runCmd('git', [cmdName, ...(args || []), ...(extraArgs || [])]);
-
-        if (!isRepl()) {
-            process.exit(0);
-        }
+    const setActiveGitEntityType = async (type: GitEntityType) => {
+        await git().addConfig('gbunny.indextype', type);
     };
 
     return {
-        git,
         args,
         canRun,
         run,
-        setActiveGitIndexedEntity,
+        setActiveGitEntityType,
         getActiveEntityCollection
     } as GitCommand;
 };

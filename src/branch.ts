@@ -8,14 +8,14 @@ import isRepl from './common/is-repl';
 import selectEntity from './common/select-entity';
 
 export const run = async (cmdArgs?: string[]) => {
-    const cmd = await createGitCommand(cmdArgs);
+    const cmd = await createGitCommand('branch', cmdArgs);
     const { args } = cmd;
 
     if (!cmd.canRun) return;
 
-    await cmd.setActiveGitIndexedEntity(GitEntityType.Branch);
+    await cmd.setActiveGitEntityType(GitEntityType.Branch);
 
-    const indexedCollection = cmd.getActiveEntityCollection();
+    const indexedCollection = await cmd.getActiveEntityCollection();
     const { list: allBranches } = indexedCollection;
 
     if (!args || hasAllArgument(args)) {
@@ -47,9 +47,9 @@ export const run = async (cmdArgs?: string[]) => {
             false
         );
 
-        await cmd.run('branch', selectedBranches as string[]);
+        await cmd.run(selectedBranches as string[]);
     } else {
-        await cmd.run('branch');
+        await cmd.run();
     }
 };
 

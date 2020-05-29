@@ -266,7 +266,7 @@ export const getList = (files: FileStatusResult[]): GitIndexedFile[] => {
         .concat(unstagedFiles, untrackedFiles, unmergedFiles)
         .map((f, i) => ({
             ...f,
-            type: GitEntityType.File,
+            type: GitEntityType.Path,
             entityIndex: i + 1
         }));
 

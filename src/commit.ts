@@ -2,9 +2,9 @@
 
 import os from 'os';
 import path from 'path';
-import simpleGit from 'simple-git/promise';
 import chalk, { Chalk } from 'chalk';
 import minimist from 'minimist';
+import simpleGit from 'simple-git/promise';
 import inquirerCommandPrompt from 'inquirer-command-prompt';
 import inquirer from 'inquirer';
 import createGitCommand from './common/git-command-factory';
@@ -90,13 +90,12 @@ const buildCommitIntro = (introText: string, filesCount: number): string => {
 };
 
 export const run = async (cmdArgs?: string[]) => {
-    const cmd = await createGitCommand(cmdArgs);
-    const { git, canRun } = cmd;
+    const cmd = await createGitCommand('commit', cmdArgs);
     const args = cmd.args || [];
-    const indexedCollection = cmd.getActiveEntityCollection();
+    const indexedCollection = await cmd.getActiveEntityCollection();
     const fileList = indexedCollection.list as GitIndexedFile[];
 
-    if (!canRun) return;
+    if (!cmd.canRun) return;
 
     try {
         let filesToCommit = fileList;
@@ -143,7 +142,7 @@ export const run = async (cmdArgs?: string[]) => {
         }
 
         if (hasMessage(args)) {
-            await cmd.run('commit');
+            await cmd.run();
         } else {
             const commitIntro = buildCommitIntro(
                 commitIntroText,
@@ -151,11 +150,11 @@ export const run = async (cmdArgs?: string[]) => {
             );
 
             const defaultMessage = args.includes('--amend')
-                ? (await git.log(['-1'])).latest.message
+                ? (await simpleGit().log(['-1'])).latest.message
                 : null;
 
             const message = await askForMessage(commitIntro, defaultMessage);
-            await cmd.run('commit', ['-m', `"${message}"`]);
+            await cmd.run(['-m', `"${message}"`]);
         }
     } catch (error) {
         exitWithError(error);

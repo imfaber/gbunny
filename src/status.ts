@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
 import chalk from 'chalk';
+import simpleGit from 'simple-git/promise';
 import { StatusResult } from 'simple-git/typings/response.d';
 import createGitCommand from './common/git-command-factory';
 import { StatusHeaderArgs, GitEntityType } from './common/types';
@@ -47,21 +48,21 @@ const printStatusHeader = (status: StatusHeaderArgs): undefined => {
 };
 
 export const run = async (cmdArgs?: string[]) => {
-    const cmd = await createGitCommand(cmdArgs);
-    const { git, canRun, args } = cmd;
+    const cmd = await createGitCommand('status', cmdArgs);
+    const { canRun, args } = cmd;
 
     if (!canRun) return;
 
-    await cmd.setActiveGitIndexedEntity(GitEntityType.File);
+    await cmd.setActiveGitEntityType(GitEntityType.Path);
 
     if (args) {
-        await cmd.run('status');
+        await cmd.run();
         return;
     }
 
     try {
-        const status = await git.status();
-        const indexedCollection = cmd.getActiveEntityCollection();
+        const status = await simpleGit().status();
+        const indexedCollection = await cmd.getActiveEntityCollection();
 
         print('', true);
 

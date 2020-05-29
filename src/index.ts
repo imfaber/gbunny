@@ -9,7 +9,7 @@ import inquirer from 'inquirer';
 import clear from 'clear';
 import print from './common/print';
 import checkGit from './common/check-git';
-import { exitCommands, commands } from './command';
+import { exitCommands, gBunnyCommandList } from './command';
 import { grey, greyLight } from './common/hex-colors';
 import { gitCommand as createGitCommand } from './common/git-command-factory';
 import replPrompt from './common/repl-prompt';
@@ -21,11 +21,12 @@ const run = async (cmd: string) => {
         .replace(/^g/, '')
         .split(' ');
 
-    if (cmdName in commands) {
-        await commands[cmdName](options);
+    const gitCommand = await createGitCommand(cmdName, options);
+
+    if (cmdName in gBunnyCommandList) {
+        await gBunnyCommandList[cmdName](gitCommand.args || []).run();
     } else {
-        const gitCommand = await createGitCommand(options);
-        await gitCommand.run(cmdName);
+        await gitCommand.run();
     }
 };
 
@@ -39,29 +40,7 @@ const askCommand = async () => {
             message: chalk.hex(grey)('git'),
             prefix,
             transformer: (input) => chalk.hex(greyLight)(input),
-            autoCompletion: [
-                'help',
-                'add',
-                'mv',
-                'reset',
-                'rm',
-                'bisect',
-                'grep',
-                'log',
-                'show',
-                'status',
-                'branch',
-                'checkout',
-                'commit',
-                'diff',
-                'merge',
-                'rebase',
-                'tag',
-                'fetch',
-                'pull',
-                'push',
-                'remote'
-            ]
+            autoCompletion: Object.keys(gBunnyCommandList)
         }
     ]);
 
