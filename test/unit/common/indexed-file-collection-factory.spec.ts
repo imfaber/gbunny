@@ -112,98 +112,98 @@ describe('Status summary', () => {
                     entityIndex: 1,
                     name: 'file1',
                     status: 'Modified',
-                    type: 'file'
+                    type: 'path'
                 },
                 {
                     area: 1,
                     entityIndex: 2,
                     name: 'created-file',
                     status: 'Added',
-                    type: 'file'
+                    type: 'path'
                 },
                 {
                     area: 1,
                     entityIndex: 3,
                     name: 'committed-file',
                     status: 'Added',
-                    type: 'file'
+                    type: 'path'
                 },
                 {
                     area: 2,
                     entityIndex: 4,
                     name: 'committed-file',
                     status: 'Deleted',
-                    type: 'file'
+                    type: 'path'
                 },
                 {
                     area: 2,
                     entityIndex: 5,
                     name: 'file2.ts',
                     status: 'Modified',
-                    type: 'file'
+                    type: 'path'
                 },
                 {
                     area: 0,
                     entityIndex: 6,
                     name: 'not-added-file',
                     status: 'Untracked',
-                    type: 'file'
+                    type: 'path'
                 },
                 {
                     area: 0,
                     entityIndex: 7,
                     name: 'another-modified-file.ts',
                     status: 'Untracked',
-                    type: 'file'
+                    type: 'path'
                 },
                 {
                     area: 3,
                     entityIndex: 8,
                     name: 'conflict-file',
                     status: 'Both deleted',
-                    type: 'file'
+                    type: 'path'
                 },
                 {
                     area: 3,
                     entityIndex: 9,
                     name: 'conflict-file',
                     status: '',
-                    type: 'file'
+                    type: 'path'
                 },
                 {
                     area: 3,
                     entityIndex: 10,
                     name: 'conflict-file',
                     status: 'Deleted by them',
-                    type: 'file'
+                    type: 'path'
                 },
                 {
                     area: 3,
                     entityIndex: 11,
                     name: 'conflict-file',
                     status: 'Added by them',
-                    type: 'file'
+                    type: 'path'
                 },
                 {
                     area: 3,
                     entityIndex: 12,
                     name: 'conflict-file',
                     status: 'Added by us',
-                    type: 'file'
+                    type: 'path'
                 },
                 {
                     area: 3,
                     entityIndex: 13,
                     name: 'conflict-file',
                     status: 'Both added',
-                    type: 'file'
+                    type: 'path'
                 },
                 {
                     area: 3,
                     entityIndex: 14,
                     name: 'conflict-file',
                     status: 'Both modified',
-                    type: 'file'
+                    type: 'path'
                 }
             ]);
             expect(getList(cleanStatus.files)).toEqual([]);
