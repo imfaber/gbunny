@@ -24,10 +24,10 @@ export const run = async (cmdArgs?: string[]) => {
             : allBranches.filter((b) => !b.isLocal);
 
         indexedCollection.printEntities(branchList);
-    } else if (
-        args.length === 1 &&
-        (args.includes('-d') || args.includes('-D'))
-    ) {
+        return;
+    }
+
+    if (args.length === 1 && (args.includes('-d') || args.includes('-D'))) {
         const choices: (EntitySelectorChoice | Separator)[] = allBranches.map(
             (e) => ({
                 name: `[${e.entityIndex}] ${e.name}`,
@@ -48,9 +48,10 @@ export const run = async (cmdArgs?: string[]) => {
         );
 
         await cmd.run(selectedBranches as string[]);
-    } else {
-        await cmd.run();
+        return;
     }
+
+    await cmd.run();
 };
 
 if (!isRepl()) run();

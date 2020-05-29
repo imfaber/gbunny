@@ -2,6 +2,7 @@ import git from 'simple-git/promise';
 import { GitCommand, GitEntityType, GitIndexedEntityCollection } from './types';
 import createIndexedBranchCollection from './indexed-branch-collection-factory';
 import createIndexedFilesCollection from './indexed-file-collection-factory';
+import createIndexedTagCollection from './indexed-tag-collection-factory';
 import indexArgTransformer from './index-args-transformer';
 import isRepl from './is-repl';
 import checkGit from './check-git';
@@ -20,6 +21,11 @@ const getEntityCollection = async (): Promise<GitIndexedEntityCollection> => {
     if (type === GitEntityType.Branch) {
         const { branches } = await git().branch();
         return createIndexedBranchCollection(branches);
+    }
+
+    if (type === GitEntityType.Tag) {
+        const { all } = await git().tags();
+        return createIndexedTagCollection(all);
     }
 
     const { files } = await git().status();

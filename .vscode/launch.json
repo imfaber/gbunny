@@ -9,8 +9,8 @@
 			"type": "node",
 			"request": "launch",
 			"args": [
-				"${workspaceRoot}/src/status.ts",
-				// "${workspaceRoot}/src/branch.ts"
+				"${workspaceRoot}/src/index.ts",
+				"tag"
 			],
 			"runtimeArgs": [
 				"-r",

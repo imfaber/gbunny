@@ -2,6 +2,7 @@ import status from './status';
 import commit from './commit';
 import branch from './branch';
 import checkout from './checkout';
+import tag from './tag';
 import add from './add';
 import { runGitCmd } from './common/run-cmd';
 import { GBunnyCommand } from './common/types';
@@ -151,7 +152,8 @@ export const gBunnyCommandList: {
         gBunnyCommand(() => runGitCmd(['stash list', ...opts])),
 
     // Tag
-    t: (opts: string[]) => gBunnyCommand(() => runGitCmd(['tag', ...opts]))
+    tag: (opts: string[]) => gBunnyCommand(() => tag(opts), ''),
+    t: (opts: string[]) => gBunnyCommand(() => tag(opts), '')
 } as any;
 
 export const exitCommands = ['exit', 'quit', 'q'];
