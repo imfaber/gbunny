@@ -39,18 +39,18 @@ export const run = async (cmdArgs?: string[]) => {
         }))
     );
 
-    if (entityType === GitEntityType.Path) {
-        const list = await getIndexedList(GitEntityType.Path);
+    const list = await getIndexedList(entityType as GitEntityType);
 
+    const choices: (EntitySelectorChoice | Separator)[] = list.map((e) => ({
+        name: `[${e.entityIndex}] ${e.name}`,
+        value: e.name
+    }));
+
+    if (entityType === GitEntityType.Path) {
         if (list.length === 0) {
             print('There are no changed files to checkout.', true);
             return;
         }
-
-        const choices: EntitySelectorChoice[] = list.map((e) => ({
-            name: `[${e.entityIndex}] ${e.name}`,
-            value: e.name
-        }));
 
         const selectedFiles = await selectEntity(
             'Select the files to checkout:',
@@ -66,11 +66,6 @@ export const run = async (cmdArgs?: string[]) => {
     }
 
     if (entityType === GitEntityType.Branch) {
-        const list = await getIndexedList(GitEntityType.Branch);
-        const choices: (EntitySelectorChoice | Separator)[] = list.map((e) => ({
-            name: `[${e.entityIndex}] ${e.name}`,
-            value: e.name
-        }));
         const index = list.findIndex((b) => b.name.startsWith('remotes/'));
         choices.splice(index, 0, new Separator());
 
@@ -80,6 +75,15 @@ export const run = async (cmdArgs?: string[]) => {
         );
 
         await cmd.run([selectedBranch as string]);
+    }
+
+    if (entityType === GitEntityType.Tag) {
+        const selectedTag = await selectEntity(
+            'Select the tag to checkout:',
+            choices
+        );
+
+        await cmd.run([selectedTag as string]);
     }
 };
 
