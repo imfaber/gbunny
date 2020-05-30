@@ -62,7 +62,7 @@ const registerPropmpt = () => {
     inquirerCommandPrompt.setConfig({
         history: {
             save: true,
-            folder: path.join(os.tmpdir(), '.gbunny-commands'),
+            folder: path.join(os.tmpdir(), '.gbunny'),
             limit: 1000,
             blacklist: exitCommands
         }

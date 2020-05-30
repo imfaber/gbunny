@@ -26,7 +26,7 @@ export const askForMessage = async (
         print(intro);
     }
 
-    const historyFolder = path.join(os.tmpdir(), '.gbunny-commit-messages');
+    const historyFolder = path.join(os.tmpdir(), '.gbunny');
 
     inquirerCommandPrompt.setConfig({
         history: {
