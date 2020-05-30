@@ -3,7 +3,6 @@
 import Separator from 'inquirer/lib/objects/separator';
 import { gitCommand as createGitCommand } from './common/git-command-factory';
 import { GitEntityType, EntitySelectorChoice } from './common/types';
-import hasAllArgument from './common/has-all-argument';
 import isRepl from './common/is-repl';
 import selectEntity from './common/select-entity';
 import print from './common/print';
@@ -23,8 +22,6 @@ export const run = async (cmdArgs?: string[]) => {
         print('There are no tags.', true);
         return;
     }
-
-    console.log( args);
 
     if (!args) {
         indexedCollection.printEntities(list);
