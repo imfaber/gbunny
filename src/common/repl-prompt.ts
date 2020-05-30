@@ -8,7 +8,7 @@ import {
     verticalBar,
     pointerRightTall
 } from './symbols';
-import { purple } from './hex-colors';
+import { purple, orange, green, yellow } from './hex-colors';
 import createIndexedFilesCollection from './indexed-file-collection-factory';
 import { StatusCode } from './types';
 import getRepoDir from './get-repo-dir';
@@ -73,28 +73,28 @@ export default async () => {
     // Project
     prompt +=
         chalk.bgHex(purple).black(` ${(repoDir || '').trim()} `) +
-        chalk[status.files.length === 0 ? 'bgGreenBright' : 'bgYellow'].hex(
-            purple
-        )(pointerRightRoundedPL);
+        chalk.bgHex(status.files.length === 0 ? green : orange).hex(purple)(
+            pointerRightRoundedPL
+        );
 
     // Branch
-    prompt += chalk[status.files.length === 0 ? 'bgGreenBright' : 'bgYellow'](
+    prompt += chalk.bgHex(status.files.length === 0 ? green : orange)(
         `${branch} `
     );
 
     // File status
     if (fileStatus || diverge) {
-        prompt += chalk.bgYellowBright(
-            chalk[status.files.length === 0 ? 'greenBright' : 'yellow'](
+        prompt += chalk.bgHex(yellow)(
+            chalk.hex(status.files.length === 0 ? green : orange)(
                 pointerRightRoundedPL
             )
         );
 
-        prompt += `${chalk.bgYellowBright(
+        prompt += `${chalk.bgHex(yellow)(
             `${chalk.black(diverge + fileStatus)} `
-        )}${chalk.yellowBright(pointerRightRoundedPL)}`;
+        )}${chalk.hex(yellow)(pointerRightRoundedPL)}`;
     } else {
-        prompt += chalk[status.files.length === 0 ? 'greenBright' : 'yellow'](
+        prompt += chalk.hex(status.files.length === 0 ? green : orange)(
             pointerRightRoundedPL
         );
     }

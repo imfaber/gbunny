@@ -7,12 +7,12 @@ import createGitCommand from './common/git-command-factory';
 import { StatusHeaderArgs, GitEntityType } from './common/types';
 import symbols from './common/symbols';
 import print from './common/print';
-import hexColors from './common/hex-colors';
+import hexColors, { cyan } from './common/hex-colors';
 import exitWithError from './common/exit-with-error';
 import isRepl from './common/is-repl';
 
 export const getTrackingInfo = (status: StatusResult): string => {
-    return status.tracking ? `[${chalk.cyan(status.tracking)}]` : '';
+    return status.tracking ? `[${chalk.hex(cyan)(status.tracking)}]` : '';
 };
 
 export const getDivergeInfo = (status: StatusResult): string => {
@@ -34,7 +34,7 @@ const printStatusHeader = (status: StatusHeaderArgs): undefined => {
         return;
     }
 
-    let header = chalk`On branch: {cyan ${status.branch}}`;
+    let header = chalk`On branch: {hex(cyan) ${status.branch}}`;
 
     if (status.tracking) {
         header += ` ${symbols.arrowRight} ${status.tracking}`;
