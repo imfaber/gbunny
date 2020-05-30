@@ -153,7 +153,8 @@ export const gBunnyCommandList: {
 
     // Tag
     tag: (opts: string[]) => gBunnyCommand(() => tag(opts), ''),
-    t: (opts: string[]) => gBunnyCommand(() => tag(opts), '')
+    t: (opts: string[]) => gBunnyCommand(() => tag(opts), ''),
+    td: (opts: string[]) => gBunnyCommand(() => tag(['-d', ...opts]), '')
 } as any;
 
 export const exitCommands = ['exit', 'quit', 'q'];
