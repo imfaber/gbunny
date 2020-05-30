@@ -59,7 +59,7 @@ export const gitCommand = async (
     cmdName: string,
     cmdArgs: string[] = []
 ): Promise<GitCommand> => {
-    await checkGit();
+    checkGit();
 
     const canRun = process.env.JEST_WORKER_ID === undefined;
     const args = getTransformedArgs(cmdArgs || [], await getEntityCollection());

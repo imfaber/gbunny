@@ -4,6 +4,7 @@ import branch from './branch';
 import checkout from './checkout';
 import tag from './tag';
 import add from './add';
+import merge from './merge';
 import gbHelp from './help';
 import { runGitCmd } from './common/run-cmd';
 import { GBunnyCommand } from './common/types';
@@ -155,19 +156,16 @@ export const gBunnyCommandList: {
     // Merge
     merge: (opts: string[]) =>
         gbCmd(
-            () => runGitCmd(['merge', ...opts]),
+            () => merge([...opts]),
             'Run merge command with branch selection'
         ),
     m: (opts: string[]) =>
-        gbCmd(() => runGitCmd(['merge', ...opts]), 'Shorthand for "branch"'),
+        gbCmd(() => merge([...opts]), 'Shorthand for "branch"'),
     mff: (opts: string[]) =>
-        gbCmd(
-            () => runGitCmd(['merge --ff', ...opts]),
-            'Shorthand for "branch --ff"'
-        ),
+        gbCmd(() => merge(['--ff', ...opts]), 'Shorthand for "branch --ff"'),
     mnff: (opts: string[]) =>
         gbCmd(
-            () => runGitCmd(['merge --no-ff', ...opts]),
+            () => merge(['--no-ff', ...opts]),
             'Shorthand for "branch --no-ff"\n'
         ),
 
