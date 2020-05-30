@@ -134,7 +134,8 @@ export const gBunnyCommandList: {
         gBunnyCommand(() => runGitCmd(['remote -v', ...opts])),
 
     // Rebase
-    rebase: (opts: string[]) => gBunnyCommand(() => runGitCmd(['rebase', ...opts])),
+    rebase: (opts: string[]) =>
+        gBunnyCommand(() => runGitCmd(['rebase', ...opts])),
     rb: (opts: string[]) => gBunnyCommand(() => runGitCmd(['rebase', ...opts])),
     rba: (opts: string[]) =>
         gBunnyCommand(() => runGitCmd(['rebase --abort', ...opts])),
@@ -165,7 +166,8 @@ export const gBunnyCommandList: {
     s: (opts: string[]) => gBunnyCommand(() => status(opts)),
 
     // Stash
-    stash: (opts: string[]) => gBunnyCommand(() => runGitCmd(['stash', ...opts])),
+    stash: (opts: string[]) =>
+        gBunnyCommand(() => runGitCmd(['stash', ...opts])),
     st: (opts: string[]) => gBunnyCommand(() => runGitCmd(['stash', ...opts])),
     sta: (opts: string[]) =>
         gBunnyCommand(() => runGitCmd(['stash apply', ...opts])),
