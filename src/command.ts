@@ -4,10 +4,11 @@ import branch from './branch';
 import checkout from './checkout';
 import tag from './tag';
 import add from './add';
+import gbHelp from './help';
 import { runGitCmd } from './common/run-cmd';
 import { GBunnyCommand } from './common/types';
 
-const gBunnyCommand = (
+const gbCmd = (
     run: () => Promise<void> | void,
     help: string = ''
 ): GBunnyCommand =>
@@ -17,169 +18,261 @@ const gBunnyCommand = (
     } as GBunnyCommand);
 
 export const gBunnyCommandList: {
-    [key: string]: (opts: string[]) => GBunnyCommand;
+    [key: string]: (opts?: string[]) => GBunnyCommand;
 } = {
     // Add
     add: (opts: string[]) =>
-        gBunnyCommand(
-            () => add(opts),
-            '"git add" command with path selection and index support'
-        ),
-    a: (opts: string[]) =>
-        gBunnyCommand(() => add(opts), '"git add" shorthand'),
+        gbCmd(() => add(opts), 'Run add command with path selection'),
+    a: (opts: string[]) => gbCmd(() => add(opts), 'Shorthand for "add"'),
     aa: (opts: string[]) =>
-        gBunnyCommand(() => add(['-A', ...opts]), '"git add -A" shorthand'),
+        gbCmd(() => add(['-A', ...opts]), 'Shorthand for "add -A"'),
     au: (opts: string[]) =>
-        gBunnyCommand(() => add(['-u', ...opts]), '"git add -u" shorthand'),
+        gbCmd(() => add(['-u', ...opts]), 'Shorthand for "add -u"\n'),
 
     // Blame
-    blame: (opts: string[]) =>
-        gBunnyCommand(() => runGitCmd(['blame', ...opts]), '"git blame"'),
+    blame: (opts: string[]) => gbCmd(() => runGitCmd(['blame', ...opts])),
     bl: (opts: string[]) =>
-        gBunnyCommand(
-            () => runGitCmd(['blame', ...opts]),
-            '"git blame" shorthand'
-        ),
+        gbCmd(() => runGitCmd(['blame', ...opts]), 'Shorthand for "blame"\n'),
 
     // Branch
-    branch: (opts: string[]) => gBunnyCommand(() => branch(opts), ''),
-    b: (opts: string[]) => gBunnyCommand(() => branch(opts), ''),
-    ba: (opts: string[]) => gBunnyCommand(() => branch(['-a', ...opts]), ''),
-    bd: (opts: string[]) => gBunnyCommand(() => branch(['-d', ...opts]), ''),
-    bD: (opts: string[]) => gBunnyCommand(() => branch(['-D', ...opts]), ''),
+    branch: (opts: string[]) =>
+        gbCmd(
+            () => branch(opts),
+            'Run branch command and show indexed branches'
+        ),
+    b: (opts: string[]) => gbCmd(() => branch(opts), 'Shorthand for "branch"'),
+    ba: (opts: string[]) =>
+        gbCmd(() => branch(['-a', ...opts]), 'Shorthand for "branch -a"'),
+    bd: (opts: string[]) =>
+        gbCmd(
+            () => branch(['-d', ...opts]),
+            'Shorthand for "branch -d" with branch selection'
+        ),
+    bD: (opts: string[]) =>
+        gbCmd(
+            () => branch(['-D', ...opts]),
+            'Shorthand for "branch -D" with branch selection\n'
+        ),
 
     // Clean
-    clean: (opts: string[]) =>
-        gBunnyCommand(() => runGitCmd(['clean', ...opts]), ''),
+    clean: (opts: string[]) => gbCmd(() => runGitCmd(['clean', ...opts])),
     cl: (opts: string[]) =>
-        gBunnyCommand(() => runGitCmd(['clean', ...opts]), ''),
+        gbCmd(() => runGitCmd(['clean', ...opts]), 'Shorthand for "clean"'),
     clf: (opts: string[]) =>
-        gBunnyCommand(() => runGitCmd(['clean -fd', ...opts]), ''),
+        gbCmd(
+            () => runGitCmd(['clean -fd', ...opts]),
+            'Shorthand for "clean -df"\n'
+        ),
 
     // Checkout
-    checkout: (opts: string[]) => gBunnyCommand(() => checkout(opts), ''),
-    co: (opts: string[]) => gBunnyCommand(() => checkout(opts), ''),
-    cob: (opts: string[]) => gBunnyCommand(() => checkout(['-b', ...opts]), ''),
+    checkout: (opts: string[]) =>
+        gbCmd(
+            () => checkout(opts),
+            'Run checkout command with entity selection'
+        ),
+    co: (opts: string[]) =>
+        gbCmd(() => checkout(opts), 'Shorthand for "checkout"'),
+    cob: (opts: string[]) =>
+        gbCmd(() => checkout(['-b', ...opts]), 'Shorthand for "checkout -b"'),
     com: (opts: string[]) =>
-        gBunnyCommand(() => checkout(['master', ...opts]), ''),
+        gbCmd(
+            () => checkout(['master', ...opts]),
+            'Shorthand for "checkout master"\n'
+        ),
 
     // Commit
-    commit: (opts: string[]) => gBunnyCommand(() => commit(opts), ''),
-    c: (opts: string[]) => gBunnyCommand(() => commit(opts), ''),
-    ca: (opts: string[]) => gBunnyCommand(() => commit(['-a', ...opts]), ''),
+    commit: (opts: string[]) =>
+        gbCmd(() => commit(opts), 'Run commit command with message prompt'),
+    c: (opts: string[]) => gbCmd(() => commit(opts), 'Shorthand for "commit"'),
+    ca: (opts: string[]) =>
+        gbCmd(() => commit(['-a', ...opts]), 'Shorthand for "commit -a"'),
     ch: (opts: string[]) =>
-        gBunnyCommand(() => commit(['-C HEAD', ...opts]), ''),
+        gbCmd(
+            () => commit(['-C HEAD', ...opts]),
+            'Shorthand for "commit -C HEAD"'
+        ),
     cm: (opts: string[]) =>
-        gBunnyCommand(() => commit(['--amend', ...opts]), ''),
+        gbCmd(
+            () => commit(['--amend', ...opts]),
+            'Shorthand for "commit --amend"'
+        ),
     cmh: (opts: string[]) =>
-        gBunnyCommand(() => commit(['--amend -C HEAD', ...opts]), ''),
+        gbCmd(
+            () => commit(['--amend -C HEAD', ...opts]),
+            'Shorthand for "commit --amend -C HEAD"\n'
+        ),
 
     // Diff
-    diff: (opts: string[]) =>
-        gBunnyCommand(() => runGitCmd(['diff --', ...opts]), ''),
+    diff: (opts: string[]) => gbCmd(() => runGitCmd(['diff --', ...opts])),
     d: (opts: string[]) =>
-        gBunnyCommand(() => runGitCmd(['diff --', ...opts]), ''),
+        gbCmd(() => runGitCmd(['diff --', ...opts]), 'Shorthand for "diff --"'),
     dw: (opts: string[]) =>
-        gBunnyCommand(() => runGitCmd(['diff --word-diff', ...opts]), ''),
+        gbCmd(
+            () => runGitCmd(['diff --word-diff', ...opts]),
+            'Shorthand for "diff --word-diff"'
+        ),
     dt: (opts: string[]) =>
-        gBunnyCommand(() => runGitCmd(['difftool', ...opts]), ''),
+        gbCmd(
+            () => runGitCmd(['difftool', ...opts]),
+            'Shorthand for "difftool"'
+        ),
     dc: (opts: string[]) =>
-        gBunnyCommand(() => runGitCmd(['diff --cached --', ...opts]), ''),
+        gbCmd(
+            () => runGitCmd(['diff --cached --', ...opts]),
+            'Shorthand for "diff --cached --"\n'
+        ),
 
     // Fetch
-    fetch: (opts: string[]) =>
-        gBunnyCommand(() => runGitCmd(['fetch', ...opts]), ''),
+    fetch: (opts: string[]) => gbCmd(() => runGitCmd(['fetch', ...opts]), ''),
     f: (opts: string[]) =>
-        gBunnyCommand(() => runGitCmd(['fetch', ...opts]), ''),
+        gbCmd(() => runGitCmd(['fetch', ...opts]), 'Shorthand for "fetch"'),
     fa: (opts: string[]) =>
-        gBunnyCommand(() => runGitCmd(['fetch --all', ...opts]), ''),
+        gbCmd(
+            () => runGitCmd(['fetch --all', ...opts]),
+            'Shorthand for "fetch --all"\n'
+        ),
+
+    // gBunny Help
+    h: () => gbCmd(() => gbHelp()),
 
     // Log
-    log: (opts: string[]) => gBunnyCommand(() => runGitCmd(['log'])),
-    l: (opts: string[]) => gBunnyCommand(() => runGitCmd(['log'])),
+    log: (opts: string[]) => gbCmd(() => runGitCmd(['log'])),
+    l: (opts: string[]) =>
+        gbCmd(() => runGitCmd(['log']), 'Shorthand for "log"'),
     lg: (opts: string[]) =>
-        gBunnyCommand(() =>
-            runGitCmd([
-                'log',
-                '--graph',
-                '--pretty="format:%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset"',
-                '--abbrev-commit',
-                ...opts
-            ])
+        gbCmd(
+            () =>
+                runGitCmd([
+                    'log',
+                    '--graph',
+                    '--pretty="format:%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset"',
+                    '--abbrev-commit',
+                    ...opts
+                ]),
+            'Shorthand for "log --graph" with pretty format\n'
         ),
 
     // Merge
     merge: (opts: string[]) =>
-        gBunnyCommand(() => runGitCmd(['merge', ...opts])),
-    m: (opts: string[]) => gBunnyCommand(() => runGitCmd(['merge', ...opts])),
+        gbCmd(
+            () => runGitCmd(['merge', ...opts]),
+            'Run merge command with branch selection'
+        ),
+    m: (opts: string[]) =>
+        gbCmd(() => runGitCmd(['merge', ...opts]), 'Shorthand for "branch"'),
     mff: (opts: string[]) =>
-        gBunnyCommand(() => runGitCmd(['merge --ff', ...opts])),
+        gbCmd(
+            () => runGitCmd(['merge --ff', ...opts]),
+            'Shorthand for "branch --ff"'
+        ),
     mnff: (opts: string[]) =>
-        gBunnyCommand(() => runGitCmd(['merge --no-ff', ...opts])),
+        gbCmd(
+            () => runGitCmd(['merge --no-ff', ...opts]),
+            'Shorthand for "branch --no-ff"\n'
+        ),
 
     // Pull
-    pull: (opts: string[]) => gBunnyCommand(() => runGitCmd(['pull', ...opts])),
-    pl: (opts: string[]) => gBunnyCommand(() => runGitCmd(['pull', ...opts])),
+    pull: (opts: string[]) => gbCmd(() => runGitCmd(['pull', ...opts])),
+    pl: (opts: string[]) =>
+        gbCmd(() => runGitCmd(['pull', ...opts]), 'Shorthand for "pull"\n'),
 
     // Push
-    push: (opts: string[]) => gBunnyCommand(() => runGitCmd(['push', ...opts])),
-    ps: (opts: string[]) => gBunnyCommand(() => runGitCmd(['push', ...opts])),
+    push: (opts: string[]) => gbCmd(() => runGitCmd(['push', ...opts])),
+    ps: (opts: string[]) =>
+        gbCmd(() => runGitCmd(['push', ...opts]), 'Shorthand for "push"'),
     psf: (opts: string[]) =>
-        gBunnyCommand(() => runGitCmd(['push -f', ...opts])),
+        gbCmd(
+            () => runGitCmd(['push -f', ...opts]),
+            'Shorthand for "push -f"\n'
+        ),
 
     // Remote
-    remote: (opts: string[]) =>
-        gBunnyCommand(() => runGitCmd(['remote -v', ...opts])),
+    remote: (opts: string[]) => gbCmd(() => runGitCmd(['remote -v', ...opts])),
     r: (opts: string[]) =>
-        gBunnyCommand(() => runGitCmd(['remote -v', ...opts])),
+        gbCmd(
+            () => runGitCmd(['remote -v', ...opts]),
+            'Shorthand for "remote"\n'
+        ),
 
     // Rebase
-    rebase: (opts: string[]) =>
-        gBunnyCommand(() => runGitCmd(['rebase', ...opts])),
-    rb: (opts: string[]) => gBunnyCommand(() => runGitCmd(['rebase', ...opts])),
+    rebase: (opts: string[]) => gbCmd(() => runGitCmd(['rebase', ...opts])),
+    rb: (opts: string[]) =>
+        gbCmd(() => runGitCmd(['rebase', ...opts]), 'Shorthand for "rebase"'),
     rba: (opts: string[]) =>
-        gBunnyCommand(() => runGitCmd(['rebase --abort', ...opts])),
+        gbCmd(
+            () => runGitCmd(['rebase --abort', ...opts]),
+            'Shorthand for "rebase --abort"'
+        ),
     rbc: (opts: string[]) =>
-        gBunnyCommand(() => runGitCmd(['rebase --continue', ...opts])),
+        gbCmd(
+            () => runGitCmd(['rebase --continue', ...opts]),
+            'Shorthand for "rebase --continue"\n'
+        ),
 
     // Remove
-    rm: (opts: string[]) => gBunnyCommand(() => runGitCmd(['rm', ...opts])),
+    rm: (opts: string[]) => gbCmd(() => runGitCmd(['rm', ...opts])),
 
     // Reset
     reset: (opts: string[]) =>
-        gBunnyCommand(() => runGitCmd(['reset --', ...opts])),
+        gbCmd(
+            () => runGitCmd(['reset --', ...opts]),
+            'Run reset command with path selection'
+        ),
     rs: (opts: string[]) =>
-        gBunnyCommand(() => runGitCmd(['reset --', ...opts])),
+        gbCmd(
+            () => runGitCmd(['reset --', ...opts]),
+            'Shorthand for "reset --"'
+        ),
     rsh: (opts: string[]) =>
-        gBunnyCommand(() => runGitCmd(['reset --hard', ...opts])),
+        gbCmd(
+            () => runGitCmd(['reset --hard', ...opts]),
+            'Shorthand for "reset --hard"'
+        ),
     rsH: (opts: string[]) =>
-        gBunnyCommand(() => runGitCmd(['reset HEAD~', ...opts])),
+        gbCmd(
+            () => runGitCmd(['reset HEAD~', ...opts]),
+            'Shorthand for "reset HEAD~"\n'
+        ),
 
     // show
-    show: (opts: string[]) => gBunnyCommand(() => runGitCmd(['show', ...opts])),
-    sh: (opts: string[]) => gBunnyCommand(() => runGitCmd(['show', ...opts])),
+    show: (opts: string[]) => gbCmd(() => runGitCmd(['show', ...opts])),
+    sh: (opts: string[]) =>
+        gbCmd(() => runGitCmd(['show', ...opts]), 'Shorthand for "show"'),
     shm: (opts: string[]) =>
-        gBunnyCommand(() => runGitCmd(['show --summary', ...opts])),
+        gbCmd(
+            () => runGitCmd(['show --summary', ...opts]),
+            'Shorthand for "show --summary"\n'
+        ),
 
     // Status
-    status: (opts: string[]) => gBunnyCommand(() => status(opts)),
-    s: (opts: string[]) => gBunnyCommand(() => status(opts)),
+    status: (opts: string[]) =>
+        gbCmd(() => status(opts), 'Run status command and show indexed paths'),
+    s: (opts: string[]) =>
+        gbCmd(() => status(opts), 'Shorthand for "status"\n'),
 
     // Stash
-    stash: (opts: string[]) =>
-        gBunnyCommand(() => runGitCmd(['stash', ...opts])),
-    st: (opts: string[]) => gBunnyCommand(() => runGitCmd(['stash', ...opts])),
+    stash: (opts: string[]) => gbCmd(() => runGitCmd(['stash', ...opts])),
+    st: (opts: string[]) =>
+        gbCmd(() => runGitCmd(['stash', ...opts]), 'Shorthand for "stash"'),
     sta: (opts: string[]) =>
-        gBunnyCommand(() => runGitCmd(['stash apply', ...opts])),
+        gbCmd(
+            () => runGitCmd(['stash apply', ...opts]),
+            'Shorthand for "stash"'
+        ),
     stp: (opts: string[]) =>
-        gBunnyCommand(() => runGitCmd(['stash pop', ...opts])),
+        gbCmd(() => runGitCmd(['stash pop', ...opts]), 'Shorthand for "stash"'),
     stl: (opts: string[]) =>
-        gBunnyCommand(() => runGitCmd(['stash list', ...opts])),
+        gbCmd(
+            () => runGitCmd(['stash list', ...opts]),
+            'Shorthand for "stash"\n'
+        ),
 
     // Tag
-    tag: (opts: string[]) => gBunnyCommand(() => tag(opts), ''),
-    t: (opts: string[]) => gBunnyCommand(() => tag(opts), ''),
-    td: (opts: string[]) => gBunnyCommand(() => tag(['-d', ...opts]), '')
+    tag: (opts: string[]) =>
+        gbCmd(() => tag(opts), 'Run tag command and show indexed tags'),
+    t: (opts: string[]) => gbCmd(() => tag(opts), 'Shorthand for "tag"'),
+    td: (opts: string[]) =>
+        gbCmd(() => tag(['-d', ...opts]), 'Shorthand for "tag"\n')
 } as any;
 
 export const exitCommands = ['exit', 'quit', 'q'];

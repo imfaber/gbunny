@@ -84,6 +84,8 @@ const welcome = () => {
         ),
         true
     );
+
+    print('Type "h" for help.', true);
 };
 
 export default {
