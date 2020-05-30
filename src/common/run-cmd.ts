@@ -1,18 +1,26 @@
 import { spawnSync } from 'child_process';
 import print from './print';
-import checkGit from './check-git';
 
-export const runCmd = (cmd: string, options: string[] = []) => {
-    print();
+export const runCmd = (
+    cmd: string,
+    options: string[] = [],
+    useSpace: boolean = true
+) => {
+    if (useSpace) {
+        print();
+    }
+
     spawnSync(cmd, options, {
         shell: true,
         stdio: 'inherit'
     });
-    print();
+
+    if (useSpace) {
+        print();
+    }
 };
 
 export const runGitCmd = (args: string[]) => {
-    checkGit();
     runCmd('git', [...args]);
 };
 

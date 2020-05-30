@@ -3,6 +3,7 @@
 import path from 'path';
 import os from 'os';
 import chalk from 'chalk';
+import git from 'simple-git/promise';
 import figlet from 'figlet';
 import inquirerCommandPrompt from 'inquirer-command-prompt';
 import inquirer from 'inquirer';
@@ -13,6 +14,7 @@ import { exitCommands, gBunnyCommandList } from './command';
 import { grey, greyLight } from './common/hex-colors';
 import { gitCommand as createGitCommand } from './common/git-command-factory';
 import replPrompt from './common/repl-prompt';
+import runCmd, { runGitCmd } from './common/run-cmd';
 
 const run = async (cmd: string) => {
     const [cmdName, ...options] = cmd
@@ -91,9 +93,26 @@ export default {
 if (process.env.JEST_WORKER_ID === undefined) {
     (async () => {
         checkGit();
+        const args = process.argv.slice(2);
+        const isRepo = await git().checkIsRepo();
+
+        if (!isRepo) {
+            // Allow help, init and clone commands.
+            if (
+                args.length === 0 ||
+                (args.length === 1 &&
+                    (args[0] === 'init' || args[0] === 'clone'))
+            ) {
+                runCmd('git', args.slice(1, args.length), false);
+                return;
+            }
+
+            print('The current directory is not a git repository!');
+            return;
+        }
 
         if (process.argv.slice(2).length > 0) {
-            run(process.argv.slice(2).join(' '));
+            run(args.join(' '));
         } else {
             registerPropmpt();
             welcome();
