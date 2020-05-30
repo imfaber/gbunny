@@ -56,6 +56,8 @@ export const gBunnyCommandList: {
     checkout: (opts: string[]) => gBunnyCommand(() => checkout(opts), ''),
     co: (opts: string[]) => gBunnyCommand(() => checkout(opts), ''),
     cob: (opts: string[]) => gBunnyCommand(() => checkout(['-b', ...opts]), ''),
+    com: (opts: string[]) =>
+        gBunnyCommand(() => checkout(['master', ...opts]), ''),
 
     // Commit
     commit: (opts: string[]) => gBunnyCommand(() => commit(opts), ''),
