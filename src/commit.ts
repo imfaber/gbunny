@@ -48,9 +48,8 @@ export const askForMessage = async (
             ),
             prefix: pointerRightTall,
             suffix: '',
-            save: true,
-            folder: os.tmpdir(),
-            default: defaultMessage
+            default: defaultMessage,
+            context: 1
         }
     ]);
 
