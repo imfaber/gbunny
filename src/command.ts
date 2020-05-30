@@ -33,6 +33,8 @@ export const gBunnyCommandList: {
         gBunnyCommand(() => add(['-u', ...opts]), '"git add -u" shorthand'),
 
     // Blame
+    blame: (opts: string[]) =>
+        gBunnyCommand(() => runGitCmd(['blame', ...opts]), '"git blame"'),
     bl: (opts: string[]) =>
         gBunnyCommand(
             () => runGitCmd(['blame', ...opts]),
@@ -47,6 +49,8 @@ export const gBunnyCommandList: {
     bD: (opts: string[]) => gBunnyCommand(() => branch(['-D', ...opts]), ''),
 
     // Clean
+    clean: (opts: string[]) =>
+        gBunnyCommand(() => runGitCmd(['clean', ...opts]), ''),
     cl: (opts: string[]) =>
         gBunnyCommand(() => runGitCmd(['clean', ...opts]), ''),
     clf: (opts: string[]) =>
@@ -71,6 +75,8 @@ export const gBunnyCommandList: {
         gBunnyCommand(() => commit(['--amend -C HEAD', ...opts]), ''),
 
     // Diff
+    diff: (opts: string[]) =>
+        gBunnyCommand(() => runGitCmd(['diff --', ...opts]), ''),
     d: (opts: string[]) =>
         gBunnyCommand(() => runGitCmd(['diff --', ...opts]), ''),
     dw: (opts: string[]) =>
@@ -81,13 +87,17 @@ export const gBunnyCommandList: {
         gBunnyCommand(() => runGitCmd(['diff --cached --', ...opts]), ''),
 
     // Fetch
+    fetch: (opts: string[]) =>
+        gBunnyCommand(() => runGitCmd(['fetch', ...opts]), ''),
     f: (opts: string[]) =>
         gBunnyCommand(() => runGitCmd(['fetch', ...opts]), ''),
     fa: (opts: string[]) =>
         gBunnyCommand(() => runGitCmd(['fetch --all', ...opts]), ''),
 
     // Log
-    l: (opts: string[]) =>
+    log: (opts: string[]) => gBunnyCommand(() => runGitCmd(['log'])),
+    l: (opts: string[]) => gBunnyCommand(() => runGitCmd(['log'])),
+    lg: (opts: string[]) =>
         gBunnyCommand(() =>
             runGitCmd([
                 'log',
@@ -99,6 +109,8 @@ export const gBunnyCommandList: {
         ),
 
     // Merge
+    merge: (opts: string[]) =>
+        gBunnyCommand(() => runGitCmd(['merge', ...opts])),
     m: (opts: string[]) => gBunnyCommand(() => runGitCmd(['merge', ...opts])),
     mff: (opts: string[]) =>
         gBunnyCommand(() => runGitCmd(['merge --ff', ...opts])),
@@ -106,18 +118,23 @@ export const gBunnyCommandList: {
         gBunnyCommand(() => runGitCmd(['merge --no-ff', ...opts])),
 
     // Pull
+    pull: (opts: string[]) => gBunnyCommand(() => runGitCmd(['pull', ...opts])),
     pl: (opts: string[]) => gBunnyCommand(() => runGitCmd(['pull', ...opts])),
 
     // Push
+    push: (opts: string[]) => gBunnyCommand(() => runGitCmd(['push', ...opts])),
     ps: (opts: string[]) => gBunnyCommand(() => runGitCmd(['push', ...opts])),
     psf: (opts: string[]) =>
         gBunnyCommand(() => runGitCmd(['push -f', ...opts])),
 
     // Remote
+    remote: (opts: string[]) =>
+        gBunnyCommand(() => runGitCmd(['remote -v', ...opts])),
     r: (opts: string[]) =>
         gBunnyCommand(() => runGitCmd(['remote -v', ...opts])),
 
     // Rebase
+    rebase: (opts: string[]) => gBunnyCommand(() => runGitCmd(['rebase', ...opts])),
     rb: (opts: string[]) => gBunnyCommand(() => runGitCmd(['rebase', ...opts])),
     rba: (opts: string[]) =>
         gBunnyCommand(() => runGitCmd(['rebase --abort', ...opts])),
@@ -128,6 +145,8 @@ export const gBunnyCommandList: {
     rm: (opts: string[]) => gBunnyCommand(() => runGitCmd(['rm', ...opts])),
 
     // Reset
+    reset: (opts: string[]) =>
+        gBunnyCommand(() => runGitCmd(['reset --', ...opts])),
     rs: (opts: string[]) =>
         gBunnyCommand(() => runGitCmd(['reset --', ...opts])),
     rsh: (opts: string[]) =>
@@ -136,6 +155,7 @@ export const gBunnyCommandList: {
         gBunnyCommand(() => runGitCmd(['reset HEAD~', ...opts])),
 
     // show
+    show: (opts: string[]) => gBunnyCommand(() => runGitCmd(['show', ...opts])),
     sh: (opts: string[]) => gBunnyCommand(() => runGitCmd(['show', ...opts])),
     shm: (opts: string[]) =>
         gBunnyCommand(() => runGitCmd(['show --summary', ...opts])),
@@ -145,6 +165,7 @@ export const gBunnyCommandList: {
     s: (opts: string[]) => gBunnyCommand(() => status(opts)),
 
     // Stash
+    stash: (opts: string[]) => gBunnyCommand(() => runGitCmd(['stash', ...opts])),
     st: (opts: string[]) => gBunnyCommand(() => runGitCmd(['stash', ...opts])),
     sta: (opts: string[]) =>
         gBunnyCommand(() => runGitCmd(['stash apply', ...opts])),
