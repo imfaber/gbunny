@@ -64,7 +64,7 @@ export const run = async (cmdArgs?: string[]) => {
         const status = await simpleGit().status();
         const indexedCollection = await cmd.getActiveEntityCollection();
 
-        print('', true);
+        print();
 
         printStatusHeader({
             branch: status.current || undefined,

@@ -27,7 +27,7 @@ export const getList = (branches: {
 };
 
 export const printEntities = (list: GitIndexedEntity[]) => {
-    print('', true);
+    print();
 
     list.forEach((b) => {
         const isCurrent = b.current;
@@ -46,7 +46,7 @@ export const printEntities = (list: GitIndexedEntity[]) => {
         print(`${currentMarker} ${index} ${branch}`);
     });
 
-    print('', true);
+    print();
 };
 
 export default (branches: {

@@ -3,12 +3,12 @@ import print from './print';
 import checkGit from './check-git';
 
 export const runCmd = (cmd: string, options: string[] = []) => {
-    print('', true);
+    print();
     spawnSync(cmd, options, {
         shell: true,
         stdio: 'inherit'
     });
-    print('', true);
+    print();
 };
 
 export const runGitCmd = (args: string[]) => {

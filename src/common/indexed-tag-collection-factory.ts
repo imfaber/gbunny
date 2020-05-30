@@ -18,14 +18,14 @@ export const getList = (tags: string[]): GitIndexedEntity[] => {
 };
 
 export const printEntities = (list: GitIndexedEntity[]) => {
-    print('', true);
+    print();
 
     list.forEach((t) => {
         const index = chalk.hex(hexColors.greyLight)(`[${t.entityIndex}]`);
         print(`${index} ${t.name}`);
     });
 
-    print('', true);
+    print();
 };
 
 export default (tags: string[]): GitIndexedEntityCollection => {

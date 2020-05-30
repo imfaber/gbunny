@@ -11,7 +11,7 @@ export default async (
     choices: (EntitySelectorChoice | string | Separator)[],
     singleChoice: boolean = true
 ): Promise<string[] | string> => {
-    print('', true);
+    print();
 
     const { selection } = await inquirer.prompt({
         type: singleChoice ? 'list' : 'checkbox',

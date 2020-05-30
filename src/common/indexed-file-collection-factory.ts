@@ -158,7 +158,7 @@ export const printStatusSection = (options: PrintFilesArgs) => {
         print(color(`${status}:${index || ''} ${f.name}`));
     });
 
-    print('', true);
+    print();
 };
 
 /**
