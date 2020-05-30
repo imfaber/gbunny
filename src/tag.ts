@@ -18,6 +18,7 @@ export const run = async (cmdArgs?: string[]) => {
     const { list } = indexedCollection;
 
     if (list.length === 0) {
+        print();
         print('There are no tags.', true);
         return;
     }

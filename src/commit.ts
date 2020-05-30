@@ -131,7 +131,7 @@ export const run = async (cmdArgs?: string[]) => {
             !args.includes('--amend') &&
             !hasHelpArgument(args)
         ) {
-            print('');
+            print();
             print('There are no changes staged for commit.', true);
 
             if (!isRepl()) {

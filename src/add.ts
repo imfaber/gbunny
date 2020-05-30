@@ -23,6 +23,7 @@ export const run = async (cmdArgs?: string[]) => {
     const { list } = indexedCollection;
 
     if (list.length === 0) {
+        print();
         print('There are no changed files to add to stage.', true);
         return;
     }

@@ -48,6 +48,7 @@ export const run = async (cmdArgs?: string[]) => {
 
     if (entityType === GitEntityType.Path) {
         if (list.length === 0) {
+            print();
             print('There are no changed files to checkout.', true);
             return;
         }
