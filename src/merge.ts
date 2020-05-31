@@ -14,7 +14,7 @@ export const run = async (cmdArgs?: string[]) => {
 
     await cmd.setActiveGitEntityType(GitEntityType.Branch);
 
-    if (args) {
+    if (args && !args.includes('--squash')) {
         await cmd.run();
         return;
     }
@@ -30,7 +30,7 @@ export const run = async (cmdArgs?: string[]) => {
     const selected = await selectEntity('Select the branch to merge:', choices);
 
     if (selected.length > 0) {
-        await cmd.run([selected as string]);
+        await cmd.run([selected as string, ...(args || [])]);
     } else {
         print('No branch was selected.', true);
     }

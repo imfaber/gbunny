@@ -160,13 +160,15 @@ export const gBunnyCommandList: {
             'Run merge command with branch selection'
         ),
     m: (opts: string[]) =>
-        gbCmd(() => merge([...opts]), 'Shorthand for "branch"'),
+        gbCmd(() => merge([...opts]), 'Shorthand for "merge"'),
+    ms: (opts: string[]) =>
+        gbCmd(() => merge([...opts]), 'Shorthand for "merge --squash"'),
     mff: (opts: string[]) =>
-        gbCmd(() => merge(['--ff', ...opts]), 'Shorthand for "branch --ff"'),
+        gbCmd(() => merge(['--ff', ...opts]), 'Shorthand for "merge --ff"'),
     mnff: (opts: string[]) =>
         gbCmd(
             () => merge(['--no-ff', ...opts]),
-            'Shorthand for "branch --no-ff"\n'
+            'Shorthand for "merge --no-ff"\n'
         ),
 
     // Pull
