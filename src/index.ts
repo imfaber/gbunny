@@ -15,6 +15,8 @@ import { grey, greyLight } from './shared/hex-colors';
 import { gitCommand as createGitCommand } from './shared/git-command-factory';
 import replPrompt from './shared/repl-prompt';
 import runCmd, { runGitCmd } from './shared/run-cmd';
+import exitWithError from './shared/exit-with-error';
+import { getConfig } from './shared/config';
 
 const run = async (cmd: string) => {
     const [cmdName, ...options] = cmd
@@ -34,7 +36,15 @@ const run = async (cmd: string) => {
 
 const askCommand = async () => {
     const { prompt } = inquirer;
-    const prefix = await replPrompt();
+    const theme = (await getConfig('repltheme')) || 'agnoster';
+
+    if (!(theme in replPrompt)) {
+        exitWithError(`Theme '${theme}' not found`);
+        return;
+    }
+
+    const prefix = await (replPrompt as any)[theme]();
+
     const { cmd } = await prompt([
         {
             type: 'command',
