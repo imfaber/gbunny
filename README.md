@@ -10,13 +10,13 @@
 
 <div align="center">
 
+<a href="https://www.npmjs.com/package/vue-tasty-burgers" target="_brlak">
+  <img alt="npm" src="https://img.shields.io/npm/v/git-bunny">
+</a>
+
+![CI](https://github.com/imfaber/git-bunny/workflows/CI/badge.svg)
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
-<img alt="Build" src="https://github.com/imfaber/vue-tasty-burgers/workflows/Build/badge.svg?branch=master">
-[![Status](https://img.shields.io/badge/status-active-success.svg)]()
-  <a href="https://www.npmjs.com/package/vue-tasty-burgers" target="_brlak">
-      <img alt="npm" src="https://img.shields.io/npm/v/vue-tasty-burgers">
-  </a>
 
 </div>
 
@@ -31,12 +31,13 @@
 - [🏁 Getting Started <a name = "getting_started"></a>](#%f0%9f%8f%81-getting-started)
     - [How to install](#how-to-install)
 - [🎈 Usage <a name="usage"></a>](#%f0%9f%8e%88-usage)
+  - [Use case examples <a name="use-case-examples"></a>](#use-case-examples)
   - [About the REPL](#about-the-repl)
     - [Change the prompt theme in the REPL](#change-the-prompt-theme-in-the-repl)
     - [Prompt explanation](#prompt-explanation)
 - [⛏️ Built Using <a name = "built_using"></a>](#%e2%9b%8f%ef%b8%8f-built-using)
 - [✍️ Authors <a name = "authors"></a>](#%e2%9c%8d%ef%b8%8f-authors)
-- [🎉 Acknowledgements <a name = "acknowledgement"></a>](#%f0%9f%8e%89-acknowledgements)
+- [🎉 Acknowledgements <a name = "acknowledgements"></a>](#%f0%9f%8e%89-acknowledgements)
 
 ## 🧐 About <a name = "about"></a>
 
@@ -44,6 +45,11 @@
     <br>
 </p>
 
+<p>gBunny creates indexes of Git entities such as paths, branches and tags and offer utilities to make the entity selection simpler and faster.
+</p>
+
+<p>Go to <a href="#use-case-examples">Use case examples</a> to see more.
+</p>
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
@@ -69,6 +75,8 @@ There are 2 ways to run commands:
    ```
    $ gbunny <command>|<git-command>
    ```
+
+### Use case examples <a name="use-case-examples"></a>
 
 ### About the REPL
 
@@ -123,7 +131,7 @@ $ gBunny ❯ my-project ❯ master ❯ ↓1 ↑1 ~0 +2 -0 ❘ ~1 +0 -1 !
 
 - [@imfaber](https://github.com/kylelobo) - Idea & development
 
-## 🎉 Acknowledgements <a name = "acknowledgement"></a>
+## 🎉 Acknowledgements <a name = "acknowledgements"></a>
 
 Inspired by
  - [SCM Breeze](https://github.com/scmbreeze/scm_breeze)
