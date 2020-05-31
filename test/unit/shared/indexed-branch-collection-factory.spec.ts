@@ -1,5 +1,5 @@
-import createIndexedBranchList from '@/common/indexed-branch-collection-factory';
-import { GitBranch } from '@/common/types';
+import createIndexedBranchList from '@/shared/indexed-branch-collection-factory';
+import { GitBranch } from '@/shared/types';
 
 const branches: {
     [name: string]: GitBranch;

@@ -8,13 +8,13 @@ import figlet from 'figlet';
 import inquirerCommandPrompt from 'inquirer-command-prompt';
 import inquirer from 'inquirer';
 import clear from 'clear';
-import print from './common/print';
-import checkGit from './common/check-git';
+import print from './shared/print';
+import checkGit from './shared/check-git';
 import { exitCommands, gBunnyCommandList } from './command';
-import { grey, greyLight } from './common/hex-colors';
-import { gitCommand as createGitCommand } from './common/git-command-factory';
-import replPrompt from './common/repl-prompt';
-import runCmd, { runGitCmd } from './common/run-cmd';
+import { grey, greyLight } from './shared/hex-colors';
+import { gitCommand as createGitCommand } from './shared/git-command-factory';
+import replPrompt from './shared/repl-prompt';
+import runCmd, { runGitCmd } from './shared/run-cmd';
 
 const run = async (cmd: string) => {
     const [cmdName, ...options] = cmd

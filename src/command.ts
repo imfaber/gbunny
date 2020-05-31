@@ -6,8 +6,8 @@ import tag from './tag';
 import add from './add';
 import merge from './merge';
 import gbHelp from './help';
-import { runGitCmd } from './common/run-cmd';
-import { GBunnyCommand } from './common/types';
+import { runGitCmd } from './shared/run-cmd';
+import { GBunnyCommand } from './shared/types';
 
 const gbCmd = (
     run: () => Promise<void> | void,

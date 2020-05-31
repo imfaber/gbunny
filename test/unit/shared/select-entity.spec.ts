@@ -1,4 +1,4 @@
-import selectEntity from '@/common/select-entity';
+import selectEntity from '@/shared/select-entity';
 import inquirer from 'inquirer';
 
 const choices = [

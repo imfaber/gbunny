@@ -1,4 +1,4 @@
-import createGitCommand from '@/common/git-command-factory';
+import createGitCommand from '@/shared/git-command-factory';
 
 describe('Git command factory', () => {
     it('should create a git command object', async () => {

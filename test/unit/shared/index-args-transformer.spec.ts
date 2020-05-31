@@ -1,5 +1,5 @@
-import indexArgsTransformer from '@/common/index-args-transformer';
-import { GitIndexedEntity, GitEntityType } from '@/common/types';
+import indexArgsTransformer from '@/shared/index-args-transformer';
+import { GitIndexedEntity, GitEntityType } from '@/shared/types';
 
 const indexedEntities: GitIndexedEntity[] = [
     {

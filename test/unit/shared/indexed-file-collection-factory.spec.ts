@@ -7,7 +7,7 @@ import {
     isUnmergedFile,
     getStatusByCode,
     getList
-} from '@/common/indexed-file-collection-factory';
+} from '@/shared/indexed-file-collection-factory';
 import { cleanStatus, dirtyStatus } from '../fixtures/git-status-result';
 
 describe('Status summary', () => {

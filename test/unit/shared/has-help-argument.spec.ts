@@ -1,4 +1,4 @@
-import hasAllArgument from '@/common/has-help-argument';
+import hasAllArgument from '@/shared/has-help-argument';
 
 describe('hasHelpArgument()', () => {
     it('should determine wheter the args contain -h or -help', () => {

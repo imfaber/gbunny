@@ -35,20 +35,6 @@ export enum StatusCode {
 
 export type Status = keyof typeof StatusCode;
 
-export interface Colors {
-    white: string;
-    black: string;
-    red: string;
-    green: string;
-    yellow: string;
-    magenta: string;
-    cyan: string;
-    blue: string;
-    grey: string;
-}
-
-export type Color = keyof Colors;
-
 export interface GitCommand {
     args: string[] | undefined;
     canRun: boolean;
