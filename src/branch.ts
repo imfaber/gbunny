@@ -39,7 +39,9 @@ export const run = async (cmdArgs?: string[]) => {
             b.name.startsWith('remotes/')
         );
 
-        choices.splice(index, 0, new Separator());
+        if (index > 0) {
+            choices.splice(index, 0, new Separator());
+        }
 
         const selectedBranches = await selectEntity(
             'Select the branches to delete:',

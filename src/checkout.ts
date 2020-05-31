@@ -68,7 +68,10 @@ export const run = async (cmdArgs?: string[]) => {
 
     if (entityType === GitEntityType.Branch) {
         const index = list.findIndex((b) => b.name.startsWith('remotes/'));
-        choices.splice(index, 0, new Separator());
+
+        if (index > 0) {
+            choices.splice(index, 0, new Separator());
+        }
 
         const selectedBranch = await selectEntity(
             'Select the branch to checkout:',
