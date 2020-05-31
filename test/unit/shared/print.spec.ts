@@ -1,4 +1,4 @@
-import print from '@/common/print';
+import print from '@/shared/print';
 
 describe('Print', () => {
     it('should call console log with the given argument', () => {

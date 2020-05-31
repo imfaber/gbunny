@@ -7,15 +7,15 @@ import minimist from 'minimist';
 import simpleGit from 'simple-git/promise';
 import inquirerCommandPrompt from 'inquirer-command-prompt';
 import inquirer from 'inquirer';
-import createGitCommand from './common/git-command-factory';
-import { GitArea, GitIndexedFile } from './common/types';
-import hasAllArgument from './common/has-all-argument';
-import print from './common/print';
-import { grey } from './common/hex-colors';
-import exitWithError from './common/exit-with-error';
-import { pointerRightTall } from './common/symbols';
-import isRepl from './common/is-repl';
-import hasHelpArgument from './common/has-help-argument';
+import createGitCommand from './shared/git-command-factory';
+import { GitArea, GitIndexedFile } from './shared/types';
+import hasAllArgument from './shared/has-all-argument';
+import print from './shared/print';
+import { grey } from './shared/hex-colors';
+import exitWithError from './shared/exit-with-error';
+import { pointerRightTall } from './shared/symbols';
+import isRepl from './shared/is-repl';
+import hasHelpArgument from './shared/has-help-argument';
 
 export const askForMessage = async (
     intro?: string | Chalk,

@@ -1,4 +1,4 @@
-import hasAllArgument from '@/common/has-all-argument';
+import hasAllArgument from '@/shared/has-all-argument';
 
 describe('hasAllArgument()', () => {
     it('should determine wheter the args contain -a or -all', () => {

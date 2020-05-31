@@ -1,4 +1,4 @@
-import createIndexedTagList from '@/common/indexed-tag-collection-factory';
+import createIndexedTagList from '@/shared/indexed-tag-collection-factory';
 
 const tags: string[] = ['tag1', 'tag2', 'tag3'];
 

@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-import { gitCommand as createGitCommand } from './common/git-command-factory';
-import { GitEntityType, EntitySelectorChoice } from './common/types';
-import isRepl from './common/is-repl';
-import selectEntity from './common/select-entity';
-import print from './common/print';
+import { gitCommand as createGitCommand } from './shared/git-command-factory';
+import { GitEntityType, EntitySelectorChoice } from './shared/types';
+import isRepl from './shared/is-repl';
+import selectEntity from './shared/select-entity';
+import print from './shared/print';
 
 export const run = async (cmdArgs?: string[]) => {
     const cmd = await createGitCommand('tag', cmdArgs);

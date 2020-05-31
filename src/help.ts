@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-import print from './common/print';
+import print from './shared/print';
 import { gBunnyCommandList } from './command';
-import isRepl from './common/is-repl';
+import isRepl from './shared/is-repl';
 
 export const run = async () => {
     print();

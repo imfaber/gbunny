@@ -3,13 +3,13 @@
 import chalk from 'chalk';
 import simpleGit from 'simple-git/promise';
 import { StatusResult } from 'simple-git/typings/response.d';
-import createGitCommand from './common/git-command-factory';
-import { StatusHeaderArgs, GitEntityType } from './common/types';
-import symbols from './common/symbols';
-import print from './common/print';
-import hexColors, { cyan } from './common/hex-colors';
-import exitWithError from './common/exit-with-error';
-import isRepl from './common/is-repl';
+import createGitCommand from './shared/git-command-factory';
+import { StatusHeaderArgs, GitEntityType } from './shared/types';
+import symbols from './shared/symbols';
+import print from './shared/print';
+import hexColors, { cyan, yellow } from './shared/hex-colors';
+import exitWithError from './shared/exit-with-error';
+import isRepl from './shared/is-repl';
 
 export const getTrackingInfo = (status: StatusResult): string => {
     return status.tracking ? `[${chalk.hex(cyan)(status.tracking)}]` : '';
@@ -34,14 +34,14 @@ const printStatusHeader = (status: StatusHeaderArgs): undefined => {
         return;
     }
 
-    let header = chalk`On branch: {hex(cyan) ${status.branch}}`;
+    let header = `On branch: ${chalk.hex(cyan)(status.branch)}`;
 
     if (status.tracking) {
         header += ` ${symbols.arrowRight} ${status.tracking}`;
     }
 
     if (status.diverge) {
-        header += ` |${chalk.yellowBright(status.diverge)}`;
+        header += ` |${chalk.hex(yellow)(status.diverge)}`;
     }
 
     print(chalk.hex(hexColors.greyLight)(header), true);

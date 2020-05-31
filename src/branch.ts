@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
 import Separator from 'inquirer/lib/objects/separator';
-import { gitCommand as createGitCommand } from './common/git-command-factory';
-import { GitEntityType, EntitySelectorChoice } from './common/types';
-import hasAllArgument from './common/has-all-argument';
-import isRepl from './common/is-repl';
-import selectEntity from './common/select-entity';
+import { gitCommand as createGitCommand } from './shared/git-command-factory';
+import { GitEntityType, EntitySelectorChoice } from './shared/types';
+import hasAllArgument from './shared/has-all-argument';
+import isRepl from './shared/is-repl';
+import selectEntity from './shared/select-entity';
 
 export const run = async (cmdArgs?: string[]) => {
     const cmd = await createGitCommand('branch', cmdArgs);
