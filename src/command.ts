@@ -162,7 +162,10 @@ export const gBunnyCommandList: {
     m: (opts: string[]) =>
         gbCmd(() => merge([...opts]), 'Shorthand for "merge"'),
     ms: (opts: string[]) =>
-        gbCmd(() => merge([...opts]), 'Shorthand for "merge --squash"'),
+        gbCmd(
+            () => merge([...opts, '--squash']),
+            'Shorthand for "merge [branch] --squash"'
+        ),
     mff: (opts: string[]) =>
         gbCmd(() => merge(['--ff', ...opts]), 'Shorthand for "merge --ff"'),
     mnff: (opts: string[]) =>
