@@ -16,9 +16,13 @@
     ],
     "keywords": [
         "git-bunny",
+        "gbunny",
         "git",
         "source control"
     ],
+    "engines": {
+        "node": ">=10"
+    },
     "bin": {
         "gbunny": "./dist/index.js",
         "gb": "./dist/index.js",
