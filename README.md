@@ -1,6 +1,6 @@
 <p align="center">
   <a href="" rel="noopener">
- <img src="./assets/logo.png" alt="gBunny logo"></a>
+ <img src="https://i.imgur.com/3T0TAZW.png" alt="gBunny logo"></a>
 </p>
 
 <p align="center"> Simpler and faster git interactions.
@@ -26,14 +26,17 @@
 
 ## 📝 Table of Contents
 
-- [📝 Table of Contents](#-table-of-contents)
-- [🧐 About <a name = "about"></a>](#-about)
-- [🏁 Getting Started <a name = "getting_started"></a>](#-getting-started)
+- [📝 Table of Contents](#%f0%9f%93%9d-table-of-contents)
+- [🧐 About <a name = "about"></a>](#%f0%9f%a7%90-about)
+- [🏁 Getting Started <a name = "getting_started"></a>](#%f0%9f%8f%81-getting-started)
     - [How to install](#how-to-install)
-- [🎈 Usage <a name="usage"></a>](#-usage)
-- [⛏️ Built Using <a name = "built_using"></a>](#️-built-using)
-- [✍️ Authors <a name = "authors"></a>](#️-authors)
-- [🎉 Acknowledgements <a name = "acknowledgement"></a>](#-acknowledgements)
+- [🎈 Usage <a name="usage"></a>](#%f0%9f%8e%88-usage)
+  - [About the REPL](#about-the-repl)
+    - [Change the prompt theme in the REPL](#change-the-prompt-theme-in-the-repl)
+    - [Prompt explanation](#prompt-explanation)
+- [⛏️ Built Using <a name = "built_using"></a>](#%e2%9b%8f%ef%b8%8f-built-using)
+- [✍️ Authors <a name = "authors"></a>](#%e2%9c%8d%ef%b8%8f-authors)
+- [🎉 Acknowledgements <a name = "acknowledgement"></a>](#%f0%9f%8e%89-acknowledgements)
 
 ## 🧐 About <a name = "about"></a>
 
@@ -58,13 +61,63 @@ npm install -g git-bunny
 
 ## 🎈 Usage <a name="usage"></a>
 
-Add notes about how to use the system.
+Once istalled, <strong>gBunny</strong> can be run with the command <code>gbunny</code> or with one of its shorthands if they don't conflict with existing aliases (<code>g</code> and <code>gb</code>).
+
+There are 2 ways to run commands:
+1) by starting a new <strong>REPL</strong> session
+2) by passing sub-commands to <code>gbunny</code>
+   ```
+   $ gbunny <command>|<git-command>
+   ```
+
+### About the REPL
+
+To start a new session <code>cd</code> to your repository directory and run:
+```
+$ gbunny
+```
+
+Once the REPL is started you can run gBunny and Git sub-commands omitting the <code>git</code> command.
+
+Type <code>h</code> to see the list of available commands.
+
+#### Change the prompt theme in the REPL
+
+At the moment there are only 2 available themes:
+
+- agnoster (requires Powerline font)
+  <img src="https://i.imgur.com/FD2FHnC.png">
+- arrow
+  <img src="https://i.imgur.com/b44u4cC.png">
+
+Themes can be changed with the following command:
+```
+git config --global "gbunny.repltheme" "THEME_NAME"
+```
+
+#### Prompt explanation
+
+```
+$ gBunny ❯ my-project ❯ master ❯ ↓1 ↑1 ~0 +2 -0 ❘ ~1 +0 -1 !
+```
+
+- <code>gBunny</code> Indicator of a gBunny REPL session
+- <code>my-project</code> The repository name
+- <code>master</code> The current branch.
+  - When green it means there are no changed files
+  - Orange means there are changed files
+- <code>↓1 ↑1</code> Changes to pull and push
+- <code>~0 +2 -0 ❘ ~1 +0 -1 !</code> Changes in the index and in the work tree
+  - <code>~</code> Modified files
+  - <code>+</code> Added files
+  - <code>-</code> Deleted files
+  - <code>!</code> Conflicted files
 
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 
-- [TypeScript](https://www.typescriptlang.org/) - Web Framework
-- [NodeJs](https://nodejs.org/en/) - Server Environment
+- [TypeScript](https://www.typescriptlang.org/)
+- [NodeJs](https://nodejs.org/en/)
 
 ## ✍️ Authors <a name = "authors"></a>
 
