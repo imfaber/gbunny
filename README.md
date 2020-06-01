@@ -99,7 +99,7 @@ At the moment there are only 2 available themes:
 - agnoster (requires Powerline font)<br>
   <img src="https://i.imgur.com/FD2FHnC.png" height=35>
 - arrow<br>
-  <img src="https://i.imgur.com/b44u4cC.png" height=35>
+  <img src="https://i.imgur.com/b44u4cC.png" height=29>
 
 Themes can be changed with the following command:
 ```
