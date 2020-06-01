@@ -24,20 +24,20 @@
 
 
 
-## 📝 Table of Contents
+## 📝 Table of Contents <a name="table-of-contents"></a>
 
 - [📝 Table of Contents](#table-of-contents)
-- [🧐 About <a name = "about"></a>](#about)
-- [🏁 Getting Started <a name = "getting_started"></a>](#getting-started)
+- [🧐 About></a>](#about)
+- [🏁 Getting Started></a>](#getting-started)
     - [How to install](#how-to-install)
-- [🎈 Usage <a name="usage"></a>](#usage)
-  - [Use case examples <a name="use-case-examples"></a>](#use-case-examples)
+- [🎈 Usage](#usage)
+  - [Use case examples](#use-case-examples)
   - [About the REPL](#about-the-repl)
     - [Change the prompt theme in the REPL](#change-the-prompt-theme-in-the-repl)
     - [Prompt explanation](#prompt-explanation)
-- [⛏️ Built Using <a name = "built_using"></a>](#built-using)
-- [✍️ Authors <a name = "authors"></a>](#authors)
-- [🎉 Acknowledgements <a name = "acknowledgements"></a>](#acknowledgements)
+- [⛏️ Built Using](#built-using)
+- [✍️ Authors](#authors)
+- [🎉 Acknowledgements</a>](#acknowledgements)
 
 ## 🧐 About <a name = "about"></a>
 
@@ -51,7 +51,7 @@
 <p>Go to <a href="#use-case-examples">Use case examples</a> to see more.
 </p>
 
-## 🏁 Getting Started <a name = "getting_started"></a>
+## 🏁 Getting Started <a name = "getting-started"></a>
 
 <strong>gBunny</strong> requires:
 <ul>
@@ -122,7 +122,7 @@ $ gBunny ❯ my-project ❯ master ❯ ↓1 ↑1 ~0 +2 -0 ❘ ~1 +0 -1 !
   - <code>!</code> Conflicted files
 
 
-## ⛏️ Built Using <a name = "built_using"></a>
+## ⛏️ Built Using <a name = "built-using"></a>
 
 - [TypeScript](https://www.typescriptlang.org/)
 - [NodeJs](https://nodejs.org/en/)
