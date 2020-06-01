@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import { gitCommand as createGitCommand } from './shared/git-command-factory';
 import { GitEntityType, EntitySelectorChoice } from './shared/types';
 import selectEntity from './shared/select-entity';

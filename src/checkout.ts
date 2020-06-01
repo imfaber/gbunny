@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import Separator from 'inquirer/lib/objects/separator';
 import createGitCommand from './shared/git-command-factory';
 import selectEntity from './shared/select-entity';

@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import Separator from 'inquirer/lib/objects/separator';
 import { gitCommand as createGitCommand } from './shared/git-command-factory';
 import { GitEntityType, EntitySelectorChoice } from './shared/types';

@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import os from 'os';
 import path from 'path';
 import chalk, { Chalk } from 'chalk';

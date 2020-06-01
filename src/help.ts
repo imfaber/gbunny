@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import print from './shared/print';
 import { gBunnyCommandList } from './command';
 

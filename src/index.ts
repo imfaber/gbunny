@@ -14,7 +14,7 @@ import { exitCommands, gBunnyCommandList } from './command';
 import { grey, greyLight } from './shared/hex-colors';
 import { gitCommand as createGitCommand } from './shared/git-command-factory';
 import replPrompt from './shared/repl-prompt';
-import runCmd, { runGitCmd } from './shared/run-cmd';
+import runCmd from './shared/run-cmd';
 import exitWithError from './shared/exit-with-error';
 import { getConfig } from './shared/config';
 
