@@ -74,11 +74,31 @@ There are 2 ways to run commands:
    ```
    $ gbunny <command>|<git-command>
    ```
-<br>
 
 ### Use case examples <a name="use-case-examples"></a>
 
-<br>
+Here some use case example to highlight how to use <strong>gBunny</strong>.
+
+
+#### Checkout a branch using the branch selector or the branch index
+
+<img src="https://i.imgur.com/THrnfEm.gif">
+
+
+#### Add files to the stage using path indexes
+
+<img src="https://i.imgur.com/vPzSbsc.gif">
+
+
+#### Add files to the stage using path selector
+
+<img src="https://i.imgur.com/BOnr07c.gif">
+
+
+#### Commit all
+
+<img src="https://i.imgur.com/lNDb5tq.gif">
+
 
 ### About the REPL
 
