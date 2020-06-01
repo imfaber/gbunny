@@ -39,7 +39,7 @@
 - [✍️ Authors](#authors)
 - [🎉 Acknowledgements](#acknowledgements)
 
-<br><br>
+<br>
 
 ## 🧐 About <a name = "about"></a>
 
@@ -52,6 +52,7 @@
 
 <p>Go to <a href="#use-case-examples">Use case examples</a> to see more.
 </p>
+<br>
 
 ## 🏁 Getting Started <a name = "getting-started"></a>
 
@@ -60,6 +61,7 @@
   <li><a href="https://nodejs.org/en/" target="_blank">Node.js <code>>= 10.0.0</code></a> (older versions might work too but they are not tested)</li>
   <li><a href="https://git-scm.com/" target="_blank">Git</a></li>
 </ul>
+<br>
 
 #### How to install
 
@@ -77,6 +79,7 @@ There are 2 ways to run commands:
    ```
    $ gbunny <command>|<git-command>
    ```
+<br>
 
 ### Use case examples <a name="use-case-examples"></a>
 
@@ -90,6 +93,7 @@ $ gbunny
 Once the REPL is started you can run gBunny and Git sub-commands omitting the <code>git</code> command.
 
 Type <code>h</code> to see the list of available commands.
+<br>
 
 #### Change the prompt theme in the REPL
 
@@ -104,6 +108,7 @@ Themes can be changed with the following command:
 ```
 git config --global "gbunny.repltheme" "THEME_NAME"
 ```
+<br>
 
 #### Prompt explanation
 
@@ -122,19 +127,22 @@ $ gBunny ❯ my-project ❯ master ❯ ↓1 ↑1 ~0 +2 -0 ❘ ~1 +0 -1 !
   - <code>+</code> Added files
   - <code>-</code> Deleted files
   - <code>!</code> Conflicted files
-
+<br>
 
 ## ⛏️ Built Using <a name = "built-using"></a>
 
 - [TypeScript](https://www.typescriptlang.org/)
 - [NodeJs](https://nodejs.org/en/)
+<br>
 
 ## ✍️ Authors <a name = "authors"></a>
 
 - [@imfaber](https://github.com/kylelobo) - Idea & development
+<br>
 
 ## 🎉 Acknowledgements <a name = "acknowledgements"></a>
 
 Inspired by
  - [SCM Breeze](https://github.com/scmbreeze/scm_breeze)
  - [Git-NumberedAdd](https://github.com/itenium-be/Git-NumberedAdd)
+<br>
