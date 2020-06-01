@@ -10,8 +10,8 @@
 
 <div align="center">
 
-<a href="https://www.npmjs.com/package/vue-tasty-burgers" target="_brlak">
-  <img alt="npm" src="https://img.shields.io/npm/v/git-bunny">
+<a href="https://www.npmjs.com/package/gbunny" target="_brlak">
+  <img alt="npm" src="https://img.shields.io/npm/v/gunny">
 </a>
 
 ![CI](https://github.com/imfaber/git-bunny/workflows/CI/badge.svg)
@@ -26,18 +26,18 @@
 
 ## 📝 Table of Contents
 
-- [📝 Table of Contents](#%f0%9f%93%9d-table-of-contents)
-- [🧐 About <a name = "about"></a>](#%f0%9f%a7%90-about)
-- [🏁 Getting Started <a name = "getting_started"></a>](#%f0%9f%8f%81-getting-started)
+- [📝 Table of Contents](#table-of-contents)
+- [🧐 About <a name = "about"></a>](#about)
+- [🏁 Getting Started <a name = "getting_started"></a>](#getting-started)
     - [How to install](#how-to-install)
-- [🎈 Usage <a name="usage"></a>](#%f0%9f%8e%88-usage)
+- [🎈 Usage <a name="usage"></a>](#usage)
   - [Use case examples <a name="use-case-examples"></a>](#use-case-examples)
   - [About the REPL](#about-the-repl)
     - [Change the prompt theme in the REPL](#change-the-prompt-theme-in-the-repl)
     - [Prompt explanation](#prompt-explanation)
-- [⛏️ Built Using <a name = "built_using"></a>](#%e2%9b%8f%ef%b8%8f-built-using)
-- [✍️ Authors <a name = "authors"></a>](#%e2%9c%8d%ef%b8%8f-authors)
-- [🎉 Acknowledgements <a name = "acknowledgements"></a>](#%f0%9f%8e%89-acknowledgements)
+- [⛏️ Built Using <a name = "built_using"></a>](#built-using)
+- [✍️ Authors <a name = "authors"></a>](#authors)
+- [🎉 Acknowledgements <a name = "acknowledgements"></a>](#acknowledgements)
 
 ## 🧐 About <a name = "about"></a>
 
