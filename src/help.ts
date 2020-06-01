@@ -2,7 +2,6 @@
 
 import print from './shared/print';
 import { gBunnyCommandList } from './command';
-import isRepl from './shared/is-repl';
 
 export const run = async () => {
     print();

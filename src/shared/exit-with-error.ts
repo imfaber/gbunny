@@ -1,4 +1,3 @@
-import chalk from 'chalk';
 import print from './print';
 import isRepl from './is-repl';
 

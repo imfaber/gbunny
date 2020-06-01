@@ -4,7 +4,6 @@ import createIndexedBranchCollection from './indexed-branch-collection-factory';
 import createIndexedFilesCollection from './indexed-file-collection-factory';
 import createIndexedTagCollection from './indexed-tag-collection-factory';
 import indexArgTransformer from './index-args-transformer';
-import isRepl from './is-repl';
 import checkGit from './check-git';
 import runCmd from './run-cmd';
 
@@ -48,10 +47,6 @@ const runGitCommand = async (cmdName: string, args: string[] = []) => {
     );
 
     runCmd('git', [cmdName, ...(transformedArgs || [])]);
-
-    if (!isRepl()) {
-        process.exit(0);
-    }
 };
 
 export const gitCommand = async (

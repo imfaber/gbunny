@@ -2,7 +2,6 @@
 
 import { gitCommand as createGitCommand } from './shared/git-command-factory';
 import { GitEntityType, EntitySelectorChoice } from './shared/types';
-import isRepl from './shared/is-repl';
 import selectEntity from './shared/select-entity';
 import print from './shared/print';
 

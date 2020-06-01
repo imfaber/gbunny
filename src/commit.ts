@@ -14,7 +14,6 @@ import print from './shared/print';
 import { grey } from './shared/hex-colors';
 import exitWithError from './shared/exit-with-error';
 import { pointerRightTall } from './shared/symbols';
-import isRepl from './shared/is-repl';
 import hasHelpArgument from './shared/has-help-argument';
 
 export const askForMessage = async (
@@ -133,10 +132,6 @@ export const run = async (cmdArgs?: string[]) => {
         ) {
             print();
             print('There are no changes staged for commit.', true);
-
-            if (!isRepl()) {
-                process.exit(0);
-            }
 
             return;
         }

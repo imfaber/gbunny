@@ -4,7 +4,6 @@ import Separator from 'inquirer/lib/objects/separator';
 import { gitCommand as createGitCommand } from './shared/git-command-factory';
 import { GitEntityType, EntitySelectorChoice } from './shared/types';
 import hasAllArgument from './shared/has-all-argument';
-import isRepl from './shared/is-repl';
 import selectEntity from './shared/select-entity';
 
 export const run = async (cmdArgs?: string[]) => {

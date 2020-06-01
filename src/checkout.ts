@@ -8,7 +8,6 @@ import {
     GitIndexedEntity,
     EntitySelectorChoice
 } from './shared/types';
-import isRepl from './shared/is-repl';
 import print from './shared/print';
 
 export const run = async (cmdArgs?: string[]) => {

@@ -3,7 +3,6 @@
 import createGitCommand from './shared/git-command-factory';
 import selectEntity from './shared/select-entity';
 import { GitEntityType, EntitySelectorChoice } from './shared/types';
-import isRepl from './shared/is-repl';
 import print from './shared/print';
 
 export const run = async (cmdArgs?: string[]) => {
