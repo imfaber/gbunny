@@ -61,13 +61,13 @@
   <li><a href="https://nodejs.org/en/" target="_blank">Node.js <code>>= 10.0.0</code></a> (older versions might work too but they are not tested)</li>
   <li><a href="https://git-scm.com/" target="_blank">Git</a></li>
 </ul>
-<br>
 
 #### How to install
 
 ```
 npm install -g git-bunny
 ```
+<br>
 
 ## 🎈 Usage <a name="usage"></a>
 
@@ -83,6 +83,8 @@ There are 2 ways to run commands:
 
 ### Use case examples <a name="use-case-examples"></a>
 
+<br>
+
 ### About the REPL
 
 To start a new session <code>cd</code> to your repository directory and run:
@@ -93,7 +95,7 @@ $ gbunny
 Once the REPL is started you can run gBunny and Git sub-commands omitting the <code>git</code> command.
 
 Type <code>h</code> to see the list of available commands.
-<br>
+
 
 #### Change the prompt theme in the REPL
 
@@ -108,7 +110,6 @@ Themes can be changed with the following command:
 ```
 git config --global "gbunny.repltheme" "THEME_NAME"
 ```
-<br>
 
 #### Prompt explanation
 
