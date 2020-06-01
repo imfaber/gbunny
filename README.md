@@ -96,9 +96,9 @@ Type <code>h</code> to see the list of available commands.
 
 At the moment there are only 2 available themes:
 
-- agnoster (requires Powerline font)
+- agnoster (requires Powerline font)<br>
   <img src="https://i.imgur.com/FD2FHnC.png" height=35>
-- arrow
+- arrow<br>
   <img src="https://i.imgur.com/b44u4cC.png" height=35>
 
 Themes can be changed with the following command:
