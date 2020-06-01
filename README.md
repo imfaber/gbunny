@@ -27,8 +27,8 @@
 ## 📝 Table of Contents <a name="table-of-contents"></a>
 
 - [📝 Table of Contents](#table-of-contents)
-- [🧐 About></a>](#about)
-- [🏁 Getting Started></a>](#getting-started)
+- [🧐 About](#about)
+- [🏁 Getting Started](#getting-started)
     - [How to install](#how-to-install)
 - [🎈 Usage](#usage)
   - [Use case examples](#use-case-examples)
@@ -37,7 +37,9 @@
     - [Prompt explanation](#prompt-explanation)
 - [⛏️ Built Using](#built-using)
 - [✍️ Authors](#authors)
-- [🎉 Acknowledgements</a>](#acknowledgements)
+- [🎉 Acknowledgements](#acknowledgements)
+
+<br><br>
 
 ## 🧐 About <a name = "about"></a>
 
