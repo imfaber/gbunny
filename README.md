@@ -10,19 +10,14 @@
 
 <div align="center">
 
-<a href="https://www.npmjs.com/package/gbunny" target="_brlak">
-  <img alt="npm" src="https://img.shields.io/npm/v/gunny">
-</a>
-
+![npm](https://img.shields.io/npm/v/gbunny)
 ![CI](https://github.com/imfaber/git-bunny/workflows/CI/badge.svg)
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](/LICENSE)
 
 </div>
 
----
-
-
+<br>
 
 ## 📝 Table of Contents <a name="table-of-contents"></a>
 
@@ -102,9 +97,9 @@ Type <code>h</code> to see the list of available commands.
 At the moment there are only 2 available themes:
 
 - agnoster (requires Powerline font)
-  <img src="https://i.imgur.com/FD2FHnC.png">
+  <img src="https://i.imgur.com/FD2FHnC.png" style="max-height: 35px">
 - arrow
-  <img src="https://i.imgur.com/b44u4cC.png">
+  <img src="https://i.imgur.com/b44u4cC.png" style="max-height: 35px">
 
 Themes can be changed with the following command:
 ```
