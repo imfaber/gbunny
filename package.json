@@ -1,9 +1,12 @@
 {
-    "name": "git-bunny",
+    "name": "gbunny",
     "version": "0.1.0",
     "description": "Enhance interaction with git",
     "license": "MIT",
-    "repository": "",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/imfaber/gbunny.git"
+    },
     "main": "dist/index.js",
     "author": {
         "name": "Fabrizio Meinero",
@@ -15,10 +18,10 @@
         "src"
     ],
     "keywords": [
-        "git-bunny",
         "gbunny",
         "git",
-        "source control"
+        "scm",
+        "repl"
     ],
     "engines": {
         "node": ">=10"
