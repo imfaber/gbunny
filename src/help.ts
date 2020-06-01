@@ -45,6 +45,4 @@ export const run = async () => {
     print();
 };
 
-if (!isRepl()) run();
-
 export default run;

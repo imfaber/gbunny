@@ -36,9 +36,8 @@ const getTransformedArgs = (
     cmdArgs: string[],
     indexedEntityCollection: GitIndexedEntityCollection
 ): string[] | undefined => {
-    const args = isRepl() ? cmdArgs : process.argv.slice(2);
-    return args.length > 0
-        ? indexArgTransformer(args, indexedEntityCollection.list)
+    return cmdArgs.length > 0
+        ? indexArgTransformer(cmdArgs, indexedEntityCollection.list)
         : undefined;
 };
 

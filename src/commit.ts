@@ -161,6 +161,4 @@ export const run = async (cmdArgs?: string[]) => {
     }
 };
 
-if (!isRepl()) run();
-
 export default run;

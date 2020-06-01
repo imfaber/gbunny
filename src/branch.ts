@@ -56,6 +56,4 @@ export const run = async (cmdArgs?: string[]) => {
     await cmd.run();
 };
 
-if (!isRepl()) run();
-
 export default run;

@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import chalk from 'chalk';
 import simpleGit from 'simple-git/promise';
 import { StatusResult } from 'simple-git/typings/response.d';
@@ -9,7 +7,6 @@ import symbols from './shared/symbols';
 import print from './shared/print';
 import hexColors, { cyan, yellow } from './shared/hex-colors';
 import exitWithError from './shared/exit-with-error';
-import isRepl from './shared/is-repl';
 
 export const getTrackingInfo = (status: StatusResult): string => {
     return status.tracking ? `[${chalk.hex(cyan)(status.tracking)}]` : '';
@@ -77,7 +74,5 @@ export const run = async (cmdArgs?: string[]) => {
         exitWithError(error);
     }
 };
-
-if (!isRepl()) run();
 
 export default run;
