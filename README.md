@@ -42,7 +42,7 @@
     <br>
 </p>
 
-<p>gBunny creates indexes of Git entities such as paths, branches and tags and offer utilities to make the entity selection simpler and faster.
+<p><strong>gBunny</strong> creates <strong>indexes of Git entities</strong> such as paths, branches and tags and offer utilities to make the entity selection simpler and faster.
 </p>
 
 <p>Go to <a href="#use-case-examples">Use case examples</a> to see more.
