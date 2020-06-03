@@ -1,6 +1,6 @@
 import createGitCommand from './shared/git-command-factory';
 import selectEntity from './shared/select-entity';
-import { GitEntityType, EntitySelectorChoice } from './shared/types';
+import { GitEntityType, EntitySelectorChoice, GitArea } from './shared/types';
 import print from './shared/print';
 
 export const run = async (cmdArgs?: string[]) => {
@@ -18,14 +18,15 @@ export const run = async (cmdArgs?: string[]) => {
 
     const indexedCollection = await cmd.getActiveEntityCollection();
     const { list } = indexedCollection;
+    const filteredList = list.filter((e) => e.area !== GitArea.Stage);
 
-    if (list.length === 0) {
+    if (filteredList.length === 0) {
         print();
         print('There are no changed files to add to stage.', true);
         return;
     }
 
-    const choices: EntitySelectorChoice[] = list.map((e) => ({
+    const choices: EntitySelectorChoice[] = filteredList.map((e) => ({
         name: `[${e.entityIndex}] ${e.name}`,
         value: e.name
     }));
