@@ -1,7 +1,7 @@
 {
     "name": "gbunny",
     "version": "0.2.5",
-    "description": "Enhance interaction with git",
+    "description": "Enhance shell interactions with git",
     "license": "MIT",
     "repository": {
         "type": "git",
