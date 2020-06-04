@@ -153,7 +153,7 @@ $ gBunny ❯ my-project ❯ master ❯ ↓1 ↑1 ~0 +2 -0 ❘ ~1 +0 -1 !
 
 ## ✍️ Authors <a name = "authors"></a>
 
-- [@imfaber](https://github.com/kylelobo) - Idea & development
+- [@imfaber](https://github.com/imfaber) - Idea & development
 <br>
 
 ## 🎉 Acknowledgements <a name = "acknowledgements"></a>
