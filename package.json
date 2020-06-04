@@ -1,6 +1,6 @@
 {
     "name": "gbunny",
-    "version": "0.2.8",
+    "version": "0.2.9",
     "description": "Enhance shell interactions with git",
     "license": "MIT",
     "repository": {
