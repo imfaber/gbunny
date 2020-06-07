@@ -27,7 +27,6 @@ export const run = async (cmdArgs?: string[]) => {
     const selected = await selectEntity('Select the branch to merge:', choices);
 
     if (selected.length > 0) {
-        console.log([selected as string, ...(args || [])]);
         await cmd.run([selected as string, ...(args || [])]);
     } else {
         print('No branch was selected.', true);
