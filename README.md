@@ -60,7 +60,7 @@
 #### How to install
 
 ```
-npm install -g git-bunny
+npm install -g gbunny
 ```
 <br>
 
