@@ -77,8 +77,8 @@ export const gBunnyCommandList: {
         gbCmd(() => checkout(['-b', ...opts]), 'Shorthand for "checkout -b"'),
     com: (opts: string[]) =>
         gbCmd(
-            () => checkout(['master', ...opts]),
-            'Shorthand for "checkout master"\n'
+            () => checkout(['#!main-or-master-branch!#', ...opts]),
+            'Shorthand for "checkout master or main"\n'
         ),
 
     // Commit

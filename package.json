@@ -1,6 +1,6 @@
 {
     "name": "gbunny",
-    "version": "0.2.10",
+    "version": "0.2.11",
     "description": "Enhance shell interactions with git",
     "license": "MIT",
     "repository": {
@@ -79,7 +79,7 @@
         "babel-jest": "25.5.1",
         "babel-plugin-module-resolver": "4.0.0",
         "bufferutil": "4.0.1",
-        "canvas": "2.5.0",
+        "canvas": "2.9.0",
         "configstore": "5.0.1",
         "eslint": "6.8.0",
         "eslint-config-airbnb-base": "14.1.0",

@@ -110,12 +110,13 @@ if (process.env.JEST_WORKER_ID === undefined) {
 
         if (!isRepo) {
             // Allow help, init and clone commands.
+            const allowedCommands = ['clone', 'cln', 'init', 'i'];
+
             if (
                 args.length === 0 ||
-                (args.length === 1 &&
-                    (args[0] === 'init' || args[0] === 'clone'))
+                (args.length && allowedCommands.includes(args[0]))
             ) {
-                runCmd('git', args.slice(1, args.length), false);
+                runCmd('git', args, false);
                 return;
             }
 
