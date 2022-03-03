@@ -15,6 +15,23 @@ export const run = async (cmdArgs?: string[]) => {
     if (!cmd.canRun) return;
 
     if (args) {
+        if (args[0] === '#!main-or-master-branch!#') {
+            await cmd.setActiveGitEntityType(GitEntityType.Branch);
+            const defaultBranch = (
+                await cmd.getActiveEntityCollection()
+            )?.list.find((x) => x.name === 'master' || x.name === 'main');
+
+            if (defaultBranch) {
+                (
+                    await createGitCommand('checkout', [defaultBranch.name])
+                ).run();
+                return;
+            }
+
+            print('No main or master branch was found.', true);
+            return;
+        }
+
         await cmd.run();
         return;
     }
