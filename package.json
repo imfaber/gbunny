@@ -57,7 +57,7 @@
         "lodash.flatten": "4.4.0",
         "minimist": "1.2.5",
         "parse-numeric-range": "1.2.0",
-        "shelljs": "0.8.4",
+        "shelljs": "0.8.5",
         "simple-git": "2.4.0"
     },
     "devDependencies": {
